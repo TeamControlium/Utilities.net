@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>TeamControlium.Utilities</id>
+    <version>1.0.0</version>
+    <title>Team Controlium Utilities</title>
+    <authors>Team Controlium contributors</authors>
+    <owners>Team Controlium contributors</owners>
+    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>General test automation utilities primarily for use within the Team Controlium suite and associated frameworks</description>
+    <releaseNotes>Initial release after splitting original Team Controlium Framework project</releaseNotes>
+    <copyright>Copyright 2018 - Mat Walker and the Team Controlium contributors</copyright>
+    <tags>Test Automation</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\TeamControlium.Utilities.dll" 
+  </files>
+</package>
