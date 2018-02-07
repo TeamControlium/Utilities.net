@@ -1,0 +1,6 @@
+//
+// Edit .nuspec to set version
+//
+nuget pack Utilities.net.nuspec
+nuget setApiKey xxxx-xxx-xx-xx-xx-xxxxxx-xxxxx
+nuget push TeamControlium.x.x.x.nupkg - Source https://api.nuget.org/v3/index.json
