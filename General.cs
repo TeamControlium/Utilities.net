@@ -14,7 +14,6 @@ namespace TeamControlium.Utilities
         /// </summary>
         public static Func<string, string> TokenProcessor;
 
-
         /// <summary>
         /// If object is a string and <see cref="Settings.TokenProcessor"/> has been set, tokens with the string are processed
         /// </summary>

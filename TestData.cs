@@ -188,10 +188,26 @@ namespace TeamControlium.Utilities
                     {
                         return (U)obtainedObject;
                     }
-                    else
+                    else if (obtainedObject != null && (typeof(U) == typeof(int) && obtainedObject.GetType().Equals(typeof(string))))
                     {
-                        throw new Exception(string.Format("Expected type [{0}] but got type [{1}].", typeof(U).Name, obtainedObject.GetType()));
+                        // We want and int and we got a string.  So, try converting it to be helpful....
+                        try
+                        {
+                            return (U)int.Parse(obtainedObject);
+                        }
+                        catch { }
                     }
+                    else if (obtainedObject != null && (typeof(U) == typeof(float) && obtainedObject.GetType().Equals(typeof(string))))
+                    {
+                        // We want and float and we got a string.  So, try converting it to be helpful....
+                        try
+                        {
+                            return (U)float.Parse(obtainedObject);
+                        }
+                        catch { }
+                    }
+
+                    throw new Exception(string.Format("Expected type [{0}] but got type [{1}].", typeof(U).Name, obtainedObject.GetType()));
                 }
                 catch (Exception ex)
                 {
