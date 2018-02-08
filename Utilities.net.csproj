@@ -101,6 +101,7 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>TestData.feature.cs</LastGenOutput>
     </None>
+    <None Include="Utilities.net.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="LICENSE.txt" />
