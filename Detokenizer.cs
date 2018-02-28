@@ -1,5 +1,4 @@
-﻿using OpenQA.Selenium;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -13,6 +12,11 @@ namespace TeamControlium.Utilities
         private static readonly char tokenEndChar = '}';
         private static Random RandomGenerator { get; } = new Random();
 
+        /// <summary>
+        /// Delegate for processing custom tokens if required.  If a token cannot be resolved internally, the token (split based on the delimiter) is passed to
+        /// the CustomTokenProcessor, if defined. CustomTokenProcessor returns a null string if token not resolved.
+        /// </summary>
+        static public Func<char, string[], string> CustomTokenProcessor { get; set; }
 
         //[DebuggerStepThrough]
         public static string ProcessTokensInString(string stringWithTokens)
@@ -134,13 +138,28 @@ namespace TeamControlium.Utilities
                     if (splitToken.Length < 2) throw new Exception($"FinancialYearEnd token [{token}] needs 3 parts {{FinancialYearEnd;<date>;<format>}}");
                     processedToken = DoFinancialYearToken(delimiter, splitToken[1], false);
                     break;
-                case "seleniumkeys":
-                case "seleniumkey":
-                    if (splitToken.Length < 2) throw new Exception($"SeleniumKey token [{token}] needs 2 parts {{SeleniumKey;<Name>}}");
-                    processedToken = DoSeleniumKey(splitToken[1]);
-                    break;
+//                case "seleniumkeys":
+//                case "seleniumkey":
+//                    if (splitToken.Length < 2) throw new Exception($"SeleniumKey token [{token}] needs 2 parts {{SeleniumKey;<Name>}}");
+//                    processedToken = DoSeleniumKey(splitToken[1]);
+//                    break;
                 default:
-                    throw new Exception($"Unsupported token [{splitToken[0]}] in {token}");
+                    if (CustomTokenProcessor!=null)
+                    {
+                        try
+                        {
+                            processedToken = CustomTokenProcessor(delimiter, splitToken);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception($"Error thrown by Custom Token Processor for [{splitToken[0]}] in {token}", ex);
+                        }
+                    }
+                    if (processedToken == null)
+                    {
+                        throw new Exception($"Unsupported token [{splitToken[0]}] in {token}");
+                    }
+                    break;
             }
             return processedToken;
         }
@@ -268,20 +287,20 @@ namespace TeamControlium.Utilities
             return dt.ToString(offsetAndFormat[1]);
         }
 
-        private static string DoSeleniumKey(string KeyName)
-        {
-            try
-            {
-                //
-                // Selenium keys are static fields in the WebDriver Keys class.
-                //
-                return (string)typeof(Keys).GetField(KeyName).GetValue(null);
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException($"[{KeyName ?? "null!!"}] not found as a field in Selenium Keys class", "KeyName");
-            }
-        }
+        //private static string DoSeleniumKey(string KeyName)
+        //{
+        //    try
+        //    {
+        //        //
+        //        // Selenium keys are static fields in the WebDriver Keys class.
+        //        //
+        //        return (string)typeof(Keys).GetField(KeyName).GetValue(null);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new ArgumentException($"[{KeyName ?? "null!!"}] not found as a field in Selenium Keys class", "KeyName");
+        //    }
+        //}
 
         private static string DoFinancialYearToken(char delimiter, string DateToWorkFromAndFormat, bool Start)
         {

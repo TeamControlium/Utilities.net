@@ -66,6 +66,7 @@ namespace TeamControlium.Utilities
             Error = 4
         };
 
+
         /// <summary>
         /// Logging level. Lowest is Error (least amount of log data written - only writes at
         /// level <see cref="LogLevels.Error">Error</see> are written to the log). Most data is written to
