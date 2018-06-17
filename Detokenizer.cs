@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TeamControlium.Utilities
 {
@@ -161,9 +160,9 @@ namespace TeamControlium.Utilities
                     }
                     break;
             }
+
             return processedToken;
         }
-
 
         private static string DoRandomToken(char delimiter, string TypeAndLength)
         {
@@ -206,26 +205,20 @@ namespace TeamControlium.Utilities
                             select = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890";
                             break;
                         case "acn":
-                            {
-                                string acn = ProcessTokensInString("{random;digits;9}");
-                                return acn;
-                                break;
-                            }
+                            return ProcessTokensInString("{random;digits;9}");
                         case "abn":
                             {
                                 string acn = ProcessTokensInString("{random;acn}");
-                                result = ProcessTokensInString($"{{ABNFromACN;{acn}}}");
-                                return result;
-                                break;
+                                return ProcessTokensInString($"{{ABNFromACN;{acn}}}");
                             }
                         default:
                             throw new Exception($"Unrecognised random Type [{typeAndLengthOrFormat[0]}] - Expect letters, lowercaseletters, uppercaseletters digits or alphanumerics");
                     }
                 }
-                int number;
-                if (!int.TryParse(typeAndLengthOrFormat[1], out number)) throw new Exception($"Invalid number of characters in Random token {{random;<type>;<length>}}");
+                if (!int.TryParse(typeAndLengthOrFormat[1], out int number)) throw new Exception($"Invalid number of characters in Random token {{random;<type>;<length>}}");
                 result = new string(Enumerable.Repeat(select, number).Select(s => s[RandomGenerator.Next(s.Length)]).ToArray());
             }
+
             return result;
         }
 
@@ -237,6 +230,7 @@ namespace TeamControlium.Utilities
             {
                 throw new Exception("Date token does not have a format parameter; example: {date" + delimiter + "today" + delimiter + "dd-MM-yyyy}");
             }
+
             DateTime dt;
             string verb = offsetAndFormat[0].ToLower().Trim();
             if (verb.StartsWith("random("))
@@ -284,31 +278,15 @@ namespace TeamControlium.Utilities
                         }
                 }
             }
+
             return dt.ToString(offsetAndFormat[1]);
         }
-
-        //private static string DoSeleniumKey(string KeyName)
-        //{
-        //    try
-        //    {
-        //        //
-        //        // Selenium keys are static fields in the WebDriver Keys class.
-        //        //
-        //        return (string)typeof(Keys).GetField(KeyName).GetValue(null);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new ArgumentException($"[{KeyName ?? "null!!"}] not found as a field in Selenium Keys class", "KeyName");
-        //    }
-        //}
 
         private static string DoFinancialYearToken(char delimiter, string DateToWorkFromAndFormat, bool Start)
         {
             string[] dateToWorkFromAndFormat = DateToWorkFromAndFormat.Split(new char[] { delimiter }, 2);
 
-
-            DateTime dateToWorkFrom;
-            if (!DateTime.TryParseExact(dateToWorkFromAndFormat[0], new string[] { "dd/MM/yyyy", "d/MM/yyyy", "dd/M/yyyy", "d/M/yyyy", "dd/MM/yy", "d/MM/yy", "dd/M/yy", "d/M/yy" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateToWorkFrom))
+            if (!DateTime.TryParseExact(dateToWorkFromAndFormat[0], new string[] { "dd/MM/yyyy", "d/MM/yyyy", "dd/M/yyyy", "d/M/yyyy", "dd/MM/yy", "d/MM/yy", "dd/M/yy", "d/M/yy" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateToWorkFrom))
             {
                 throw new ArgumentException("Cannot parse date.  Must be in format d/M/y", "DateToWorkFromAndFormat (first element)");
             }
@@ -329,16 +307,15 @@ namespace TeamControlium.Utilities
             string[] MaxAndMin = MaxAndMinFloats.Split(delimiter);
             if (MaxAndMin.Length != 2)
                 throw new Exception($"Invalid Maximum and Minimum floats. Expect {{random.float(min;max),<format>}}. Max/min was: [{MaxAndMinFloats}]");
-            float Min;
-            float Max;
 
-            if (!float.TryParse(MaxAndMin[0], out Min))
+            if (!float.TryParse(MaxAndMin[0], out float Min))
                 throw new Exception($"Invalid Minimum float. Expect {{random.float(min;max),<format>}}. Max/min was: [{MaxAndMinFloats}]");
-            if (!float.TryParse(MaxAndMin[1], out Max))
+            if (!float.TryParse(MaxAndMin[1], out float Max))
                 throw new Exception($"Invalid Maximum float. Expect {{random.float(min;max),<format>}}. Max/min was: [{MaxAndMinFloats}]");
 
             return DoRandomFloat(Min, Max);
         }
+
         static public float DoRandomFloat(float MinFloat, float MaxFloat)
         {
             if (MinFloat >= MaxFloat)
@@ -352,16 +329,15 @@ namespace TeamControlium.Utilities
             string[] MaxAndMin = MaxAndMinDates.Split(delimiter);
             if (MaxAndMin.Length != 2)
                 throw new Exception($"Invalid Maximum and Minimum dates. Expect {{random;date(dd-MM-yyyy,dd-MM-yyyy);<format>}}. Max/min was: [{MaxAndMinDates}]");
-            DateTime Min;
-            DateTime Max;
 
-            if (!DateTime.TryParseExact(MaxAndMin[0], "d-M-yyyy", CultureInfo.InstalledUICulture, DateTimeStyles.None, out Min))
+            if (!DateTime.TryParseExact(MaxAndMin[0], "d-M-yyyy", CultureInfo.InstalledUICulture, DateTimeStyles.None, out DateTime Min))
                 throw new Exception($"Invalid Minimum date. Expect {{random;date(dd-MM-yyyy,dd-MM-yyyy);<format>}}. Max/min was: [{MaxAndMinDates}]");
-            if (!DateTime.TryParseExact(MaxAndMin[1], "d-M-yyyy", CultureInfo.InstalledUICulture, DateTimeStyles.None, out Max))
+            if (!DateTime.TryParseExact(MaxAndMin[1], "d-M-yyyy", CultureInfo.InstalledUICulture, DateTimeStyles.None, out DateTime Max))
                 throw new Exception($"Invalid Maximum date. Expect {{random;date(dd-MM-yyyy,dd-MM-yyyy);<format>}}. Max/min was: [{MaxAndMinDates}]");
 
             return DoRandomDate(Min, Max);
         }
+
         static public DateTime DoRandomDate(DateTime MinDate, DateTime MaxDate)
         {
             if (MinDate > MaxDate)

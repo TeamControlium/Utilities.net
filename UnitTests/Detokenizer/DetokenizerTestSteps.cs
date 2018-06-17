@@ -1,9 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
 
@@ -81,7 +78,6 @@ namespace TeamControlium.Utilities
             }
             string actualDate = (string)ScenarioContext.Current["ProcessedString"];
             Assert.AreEqual(requiredDate.ToString(requiredFormatOfDate), actualDate, "Dates and formats match");
-
         }
 
         [Then(@"the string is a date between ""(.*)"" and ""(.*)""")]
@@ -93,11 +89,7 @@ namespace TeamControlium.Utilities
             var max = DateTime.ParseExact(maxDate, "d/M/yyyy", CultureInfo.InvariantCulture);
 
             if (min > max) throw new Exception($"Minimum date [{minDate}] is later than Maximum date [{maxDate}]!");
-
             Assert.IsTrue((actualDate >= min) && (actualDate <= max));
-
-
-
         }
 
         [Then(@"the string is a ""(.*)"" number between ""(.*)"" and ""(.*)""")]
@@ -133,9 +125,6 @@ namespace TeamControlium.Utilities
             {
                 // Need to populate this up....
             }
-
         }
-
-
     }
 }

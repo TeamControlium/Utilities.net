@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TeamControlium.Utilities
 {
     public class TestData
     {
-        private static TestDataRepository<dynamic> dataRepository = new TestDataRepository<dynamic>();
         private static Dictionary<string, Dictionary<string, dynamic>> testData = new Dictionary<string, Dictionary<string, dynamic>>();
 
         /// <summary>
@@ -31,15 +27,8 @@ namespace TeamControlium.Utilities
         /// string myString = Utilities.TestData.Repository["MyCategory","MyName"];
         /// </code>
         /// </example>
-        public static TestDataRepository<dynamic> Repository
-        {
-            get
-            {
-                return dataRepository;
-            }
-        }
-
-
+        public static TestDataRepository<dynamic> Repository { get; } = new TestDataRepository<dynamic>();
+        
         /// <summary>
         /// Underlying TestData repository
         /// </summary>
@@ -87,9 +76,10 @@ namespace TeamControlium.Utilities
                         throw new ArgumentException(string.Format("Cannot be null or empty ({0})", name == null ? "Is Null" : "Is empty"), "name");
                     if (!this[category].ContainsKey(name))
                         throw new ArgumentOutOfRangeException("name", name, string.Format("Category [{0}] does not have item named", category));
+                    
                     // Get item named from category and return it
                     dynamic obtainedObject = (this[category])[name];
-                    // Do logging
+                    
                     Logger.Write(Logger.LogLevels.FrameworkDebug, "Got ");
                     if (obtainedObject is string)
                     {
@@ -132,7 +122,7 @@ namespace TeamControlium.Utilities
                     // Add Category if we dont already have it
                     if (!testData.ContainsKey(category))
                         testData.Add(category, new Dictionary<string, dynamic>());
-                    // Select Category
+                    
                     Dictionary<string, dynamic> wholeCategory = testData[category];
                     // Add Name if we dont already have it in the current category, otherwise change contents of name
                     if (wholeCategory.ContainsKey(name))
@@ -157,6 +147,7 @@ namespace TeamControlium.Utilities
                         throw new ArgumentException(string.Format("Cannot be null or empty ({0})", category == null ? "Is Null" : "Is empty"), "Category");
                     if (!testData.ContainsKey(category))
                         throw new ArgumentOutOfRangeException("category", category, "Category does not exist");
+
                     var wholeCategory = testData[category];
                     Logger.WriteLine(Logger.LogLevels.FrameworkDebug, "Got category [{0}] ({1} items)", category, wholeCategory.Count);
                     return wholeCategory;
@@ -168,6 +159,7 @@ namespace TeamControlium.Utilities
                     // Add Category if we dont already have it
                     if (!testData.ContainsKey(category))
                         testData.Add(category, new Dictionary<string, dynamic>());
+
                     Logger.WriteLine(Logger.LogLevels.FrameworkDebug, "Setting category [{0}] ({1} items)", category, value.Count);
                     testData[category] = value;
                 }
@@ -180,9 +172,11 @@ namespace TeamControlium.Utilities
             /// <returns>Object of Category and Name</returns>
             public U GetItem<U>(string category, string name)
             {
+                dynamic obtainedObject;
+
                 try
                 {
-                    dynamic obtainedObject = this[category, name];
+                    obtainedObject = this[category, name];
 
                     if (obtainedObject is U)
                     {
@@ -206,15 +200,14 @@ namespace TeamControlium.Utilities
                         }
                         catch { }
                     }
-
-                    throw new Exception(string.Format("Expected type [{0}] but got type [{1}].", typeof(U).Name, obtainedObject.GetType()));
                 }
                 catch (Exception ex)
                 {
                     throw new Exception(string.Format("Exception getting Category.Name ([{0}].[{1}])", category, name), ex);
                 }
-            }
 
+                throw new Exception(string.Format("Expected type [{0}] but got type [{1}].", typeof(U).Name, obtainedObject.GetType()));
+            }
 
             /// <summary>Returns named option from named category</summary>
             /// <param name="category">Category to obtain option from</param>
@@ -275,8 +268,6 @@ namespace TeamControlium.Utilities
                     throw new Exception(string.Format("Exception getting itms in Category ([{0}])", Category), ex);
                 }
             }
-
         }
     }
-
 }
