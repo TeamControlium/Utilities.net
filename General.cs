@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace TeamControlium.Utilities
@@ -74,8 +73,7 @@ namespace TeamControlium.Utilities
         public static bool IsValueTrue(string Value)
         {
             if (string.IsNullOrEmpty(Value)) return false;
-            int i;
-            if (int.TryParse(Value, out i))
+            if (int.TryParse(Value, out int i))
                 if (i > 0) return true; else return false;
             return Value.ToLower().StartsWith("t") || Value.ToLower().StartsWith("y") || Value.ToLower().StartsWith("on");
         }
@@ -147,6 +145,5 @@ namespace TeamControlium.Utilities
 
             return document.DocumentNode.InnerHtml;
         }
-
     }
 }
