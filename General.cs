@@ -9,10 +9,6 @@ namespace TeamControlium.Utilities
 {
     public class General
     {
-        /// <summary>
-        /// Delegate for processing Tokens.
-        /// </summary>
-        public static Func<string, string> TokenProcessor;
 
         /// <summary>
         /// If object is a string and <see cref="Settings.TokenProcessor"/> has been set, tokens with the string are processed
@@ -23,14 +19,6 @@ namespace TeamControlium.Utilities
         /// <returns>Processed object</returns>
         public static T DetokeniseString<T>(T ObjectToProcess)
         {
-            //
-            // Make sure we are thread-safe. There is a possibility that the framework is in a multi-threaded apartment (MTA) and it is possible
-            // for TokenProcessor to become null between checking and use ( if (TokenProcessor!=null) option = (T)(object)TokenProcessor((string)(object)option); ). 
-            // Using the processor temporary variable forces .NET to make a copy of the handler.
-            // See https://blogs.msdn.microsoft.com/ericlippert/2009/04/29/events-and-races/ for details.
-            //
-            Func<string, string> processor = null;
-
             // Only do any processing if the object is a string.
             if (typeof(T) == typeof(String))
             {
@@ -44,18 +32,9 @@ namespace TeamControlium.Utilities
                 while (!StringToProcess.Equals(ProcessedString))
                 {
                     StringToProcess = string.Copy(ProcessedString);
-                    processor = TokenProcessor;
-                    if (processor != null)
-                    {
-                        ProcessedString = processor(StringToProcess);
-                        Logger.WriteLine(Logger.LogLevels.FrameworkDebug, "Processed [{0}] to [{1}]", StringToProcess, ProcessedString ?? string.Empty);
-                    }
-                    else
-                    {
-                        Logger.WriteLine(Logger.LogLevels.FrameworkDebug, "No Token Processor active. String not processed");
-                        ProcessedString = StringToProcess;
-                    }
-                    processor = null;
+
+                    ProcessedString = Detokenizer.ProcessTokensInString(StringToProcess);
+                    Logger.WriteLine(Logger.LogLevels.FrameworkDebug, "Processed [{0}] to [{1}]", StringToProcess, ProcessedString ?? string.Empty);
                 }
                 return (T)(object)ProcessedString;
             }

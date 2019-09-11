@@ -10,6 +10,9 @@ namespace TeamControlium.Utilities
     /// <summary>
     /// Processes test command-line arguments and presents them to the test script as a string array
     /// </summary>
+    /// <remarks>
+    /// Thanks to Mike Burns (https://www.linkedin.com/in/maddogmikeb) for original
+    /// </remarks>
     public class TestArguments
     {
         // Variables
