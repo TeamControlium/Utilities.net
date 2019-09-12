@@ -188,7 +188,7 @@ namespace TeamControlium.Utilities
         static public void Write(LogLevels logLevel, string textString, params Object[] args)
         {
             StackFrame stackFrame = new StackFrame(1, true);
-            DoWrite((stackFrame == null) ? null : stackFrame.GetMethod(), logLevel, string.Format(textString, args));
+            DoWrite(stackFrame?.GetMethod(), logLevel, string.Format(textString, args));
         }
 
         /// <summary>
@@ -206,8 +206,7 @@ namespace TeamControlium.Utilities
         static public void WriteLine(LogLevels logLevel, string textString, params Object[] args)
         {
             StackFrame stackFrame = new StackFrame(1, true);
-            DoWriteLine((stackFrame == null) ? null : stackFrame.GetMethod(), logLevel,
-                    string.Format(textString, args));
+            DoWriteLine(stackFrame?.GetMethod(), logLevel, string.Format(textString, args));
         }
 
         /// <summary>
