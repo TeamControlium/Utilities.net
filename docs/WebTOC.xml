@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpTOC>
+
+  <HelpTOCNode Title="Welcome to the [TODO: Add project name]" Url="html/9467656b-fe91-445f-b442-bef71966f452.htm" />
+  <HelpTOCNode Id="43c193de-c49a-40b2-bf0a-7c4e52be2bc6" Title="Version History" Url="html/892c2f0d-e24d-4226-b036-4b77342b64bf.htm">
+    <HelpTOCNode Title="Version 1.0.0.0" Url="html/e098fb13-fbbf-4a28-8c23-d2ff16b6a519.htm" />
+  </HelpTOCNode>
+  <HelpTOCNode Id="8c626583-2b10-4c2d-955f-694feb650ad2" Title="TeamControlium.Utilities" Url="html/fbd4e8e5-43a0-8d5d-dcea-8f8e54f8da45.htm">
+    <HelpTOCNode Id="3a18b70f-5fb5-45f6-8793-cfe4d44378b6" Title="Log Class" Url="html/206106b2-7463-8cdd-beb3-c358dd3726b2.htm">
+      <HelpTOCNode Id="fd85bb12-660d-4cab-b481-c5ba4c5fb279" Title="Log Properties" Url="html/54c361a4-7a28-7653-7b74-1ef19ca316d6.htm">
+        <HelpTOCNode Title="CurrentLoggingLevel Property " Url="html/7d4e9056-63ff-ae08-457c-f844227342c7.htm" />
+        <HelpTOCNode Title="TestToolLog Property " Url="html/05b35a51-d7bf-318a-283e-b726721b2d99.htm" />
+        <HelpTOCNode Title="WriteToConsole Property " Url="html/ea31371a-3e90-68f5-5890-59b2806840f6.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="5eca0001-b60a-4e8f-b6fe-1d3b993ec033" Title="Log Methods" Url="html/6efe7d11-f7c0-fb9e-df46-9de555b2bdcb.htm">
+        <HelpTOCNode Id="65b1c0ae-15c5-4573-a070-7d0b0be268ad" Title="LogException Method " Url="html/eeb7b2bf-4f84-5b02-16f5-e81a6d39b26a.htm">
+          <HelpTOCNode Title="LogException Method (Exception)" Url="html/56439bd9-cdf5-1530-890e-b214f535cce8.htm" />
+          <HelpTOCNode Title="LogException Method (Exception, String, Object[])" Url="html/1b7db609-a123-dcf1-965c-e3582fac0013.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="ResetTimer Method " Url="html/df1e78f6-f8c1-7652-f5d3-abbe5c625a81.htm" />
+        <HelpTOCNode Title="Write Method " Url="html/f60b67bc-0876-89ab-76b5-03d30a8320f4.htm" />
+        <HelpTOCNode Title="WriteLine Method " Url="html/721beb29-ec09-9349-3b54-1df02ddac494.htm" />
+        <HelpTOCNode Title="WriteTextToFile Method " Url="html/8d56f9fd-8f97-bc2e-cd0a-04be09174e7f.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="Log.LogLevels Enumeration" Url="html/181039e9-026c-b903-0493-ffc93e8294cb.htm" />
+  </HelpTOCNode>
+</HelpTOC>
