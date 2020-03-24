@@ -1,0 +1,11 @@
+<StyleCopSettings Version="105">
+  <GlobalSettings>
+    <CollectionProperty Name="RecognizedWords">
+      <Value>Specflow</Value>
+      <Value>stdout</Value>
+      <Value>WriteToConsole</Value>
+      <Value>Detokenizer</Value>
+    </CollectionProperty>
+    <StringProperty Name="MergeSettingsFiles">NoMerge</StringProperty>
+  </GlobalSettings>
+</StyleCopSettings>

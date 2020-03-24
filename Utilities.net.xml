@@ -1,0 +1,470 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Utilities.net</name>
+    </assembly>
+    <members>
+        <member name="T:TeamControlium.Utilities.Detokenizer">
+            <summary>
+            Processes given strings to process and resolve all tokens in passed strings.
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Detokenizer.EscapeChar">
+            <summary>
+            Character to use as an escape char.
+            </summary>
+            <remarks>Defined as a string incase it itself has to be escaped in the Regular Expression pattern</remarks>
+        </member>
+        <member name="F:TeamControlium.Utilities.Detokenizer.StartTokenChar">
+            <summary>
+            Character defining the start of a Token to be processed.
+            </summary>
+            <remarks>Must NOT be the same as the escape character.
+            Is a string incase it needs to be escaped for Regular Expression pattern.</remarks>
+        </member>
+        <member name="F:TeamControlium.Utilities.Detokenizer.EndTokenChar">
+            <summary>
+            Character defining the end of a Token to be processed.
+            </summary>
+            <remarks>Must NOT be the same as the escape character or the start token character.
+            Is a string incase it needs to be escaped for Regular Expression pattern.</remarks>
+        </member>
+        <member name="F:TeamControlium.Utilities.Detokenizer.StartTokenPattern">
+            <summary>
+            Regular Expression pattern defining the start of a Token to be processed.
+            </summary>
+            <remarks>Should contain a negative look-behind to enable escaping.</remarks>
+        </member>
+        <member name="F:TeamControlium.Utilities.Detokenizer.EndTokenPattern">
+            <summary>
+            Regular Expression pattern defining the end of a Token to be processed.
+            </summary>
+            <remarks>Should contain a negative look-behind to enable escaping.</remarks>
+        </member>
+        <member name="F:TeamControlium.Utilities.Detokenizer.DefaultCommonDelimiter">
+            <summary>
+            Default token delimiter.  Delimiter is used to partition token verb and body and is the default for field partitions within a token body.
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Detokenizer.threadDelimiters">
+            <summary>
+            Collection of delimiters split by thread.  Allows different threads to use different delimiters if required.
+            </summary>
+        </member>
+        <member name="P:TeamControlium.Utilities.Detokenizer.CustomTokenProcessor">
+            <summary>
+            Gets or sets delegate for processing custom tokens if required. If set, delegate is called before internal token processing to allow overriding if required.
+            </summary>
+            <remarks> Assigned delegate must take char (delimiter being used) and the token (split into an array using delimiter as separator) and return the resolved token text.
+            If the token cannot be resolved, delegate should return a null.  Any exception should be allowed to ripple up to enable the Utilities Detokenizer to handle
+            the error.</remarks>
+        </member>
+        <member name="P:TeamControlium.Utilities.Detokenizer.DefaultTokenDelimiterCurrentThread">
+            <summary>
+            Gets or sets the default delimiter within tokens.
+            </summary>
+            <remarks>This is used as the delimiter when separating token verb from body and is the default token when token verb processors split their required fields.
+            Is thread-safe; if a Thread changes the token delimiter the change only affects Detokenizer calls for that thread.</remarks>
+        </member>
+        <member name="P:TeamControlium.Utilities.Detokenizer.RandomGenerator">
+            <summary>
+            Gets initialized instance of the .NET Random generator.  Used when resolving {random tokens.
+            </summary>
+        </member>
+        <member name="M:TeamControlium.Utilities.Detokenizer.Detokenize(System.String)">
+            <summary>
+            Process passed string and return after resolving all tokens.
+            </summary>
+            <param name="tokenisedString">String possibly containing tokens.</param>
+            <returns>Passed string with all valid tokens resolved.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Detokenizer.ProcessToken(System.String)">
+            <summary>
+            Processes parses and processes passed in token and returns the resolution result. Token must be trimmed of its start/end indicators.  
+            </summary>
+            <param name="token">Token to be processed</param>
+            <returns>Result of processing passed in token.</returns>
+            <remarks>A token must at least contain a single element, the verb.  This tells the processor what processing is required to resolve the token. The total number
+            of elements in the token depends on the verb.  As an example the random token requires three fields (examples assume delimiter is a ;): verb;type;format or length.  IE. "random;digits;5" returns
+            5 random digits.  <code>"random;date(01-01-1980,31-12-1980);dd MMM yy"</code> returns a random 1980 date such as 09 JUN 80.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Detokenizer.DoRandomToken(System.String)">
+            <summary>
+            Process a 'random' token and return result
+            </summary>
+            <param name="tokenBody">Body part of token. Format depends on type of random being executed.</param>
+            <returns>Token resolution result</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Detokenizer.DoDateToken(System.String)">
+            <summary>
+            Process a 'date' token and return result.
+            </summary>
+            <param name="tokenBody">Consists of date offset process and required output format.</param>
+            <returns>Required date in specified format.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Detokenizer.DoFinancialYearToken(System.String,System.Boolean)">
+            <summary>
+            Returns formatted start or end date of financial year date passed in is within.
+            </summary>
+            <param name="tokenBody">Date within required financial year and required return format.</param>
+            <param name="startOfFinancialYear">True - returns date start of financial year, False - returns date end of financial year.</param>
+            <returns>Start or end date of financial year date is within.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Detokenizer.DoRandomFloat(System.String)">
+            <summary>
+            Returns random floating point number on or between the minimum and maximum limits 
+            </summary>
+            <param name="limits">Maximum and minimum limits of random selection.</param>
+            <returns>Random floating point number</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Detokenizer.DoRandomFloat(System.Single,System.Single)">
+            <summary>
+            Returns random floating point number on or between the minimum and maximum limits 
+            </summary>
+            <param name="minFloat">Minimum limit</param>
+            <param name="maxFloat">Maximum limit</param>
+            <returns>Random floating point number</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Detokenizer.DoRandomDate(System.String)">
+            <summary>
+            Returns random date on or between the minimum and maximum limits
+            </summary>
+            <param name="maxAndMinDates">String containing minimum and maximum dates in required format</param>
+            <returns>Random dates between the two given dates, inclusive.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Detokenizer.DoRandomDate(System.DateTime,System.DateTime)">
+            <summary>
+            Returns random date on or between the minimum and maximum limits
+            </summary>
+            <param name="minDate">Minimum date of random selection</param>
+            <param name="maxDate">Maximum date of random selection</param>
+            <returns>Random dates between the two given dates, inclusive.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Detokenizer.DoRandomTFN">
+            <summary>
+            Returns a valid random Australian TFN
+            </summary>
+            <returns>Random valid TFN</returns>
+        </member>
+        <member name="T:TeamControlium.Utilities.Detokenizer.InnermostToken">
+            <summary>
+            Represents result of a Token search for a given string
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Detokenizer.InnermostToken.tokenPreamble">
+            <summary>
+            Holds all characters preceding any found token in given string.  Holds ALL characters from given string if no token found.
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Detokenizer.InnermostToken.tokenPostamble">
+            <summary>
+            Holds all characters following found token in given string.
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Detokenizer.InnermostToken.token">
+            <summary>
+            Innermost token found in given string
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Detokenizer.InnermostToken.foundToken">
+            <summary>
+            Indicates if a token was found or not
+            </summary>
+        </member>
+        <member name="M:TeamControlium.Utilities.Detokenizer.InnermostToken.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TeamControlium.Utilities.Detokenizer.InnermostToken" /> class.
+            Takes a string that may or may not contain token/s.  If string contains token/s, innermost (from left) token is identified  
+            </summary>
+            <param name="inputString">String to be processed</param>
+        </member>
+        <member name="P:TeamControlium.Utilities.Detokenizer.InnermostToken.Preamble">
+            <summary>
+            Gets all characters preceding any found token in given string.  Returns ALL characters from given string if no token found.
+            </summary>
+        </member>
+        <member name="P:TeamControlium.Utilities.Detokenizer.InnermostToken.Postamble">
+            <summary>
+            Gets all characters following found token in given string.
+            </summary>
+        </member>
+        <member name="P:TeamControlium.Utilities.Detokenizer.InnermostToken.Token">
+            <summary>
+            Gets Innermost token found in given string
+            </summary>            
+        </member>
+        <member name="P:TeamControlium.Utilities.Detokenizer.InnermostToken.HasToken">
+            <summary>
+            Gets a value indicating whether a token was found
+            </summary>
+        </member>
+        <member name="T:TeamControlium.Utilities.Log">
+            <summary>
+            Manages logging information.  Created from scratch rather than using an OffTheShelf (NLog, Log4Net etc) to keep footprint as small as possible while ensuring
+            logging is formatted, along with functionality, exactly as we want.
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Log.testTimer">
+            <summary>
+            Used to keep track of time since first call to Logger class made.
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Log.testToolStrings">
+            <summary>
+            Different threads will be sending logging information to Log.  So, when building a Log string (IE. Calls to .DoWrite to build a Log
+            string) the string relating to the correct thread is appended to.
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Log.errorWrittenToEventLog">
+            <summary>
+            Indicates whether an error has been written to the event log.  Allows suppressing of further errors to prevent log blow-out.
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Log.lockWriteLine">
+            <summary>
+            Used for locking during a DoWriteLine.  To ensure thread safety, only a single thread at a time is
+            permitted to call DoWriteLine at any one time.
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Log.lockWrite">
+            <summary>
+            Used for locking during a DoWriteLine.  To ensure thread safety, only a single thread at a time is
+            permitted to call DoWrite at any one time.
+            </summary>
+        </member>
+        <member name="M:TeamControlium.Utilities.Log.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:TeamControlium.Utilities.Log" /> class.
+            Instantiates an instant of the Log static class.  Starts the main Stopwatch running for timing information in log data.
+            </summary>
+        </member>
+        <member name="T:TeamControlium.Utilities.Log.LogLevels">
+            <summary>
+            Levels of logging - Verbose (Maximum) to Exception (Minimum).  If level of text being written to
+            logging is equal to, or higher than the current LoggingLevel the text is written.<br/>
+            This is used to filter logging so that only entries to log are made if the level of the write is equal
+            or greater than the logging level set by <see cref="P:TeamControlium.Utilities.Log.CurrentLoggingLevel">LoggingLevel</see>.
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Log.LogLevels.FrameworkDebug">
+            <summary>
+            Data written to log if LoggingLevel is FrameworkDebug and WriteLogException is FrameworkDebug or higher
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Log.LogLevels.FrameworkInformation">
+            <summary>
+            Data written to log if LoggingLevel is FrameworkInformation and WriteLogException is FrameworkInformation or higher
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Log.LogLevels.TestDebug">
+            <summary>
+            Data written to log if LoggingLevel is TestDebug and WriteLogException is TestDebug or higher
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Log.LogLevels.TestInformation">
+            <summary>
+            Data written to log if LoggingLevel is TestInformation and WriteLogException is TestInformation or Error
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Log.LogLevels.Error">
+            <summary>
+            Data always written to results
+            </summary>
+        </member>
+        <member name="P:TeamControlium.Utilities.Log.CurrentLoggingLevel">
+            <summary>
+            Gets or sets Logging level. Lowest is Error (least amount of log data written - only writes at
+            level <see cref="F:TeamControlium.Utilities.Log.LogLevels.Error">Error</see> are written to the log). Most data is written to
+            the log if level set is <see cref="F:TeamControlium.Utilities.Log.LogLevels.FrameworkDebug">FrameworkDebug</see>.
+            </summary>
+            <remarks>Default is FrameworkDebug</remarks>
+        </member>
+        <member name="P:TeamControlium.Utilities.Log.WriteToConsole">
+            <summary>
+            Gets or sets a value indicating whether log data is written to Console.<br/>
+            If true debug data is written to the Console (STDOUT)<br/>
+            If false and <see cref="P:TeamControlium.Utilities.Log.TestToolLog"/> has been defined, no log data is written to Console. If <see cref="P:TeamControlium.Utilities.Log.TestToolLog"/> has
+            NOT been defined, WriteToConsole false is ignored and output is STILL written to Console.<br/>
+            </summary>
+            <remarks>
+            The default is true (log data to be written to the console)
+            </remarks>
+        </member>
+        <member name="P:TeamControlium.Utilities.Log.TestToolLog">
+            <summary>
+            Gets or sets delegate to write debug data to if WriteToConsole is false.
+            </summary>
+            <remarks>
+            Note.  If the delegate throws an exception, allow the exception to ripple up.  Log class will handle the exception and write details to
+            the OS event logging system.
+            </remarks>
+            <seealso cref="P:TeamControlium.Utilities.Log.WriteToConsole"/>
+        </member>
+        <member name="M:TeamControlium.Utilities.Log.ResetTimer">
+            <summary>
+            Resets the logger elapsed timer to zero
+            </summary>
+        </member>
+        <member name="M:TeamControlium.Utilities.Log.WriteLogException(System.Exception)">
+            <summary>
+            Writes details of a caught exception to the active debug log at level <see cref="F:TeamControlium.Utilities.Log.LogLevels.Error">Error</see>
+            </summary>
+            <remarks>
+            If current error logging level is <see cref="F:TeamControlium.Utilities.Log.LogLevels.FrameworkDebug">FrameworkDebug</see> the full
+            exception is written, including stack-trace etc.<br/>
+            With any other <see cref="T:TeamControlium.Utilities.Log.LogLevels">Log Level</see> only the exception message is written if an exception is thrown during write, Logger
+            attempts to write the error details if able.
+            </remarks>
+            <param name="ex">Exception being logged</param>
+            <example>
+            <code language="cs">
+            catch (InvalidHostURI ex)
+            {
+              // Log exception and abort the test - we cant talk to the remote Selenium server
+              Logger.WriteLogException(ex,"Connecting to Selenium host");
+              toolWrapper.AbortTest("Cannot connect to remote Selenium host");
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:TeamControlium.Utilities.Log.WriteLogException(System.Exception,System.String,System.Object[])">
+            <summary>
+            Writes details of a caught exception to the active debug log at level <see cref="F:TeamControlium.Utilities.Log.LogLevels.Error">Error</see>
+            </summary>
+            <remarks>
+            If current error logging level is <see cref="F:TeamControlium.Utilities.Log.LogLevels.FrameworkDebug">FrameworkDebug</see> the full
+            exception is written, including stack trace details etc.<br/>
+            With any other <see cref="T:TeamControlium.Utilities.Log.LogLevels">Log Level</see> only the exception message is written if an exception is thrown during write, Logger
+            attempts to write the error details if able.
+            </remarks>
+            <param name="ex">Exception being logged</param>
+            <param name="text">Additional string format text to show when logging exception</param>
+            <param name="args">Arguments shown in string format text</param>
+            <example>
+             <code lang="C#">
+            catch (InvalidHostURI ex)
+            {
+              // Log exception and abort the test - we cant talk to the remote Selenium server
+              Logger.WriteLogException(ex,"Given up trying to connect to [{0}]",Wherever);
+              toolWrapper.AbortTest("Cannot connect to remote Selenium host");
+            }
+             </code>
+            </example>
+        </member>
+        <member name="M:TeamControlium.Utilities.Log.WriteLog(TeamControlium.Utilities.Log.LogLevels,System.String,System.Object[])">
+            <summary>
+            Writes a line of data to the active debug log with no line termination
+            </summary>
+            <param name="logLevel">Level of text being written (See <see cref="T:TeamControlium.Utilities.Log.LogLevels"/> for usage of the Log Level)</param>
+            <param name="textString">Text to be written</param>
+            <param name="args">String formatting arguments (if any)</param>
+            <example>WriteLog a line of data from our test:
+            <code lang="C#">
+            Logger.WriteLn(LogLevels.TestDebug, "Select member using key (Member: {0})","90986754332");
+            </code>code></example>
+        </member>
+        <member name="M:TeamControlium.Utilities.Log.WriteLogLine(TeamControlium.Utilities.Log.LogLevels,System.String,System.Object[])">
+            <summary>
+            Writes a line of data to the active debug log. 
+            Data can be formatted in the standard string.format syntax.  If an exception is thrown during write, Logger
+            attempts to write the error details if able.
+            </summary>
+            <param name="logLevel">Level of text being written (See <see cref="T:TeamControlium.Utilities.Log.LogLevels"/> for usage of the Log Level)</param>
+            <param name="textString">Text to be written</param>
+            <param name="args">String formatting arguments (if any)</param>
+            <example>WriteLogException a line of data from our test:
+            <code lang="C#">
+            Logger.WriteLogLine(LogLevels.TestDebug, "Select member using key (Member: {0})","90986754332");
+            </code></example>
+            <remarks>If arguments are passed in but there is an error formatting the text line during resolution of the arguments they will be ignored and the text line written out without arguments.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Log.WriteTextToFile(System.String,System.Boolean,System.String)">
+            <summary>
+            Writes given Text to a text file, optionally auto versioning (adding (n) to filename) OR
+            overwriting.
+            </summary>
+            <remarks>
+            No exception is raised if there is any problem, but details of error is written to Logger log
+            </remarks>
+            <param name="fileName">Full path and filename to use</param>
+            <param name="autoVersion">If true and file exists. (n) is added to auto-version.  If false and file exists, it is overwritten if able</param>
+            <param name="text">Text to write</param>
+        </member>
+        <member name="M:TeamControlium.Utilities.Log.WriteLogException(System.Diagnostics.StackFrame,System.Exception,System.String,System.Object[])">
+            <summary>
+            Does writing of the logged exception
+            </summary>
+            <param name="stackFrame">Stack frame passed in by caller.  Used to get method base details</param>
+            <param name="ex">Exception being reported</param>
+            <param name="text">Optional text</param>
+            <param name="args">Optional text arguments</param>
+        </member>
+        <member name="M:TeamControlium.Utilities.Log.CallingMethodDetails(System.Reflection.MethodBase)">
+            <summary>
+            Gets class-type and Method name of passed MethodBase class.
+            </summary>
+            <param name="methodBase">MethodBase of class</param>
+            <returns>Formatted string containing Type.Method</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Log.DoWrite(System.Reflection.MethodBase,TeamControlium.Utilities.Log.LogLevels,System.String)">
+            <summary>
+            Appends text to currently active line.  If the start of line, text is pre-pended with Line header information
+            </summary>
+            <param name="methodBase">MethodBase of class calling Logger class</param>
+            <param name="typeOfWrite">Level of debug text to be written</param>
+            <param name="textString">Text string to be written</param>
+            <remarks>Text is written if TypeOfWrite is equal to, or higher the current Logging Level</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Log.DoWriteLine(System.Reflection.MethodBase,TeamControlium.Utilities.Log.LogLevels,System.String)">
+            <summary>
+            Appends text to currently active line and writes line to active log.  If new line, text is pre-pended with Line header information
+            </summary>
+            <param name="methodBase">MethodBase of class calling Logger class</param>
+            <param name="typeOfWrite">Level of debug text to be written</param>
+            <param name="textString">Text string to be written</param>
+            <remarks>Text is written if TypeOfWrite is equal to, or higher the current Logging Level</remarks> 
+        </member>
+        <member name="M:TeamControlium.Utilities.Log.GetPreAmble(System.Reflection.MethodBase,TeamControlium.Utilities.Log.LogLevels)">
+            <summary>
+            Constructs and returns a log-file pre-amble.  Preamble is {Log Type} - [{Time}][{Elapsed}] [Calling Type.Method]:
+            </summary>
+            <param name="methodBase">Reference to calling method</param>
+            <param name="typeOfWrite">Type of write</param>
+            <example>
+            GetPreAmple(methodBase, LogLevel.TestDebug) returns "TSDBG - [15:34:45][00012.33] [MyTestClass.MyMethod]:"
+            </example>
+            <returns>Line pre-amble text</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Log.GetWriteTypeString(TeamControlium.Utilities.Log.LogLevels)">
+            <summary>
+            Returns debug line initial token based on LogLevel of text being written
+            </summary>
+            <param name="typeOfWrite">Log Level to obtain text for</param>
+            <returns>Textual representation for Debug log line pre-amble</returns>
+        </member>
+        <member name="T:TeamControlium.Utilities.Repository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Repository.repository">
+            <summary>
+            Actual storage of data.  Three dimensional dictionary.
+            1st dimension is the ThreadID storing data for the identified specific thread.
+            2nd dimension is the data category
+            3rd dimension is the data item name
+            Data is stored as dynamic objects enabling storage of anything and runtime changes of item location types as well as varying types in the repository.
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Repository.globalIndex">
+            <summary>
+            When data is stored in the Global repository (IE. Seen by all threads) the threadID used is -1.
+            </summary>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.RepositoryLastTryException">
+            <summary>
+            Returns the last exception were a TryGetRunCategoryOptions returned false
+            </summary>
+        </member>
+    </members>
+</doc>

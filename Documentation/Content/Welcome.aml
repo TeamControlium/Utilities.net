@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic id="9467656b-fe91-445f-b442-bef71966f452" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>The TeamControlium test Utilities is a standalone collection of automated-test framework utilities designed to assist .NET Core based automated-test frameworks.</para>
+      <para>Tool and testing phase (IE. Unit, Functional regression, systems etc...) agnostic, the utilities are designed to assist any type of automation-framework.</para>
+      <para>Originally built by Test Automation Engineers as part of an Automation PoC project in 2014-2015, the utilities library has evolved into the multi-facited general-use library it is today.  Ported into both Java and (partially) UFT the library continues to evolve and embody the latest test automation technologies.  The TeamControlium Controlium library is dependent on this Utilities library, however the Utilities library can be used standalone if the Controlium library is not used.</para>
+		</introduction>
+
+		<section>
+			<title>Utilities library members</title>
+			<content>
+				<para>The Utilities library consists of a number of member classes made available to consumers:</para>
+
+        <list class="bullet">
+          <listItem>
+            <para>Log - Provides test logging functionality to enable test/framework information and debug level logging.  Log output is to Console as default but can be directed to delegated consumer for custom output (IE. HTML/XML wrapping, file output etc...).</para>
+          </listItem>
+        </list>
+			</content>
+		</section>
+	</developerConceptualDocument>
+</topic>

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>TeamControlium.Utilities</id>
-    <version>1.0.1</version>
+    <version>2.0.0</version>
     <title>Team Controlium Utilities</title>
     <authors>Team Controlium contributors</authors>
     <owners>Team Controlium contributors</owners>
@@ -11,7 +11,7 @@
     <iconUrl>https://avatars1.githubusercontent.com/u/26261715</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>General test automation utilities primarily for use within the Team Controlium suite and associated frameworks</description>
-    <releaseNotes>TestData updated to handle and convert string int/float type mismatches</releaseNotes>
+    <releaseNotes>Major re-write of all components.</releaseNotes>
     <copyright>Copyright 2018 - Mat Walker and the Team Controlium contributors</copyright>
     <tags>Test Automation</tags>
 	<dependencies>
