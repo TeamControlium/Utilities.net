@@ -10,15 +10,17 @@ namespace TeamControlium.Utilities
     using static Log;
 
     /// <summary>
-    /// 
+    /// Central Test Data repository for tool independent storage of data used within tests.  TeamControlium repository is intended to be used as the primary mechanism for storage of
+    /// data within a Test Framework and is used for configuration settings of the Controlium based library.  It is a thread-safe static repository with dynamic objects that can be
+    /// scoped for global (all threads) or local (local thread only visibility) use but with the ability to clone data from Global to Local if/as required.
     /// </summary>
     public class Repository
     {
         /// <summary>
         /// Actual storage of data.  Three dimensional dictionary.
-        /// 1st dimension is the ThreadID storing data for the identified specific thread.
-        /// 2nd dimension is the data category
-        /// 3rd dimension is the data item name
+        /// Dimension 1 is the ThreadID storing data for the identified specific thread.
+        /// Dimension 2 is the data categoryName
+        /// Dimension 3 is the data item name
         /// Data is stored as dynamic objects enabling storage of anything and runtime changes of item location types as well as varying types in the repository.
         /// </summary>
         private static Dictionary<int, Dictionary<string, Dictionary<string, dynamic>>> repository = new Dictionary<int, Dictionary<string, Dictionary<string, dynamic>>>();
@@ -28,36 +30,51 @@ namespace TeamControlium.Utilities
         /// </summary>
         private static int globalIndex = -1; // Index of Global TestData (IE. Test Data available to all threads)
 
-        private static string noCategoryName = "NoCategoryName";
+        /// <summary>
+        /// Repository allows test code to store data singly or in Categories.  If storing a data item without a Category, it actually goes in the categoryName named in this variable. 
+        /// </summary>
+        /// <remarks>There is the chance a test framework could create a categoryName with the same name.  However, this a low risk and could always be changed at a later date if needed.</remarks>
+        private static string categorylessItems = "NoCategoryName";
 
-        private static Dictionary<int, Exception> lastException = new Dictionary<int, Exception>();
+        /// <summary>
+        /// Stores the last exception/s caught when using Try... methods.  Is in a dictionary to enable thread-safe and thread oriented exception storage.  A thread can ONLY see the
+        /// last exception thrown for it's specific thread.  The ensures maximum flexibility in parallel testing scenarios.
+        /// </summary>
+        private static Dictionary<int, object> lastException = new Dictionary<int, object>();
 
+        /// <summary>
+        /// Gets reference to the Dynamic items class allowing indexed access to and setting of all Local stored data items in current thread.
+        /// </summary>
+        /// <remarks>This is a reference to an indexer class.  So can be used as an indexed property.  All data stored in the Local repository are visible only to code executing within the current thread.</remarks>
+        /// <example>Example stores string 'some data' in the repository, naming it 'MyItem'.
+        /// Then recalls Repository item 'MyItem', storing it in myData.<code>
+        /// Repository.ItemLocal["MyItem"] = "some data";
+        /// string myData = Repository.ItemLocal["MyItem"]; // myData now equal to 'some data'
+        /// </code></example>
+        public static DynamicItems<dynamic> ItemLocal { get; } = new DynamicItems<dynamic>(true);
 
-        private static void SetLastException(Exception ex)
-        {
-            int threadID = Thread.CurrentThread.ManagedThreadId;
-            lock (lastException)
-            {
-                if (lastException.ContainsKey(threadID))
-                {
-                    lastException[threadID] = ex;
-                }
-                else
-                {
-                    lastException.Add(threadID, ex);
-                }
-            }
-        }
+        /// <summary>
+        /// Gets reference to the Dynamic items class allowing indexed access to and setting of all Globally stored data items.
+        /// </summary>
+        /// <remarks>This is a reference to an indexer class.  So can be used as an indexed property.  All data stored in the Global repository are visible across all threads.</remarks>
+        /// <example>Example stores string 'some data' in the repository, naming it 'MyItem'.
+        /// Then recalls Repository item 'MyItem', storing it in myData.<code>
+        /// Repository.ItemGlobal["MyItem"] = "some data";
+        /// string myData = Repository.ItemGlobal["MyItem"]; // myData now equal to 'some data'
+        /// </code></example>
+        public static DynamicItems<dynamic> ItemGlobal { get; } = new DynamicItems<dynamic>(false);
 
         /// <summary>
         /// Returns the last exception were a TryGetRunCategoryOptions returned false
         /// </summary>
+        /// <returns>Last exception thrown by a Try... method in this thread.</returns>
+        /// <remarks>Return is cast as Exception but underlying type can be obtained by called (IE. <code>var myType = Repository.RepositoryLastTryException().GetType();</code></remarks>
         public static Exception RepositoryLastTryException()
         {
             int threadID = Thread.CurrentThread.ManagedThreadId;
             if (lastException.ContainsKey(threadID))
             {
-                return lastException[threadID];
+                return (Exception)lastException[threadID];
             }
             else
             {
@@ -65,29 +82,56 @@ namespace TeamControlium.Utilities
             }
         }
 
-        public static dynamic ItemLocal { get; } = new DynamicItems<dynamic>(true);
-        public static dynamic ItemGlobal { get; } = new DynamicItems<dynamic>(false);
-
-
-        public static bool HasCategoryLocal(string category)
+        /// <summary>
+        /// Indicates whether Local repository has a Category with the given name
+        /// </summary>
+        /// <param name="categoryName">Name of category to check for.</param>
+        /// <returns>True if local repository has category named.  Otherwise False.</returns>
+        public static bool HasCategoryLocal(string categoryName)
         {
             lock (repository)
             {
-                return verifyCategoryIsNotNullOrEmptyAndExists(false, category, false);
+                return verifyCategoryIsNotNullOrEmptyAndExists(false, categoryName, false);
             }
         }
-        public static bool HasCategoryGlobal(string category)
+
+        /// <summary>
+        /// Indicates whether Global repository has a Category with the given name
+        /// </summary>
+        /// <param name="categoryName">Name of category to check for.</param>
+        /// <returns>True if global repository has category named.  Otherwise False.</returns>
+        public static bool HasCategoryGlobal(string categoryName)
         {
-            return verifyCategoryIsNotNullOrEmptyAndExists(false, category, false);
+            return verifyCategoryIsNotNullOrEmptyAndExists(false, categoryName, false);
         }
+
+        /// <summary>
+        /// Returns all items (in dictionary) from required local category
+        /// </summary>
+        /// <param name="categoryName">Name of category to retrieve items from</param>
+        /// <returns>All items from Local repository in named Category.</returns>
         public static Dictionary<string, dynamic> GetCategoryLocal(string categoryName)
         {
             return getCategory(true, categoryName);
         }
+
+        /// <summary>
+        /// Returns all items (in dictionary) from required global category
+        /// </summary>
+        /// <param name="categoryName">Name of category to retrieve items from</param>
+        /// <returns>All items from Global repository in named Category.</returns>
         public static Dictionary<string, dynamic> GetCategoryGlobal(string categoryName)
         {
             return getCategory(false, categoryName);
         }
+
+        /// <summary>
+        /// Gets all items (in dictionary) from required local category indicating success or failure of retrieval
+        /// </summary>
+        /// <param name="categoryName">Name of category to retrieve items from</param>
+        /// <param name="category">Output parameter populated with all items in named local category if successful.  Null reference if not</param>
+        /// <returns>True if Category exists and item/s retrieved successfully.  False if not.</returns>
+        /// <remarks>If method fails and returns False, <see cref="RepositoryLastTryException"/> can be used to obtain exception thrown.</remarks>
         public static bool TryGetCategoryLocal(string categoryName, out Dictionary<string, dynamic> category)
         {
             try
@@ -102,6 +146,14 @@ namespace TeamControlium.Utilities
                 return false;
             }
         }
+
+        /// <summary>
+        /// Gets all items (in dictionary) from required global category indicating success or failure of retrieval
+        /// </summary>
+        /// <param name="categoryName">Name of category to retrieve items from</param>
+        /// <param name="category">Output parameter populated with all items in named global category if successful.  Null reference if not</param>
+        /// <returns>True if Category exists and item/s retrieved successfully.  False if not.</returns>
+        /// <remarks>If method fails and returns False, <see cref="RepositoryLastTryException"/> can be used to obtain exception thrown.</remarks>
         public static bool TryGetCategoryGlobal(string categoryName, out Dictionary<string, dynamic> category)
         {
             try
@@ -116,33 +168,65 @@ namespace TeamControlium.Utilities
                 return false;
             }
         }
-        public static void SetCategoryLocal(string name, Dictionary<string, dynamic> category)
+
+        /// <summary>
+        /// Load named Local repository category with required data.
+        /// </summary>
+        /// <remarks>If category already exists, merge data optionally overwriting if duplicate keys found.</remarks>
+        /// <param name="categoryName">Name of category to add or merge in</param>
+        /// <param name="category">Category data to add or merge in</param>
+        /// <param name="overwriteExistingItems">If true, any existing data items are overwritten.  Otherwise any duplicates will result in an Exception.</param>
+        public static void SetCategoryLocal(string categoryName, Dictionary<string, dynamic> category, bool overwriteExistingItems)
         {
-            setCategory(true, name, category);
+            setCategory(true, categoryName, category, overwriteExistingItems);
         }
-        public static void SetCategoryGlobal(string name, Dictionary<string, dynamic> category)
+
+        /// <summary>
+        /// Load named Global repository category with required data.
+        /// </summary>
+        /// <remarks>If category already exists, merge data optionally overwriting if duplicate keys found.</remarks>
+        /// <param name="categoryName">Name of category to add or merge in</param>
+        /// <param name="category">Category data to add or merge in</param>
+        /// <param name="overwriteExistingItems">If true, any existing data items are overwritten.  Otherwise any duplicates will result in an Exception.</param>
+        public static void SetCategoryGlobal(string categoryName, Dictionary<string, dynamic> category, bool overwriteExistingItems)
         {
-            setCategory(false, name, category);
+            setCategory(false, categoryName, category, overwriteExistingItems);
         }
 
-
-
+        /// <summary>
+        /// Returns non-categorized data item from local repository.
+        /// </summary>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <remarks>If item does not exist or there is a error obtaining item an exception will be thrown</remarks>
+        /// <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="GetItemLocal{T}(string)"/> for type checked data recall.</returns>
         public static dynamic GetItemLocal(string itemName)
         {
             lock (repository)
             {
-                return getItem(true, noCategoryName, itemName);
+                return getItem(true, categorylessItems, itemName);
             }
         }
 
+        /// <summary>
+        /// Returns non-categorized data item from global repository.
+        /// </summary>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <remarks>If item does not exist or there is a error obtaining item an exception will be thrown</remarks>
+        /// <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="GetItemGlobal{T}(string)"/> for type checked data recall.</returns>
         public static dynamic GetItemGlobal(string itemName)
         {
             lock (repository)
             {
-                return getItem(false, noCategoryName, itemName);
+                return getItem(false, categorylessItems, itemName);
             }
         }
 
+        /// <summary>
+        /// Returns data item from required category in local repository.
+        /// </summary>
+        /// <param name="categoryName">Name of category data item is in</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="GetItemLocal{T}(string, string)"/> for type checked data recall.</returns>
         public static dynamic GetItemLocal(string categoryName, string itemName)
         {
             lock (repository)
@@ -151,6 +235,12 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns data item from required category in global repository.
+        /// </summary>
+        /// <param name="categoryName">Name of category data item is in</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="GetItemGlobal{T}(string, string)"/> for type checked data recall.</returns>
         public static dynamic GetItemGlobal(string categoryName, string itemName)
         {
             lock (repository)
@@ -159,22 +249,44 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns non-categorized data item from local repository with verification of required type
+        /// </summary>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <typeparam name="T">Expected type of required data</typeparam>
+        /// <remarks>If item does not exist, there is a error obtaining item or the type is not of the required type an exception will be thrown</remarks>
+        /// <returns>Data item.  Type will be cast as required.</returns>
         public static T GetItemLocal<T>(string itemName)
         {
             lock (repository)
             {
-                return getItemTyped<T>(true, noCategoryName, itemName);
+                return getItemTyped<T>(true, categorylessItems, itemName);
             }
         }
 
+        /// <summary>
+        /// Returns non-categorized data item from global repository with verification of required type
+        /// </summary>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <typeparam name="T">Expected type of required data</typeparam>
+        /// <remarks>If item does not exist, there is a error obtaining item or the type is not of the required type an exception will be thrown</remarks>
+        /// <returns>Data item.  Type will be cast as required.</returns>
         public static T GetItemGlobal<T>(string itemName)
         {
             lock (repository)
             {
-                return getItemTyped<T>(false, noCategoryName, itemName);
+                return getItemTyped<T>(false, categorylessItems, itemName);
             }
         }
 
+        /// <summary>
+        /// Returns data item from required category in local repository with verification of required type.
+        /// </summary>
+        /// <param name="categoryName">Name of category data item is in</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <typeparam name="T">Expected type of required data</typeparam>
+        /// <remarks>If item does not exist, there is a error obtaining item or the type is not of the required type an exception will be thrown</remarks>
+        /// <returns>Data item.  Type will be cast as required.</returns>
         public static T GetItemLocal<T>(string categoryName, string itemName)
         {
             lock (repository)
@@ -183,6 +295,14 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns data item from required category in global repository with verification of required type.
+        /// </summary>
+        /// <param name="categoryName">Name of category data item is in</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <typeparam name="T">Expected type of required data</typeparam>
+        /// <remarks>If item does not exist, there is a error obtaining item or the type is not of the required type an exception will be thrown</remarks>
+        /// <returns>Data item.  Type will be cast as required.</returns>
         public static T GetItemGlobal<T>(string categoryName, string itemName)
         {
             lock (repository)
@@ -191,13 +311,20 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns non-categorized data item from local repository indicating if successful or not
+        /// </summary>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <param name="item">Item found (if succesful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="TryGetItemLocal{T}(string,T)"/> for type checked data recall.</param>
+        /// <returns>True if sucessful, False if not.</returns>
+        /// <remarks>If method fails and returns False, <see cref = "RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
         public static bool TryGetItemLocal(string itemName, out dynamic item)
         {
             lock (repository)
             {
                 try
                 {
-                    item = getItem(true, noCategoryName, itemName);
+                    item = getItem(true, categorylessItems, itemName);
                     return true;
                 }
                 catch (Exception ex)
@@ -209,13 +336,20 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns non-categorized data item from global repository indicating if successful or not.
+        /// </summary>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <param name="item">Item found (if succesful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref = "TryGetItemGlobal{T}(string,T)"/> for type checked data recall).</param>
+        /// <returns>True if sucessful, False if not.</returns>
+        /// <remarks>If method fails and returns False, <see cref = "RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
         public static bool TryGetItemGlobal(string itemName, out dynamic item)
         {
             lock (repository)
             {
                 try
                 {
-                    item = getItem(false, noCategoryName, itemName);
+                    item = getItem(false, categorylessItems, itemName);
                     return true;
                 }
                 catch (Exception ex)
@@ -227,6 +361,13 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns data item from required category in local repository with verification of required type indicating if successful or not.
+        /// </summary>
+        /// <param name="categoryName">Name of category data item is in</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <param name="item">Item found (if succesful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="TryGetItemLocal{T}(string,string,T)"/> for type checked data recall.</param>
+        /// <returns>If method fails and returns False, <see cref = "RepositoryLastTryException" /> can be used to obtain exception thrown.</returns>
         public static bool TryGetItemLocal(string categoryName, string itemName, out dynamic item)
         {
             lock (repository)
@@ -245,6 +386,13 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns data item from required category in global repository with verification of required type indicating if successful or not.
+        /// </summary>
+        /// <param name="categoryName">Name of category data item is in</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <param name="item">Item found (if succesful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="TryGetItemGlobal{T}(string,string,T)"/> for type checked data recall.</param>
+        /// <returns>If method fails and returns False, <see cref = "RepositoryLastTryException" /> can be used to obtain exception thrown.</returns>
         public static bool TryGetItemGlobal(string categoryName, string itemName, out dynamic item)
         {
             lock (repository)
@@ -263,13 +411,21 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns non-categorized data item from local repository with verification of required type indicating if successful or not
+        /// </summary>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <param name="item">Item found (if succesful) or null. Type checked with expected type to ensure type compatibility.</param>
+        /// <typeparam name="T">Expected type of data item</typeparam>
+        /// <returns>True if sucessful, False if not or type differs to expected.</returns>
+        /// <remarks>If method fails and returns False, <see cref = "RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
         public static bool TryGetItemLocal<T>(string itemName, out T item)
         {
             lock (repository)
             {
                 try
                 {
-                    item = getItemTyped<T>(true, noCategoryName, itemName);
+                    item = getItemTyped<T>(true, categorylessItems, itemName);
                     return true;
                 }
                 catch (Exception ex)
@@ -281,13 +437,21 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns non-categorized data item from global repository with verification of required type indicating if successful or not
+        /// </summary>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <param name="item">Item found (if succesful) or null. Type checked with expected type to ensure type compatibility.</param>
+        /// <typeparam name="T">Expected type of data item</typeparam>
+        /// <returns>True if sucessful, False if not or type differs to expected.</returns>
+        /// <remarks>If method fails and returns False, <see cref = "RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
         public static bool TryGetItemGlobal<T>(string itemName, out T item)
         {
             lock (repository)
             {
                 try
                 {
-                    item = getItemTyped<T>(false, noCategoryName, itemName);
+                    item = getItemTyped<T>(false, categorylessItems, itemName);
                     return true;
                 }
                 catch (Exception ex)
@@ -299,6 +463,15 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns categorized data item from local repository with verification of required type indicating if successful or not
+        /// </summary>
+        /// <param name="categoryName">Name of category to retreive data item from</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <param name="item">Item found (if succesful) or null. Type checked with expected type to ensure type compatibility.</param>
+        /// <typeparam name="T">Expected type of data item</typeparam>
+        /// <returns>True if sucessful, False if not or type differs to expected.</returns>
+        /// <remarks>If method fails and returns False, <see cref = "RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
         public static bool TryGetItemLocal<T>(string categoryName, string itemName, out T item)
         {
             lock (repository)
@@ -316,6 +489,16 @@ namespace TeamControlium.Utilities
                 }
             }
         }
+
+        /// <summary>
+        /// Returns categorized data item from global repository with verification of required type indicating if successful or not
+        /// </summary>
+        /// <param name="categoryName">Name of category to retreive data item from</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <param name="item">Item found (if succesful) or null. Type checked with expected type to ensure type compatibility.</param>
+        /// <typeparam name="T">Expected type of data item</typeparam>
+        /// <returns>True if sucessful, False if not or type differs to expected.</returns>
+        /// <remarks>If method fails and returns False, <see cref = "RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
 
         public static bool TryGetItemGlobal<T>(string categoryName, string itemName, out T item)
         {
@@ -335,6 +518,13 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns non-categorized data item from local repository with verification of required type or types default value if item does not exist
+        /// </summary>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <typeparam name="T">Expected type of required data</typeparam>
+        /// <remarks>If item does not exist, the default value for the Type defied in the call will be returned.</remarks>
+        /// <returns>Data item or default value based on Type.  Type will be cast as required.</returns>
         public static T GetItemOrDefaultLocal<T>(string itemName)
         {
             lock (repository)
@@ -343,7 +533,7 @@ namespace TeamControlium.Utilities
                 {
                     lock (repository)
                     {
-                        return getItemTyped<T>(true, noCategoryName, itemName);
+                        return getItemTyped<T>(true, categorylessItems, itemName);
                     }
                 }
                 catch
@@ -353,6 +543,13 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns non-categorized data item from global repository with verification of required type or types default value if item does not exist
+        /// </summary>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <typeparam name="T">Expected type of required data</typeparam>
+        /// <remarks>If item does not exist, the default value for the Type defied in the call will be returned.</remarks>
+        /// <returns>Data item or default value based on Type.  Type will be cast as required.</returns>
         public static T GetItemOrDefaultGlobal<T>(string itemName)
         {
             lock (repository)
@@ -361,7 +558,7 @@ namespace TeamControlium.Utilities
                 {
                     lock (repository)
                     {
-                        return getItemTyped<T>(false, noCategoryName, itemName);
+                        return getItemTyped<T>(false, categorylessItems, itemName);
                     }
                 }
                 catch
@@ -371,6 +568,14 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns categorized data item from local repository with verification of required type or types default value if item does not exist
+        /// </summary>
+        /// <param name="categoryName">Name of Category data item is in</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <typeparam name="T">Expected type of required data</typeparam>
+        /// <remarks>If item does not exist, the default value for the Type defied in the call will be returned.</remarks>
+        /// <returns>Data item or default value based on Type.  Type will be cast as required.</returns>
         public static T GetItemOrDefaultLocal<T>(string categoryName, string itemName)
         {
             lock (repository)
@@ -389,6 +594,14 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Returns categorized data item from global repository with verification of required type or types default value if item does not exist
+        /// </summary>
+        /// <param name="categoryName">Name of Category data item is in</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <typeparam name="T">Expected type of required data</typeparam>
+        /// <remarks>If item does not exist, the default value for the Type defied in the call will be returned.</remarks>
+        /// <returns>Data item or default value based on Type.  Type will be cast as required.</returns>
         public static T GetItemOrDefaultGlobal<T>(string categoryName, string itemName)
         {
             lock (repository)
@@ -407,39 +620,95 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Stores data item in local repository with defined non-categorized name
+        /// </summary>
+        /// <param name="itemName">Label to store data item with</param>
+        /// <param name="item">Data item to store</param>
+        /// <remarks>If data item already exists it is overwritten with current data</remarks>
         public static void SetItemLocal(string itemName,dynamic item)
         {
-            setItem(true, noCategoryName, itemName, item);
-        }
-        public static void SetItemGlobal(string itemName, dynamic item)
-        {
-            setItem(false, noCategoryName, itemName, item);
+            setItem(true, categorylessItems, itemName, item);
         }
 
+        /// <summary>
+        /// Stores data item in global repository with defined non-categorized name
+        /// </summary>
+        /// <param name="itemName">Label to store data item with</param>
+        /// <param name="item">Data item to store</param>
+        /// <remarks>If data item already exists it is overwritten with current data</remarks>
+        public static void SetItemGlobal(string itemName, dynamic item)
+        {
+            setItem(false, categorylessItems, itemName, item);
+        }
+
+        /// <summary>
+        /// Stores data item in local repository with defined categorized name
+        /// </summary>
+        /// <param name="categoryName">Name of category to store data item in</param>
+        /// <param name="itemName">Label to store data item with</param>
+        /// <param name="item">Data item to store</param>
+        /// <remarks>
+        /// If category does not exist it is created.
+        /// If data item already exists it is overwritten with current data.</remarks>
         public static void SetItemLocal(string categoryName, string itemName, dynamic item)
         {
             setItem(true, categoryName, itemName, item);
         }
+
+        /// <summary>
+        /// Stores data item in global repository with defined categorized name
+        /// </summary>
+        /// <param name="categoryName">Name of category to store data item in</param>
+        /// <param name="itemName">Label to store data item with</param>
+        /// <param name="item">Data item to store</param>
+        /// <remarks>
+        /// If category does not exist it is created.
+        /// If data item already exists it is overwritten with current data.</remarks>
         public static void SetItemGlobal(string categoryName, string itemName, dynamic item)
         {
             setItem(false, categoryName, itemName, item);
         }
 
+        /// <summary>
+        /// Copy all data from Local to Global repository.
+        /// </summary>
+        /// <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+        /// <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         public static void CloneLocalToGlobal(bool overwriteExistingItems)
         {
             CloneTestData(true, overwriteExistingItems);
         }
 
+        /// <summary>
+        /// Copy all data from required Local category to Global repository.
+        /// </summary>
+        /// <param name="categoryName">Name of category to be copied.</param>
+        /// <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+        /// <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         public static void CloneCategoryLocalToGlobal(string categoryName,bool overwriteExistingItems)
         {
             CloneTestDataCategory(true, categoryName, categoryName, overwriteExistingItems);
         }
 
+        /// <summary>
+        /// Copy named data item from required Local category to Global repository.
+        /// </summary>
+        /// <param name="categoryName">Name of category to be copied.</param>
+        /// <param name="itemName">Name of item to clone.</param>
+        /// <param name="overwriteExistingItems">Indicates if existing data item should be overwritten if it already exists.  An exception is thrown if false and the named data item exists in global repository.</param>
+        /// <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         public static void CloneItemLocalToGlobal(string categoryName, string itemName, bool overwriteExistingItems)
         {
             CloneTestDataItem(true, categoryName, itemName, categoryName, itemName, overwriteExistingItems);
         }
 
+        /// <summary>
+        /// Copy all data from Local to Global repository indicting if successful or not.
+        /// </summary>
+        /// <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+        /// <returns>True if successful clone or false if not (See <see cref="RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
+        /// <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         public static bool TryCloneLocalToGlobal(bool overwriteExistingItems)
         {
             try
@@ -454,6 +723,13 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Copy all data from required Local category to Global repository indicting if successful or not.
+        /// </summary>
+        /// <param name="categoryName">Name of category to be copied.</param>
+        /// <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+        /// <returns>True if successful clone or false if not (See <see cref="RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
+        /// <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         public static bool TryCloneCategoryLocalToGlobal(string categoryName, bool overwriteExistingItems)
         {
             try
@@ -468,21 +744,33 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Copy named data item from required Local category to Global repository.
+        /// </summary>
+        /// <param name="categoryName">Name of category to be copied.</param>
+        /// <param name="itemName">Name of item to clone.</param>
+        /// <param name="overwriteExistingItems">Indicates if existing data item should be overwritten if it already exists.  An exception is thrown if false and the named data item exists in global repository.</param>
+        /// <returns>True if successful clone or false if not (See <see cref="RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
+        /// <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         public static bool TryCloneItemLocalToGlobal(string categoryName, string itemName, bool overwriteExistingItems)
         {
             try
             {
                 CloneTestDataItem(true, categoryName, itemName, categoryName, itemName, overwriteExistingItems);
-            return true;
-        }
+                return true;
+            }
             catch (Exception ex)
             {
                 lastException[Thread.CurrentThread.ManagedThreadId] = ex;
                 return false;
             }
-}
+        }
 
-
+        /// <summary>
+        /// Copy all data from Local to Global repository.
+        /// </summary>
+        /// <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+        /// <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         public static void CloneGlobalToLocal(bool overwriteExistingItems)
         {
             CloneTestData(false, overwriteExistingItems);
@@ -566,6 +854,29 @@ namespace TeamControlium.Utilities
         }
 
 
+        /// <summary>
+        /// Called to store exception information when a Try... method catches an Exception.  Allows actual exception type to be stored
+        /// so that reader can determine underlying exception type.
+        /// </summary>
+        /// <typeparam name="T">Exception derived from Exception class.</typeparam>
+        /// <param name="ex">Exception to be stored</param>
+        private static void SetLastException<T>(T ex) where T : Exception
+        {
+            int threadID = Thread.CurrentThread.ManagedThreadId;
+            lock (lastException)
+            {
+                if (lastException.ContainsKey(threadID))
+                {
+                    lastException[threadID] = ex;
+                }
+                else
+                {
+                    lastException.Add(threadID, ex);
+                }
+            }
+        }
+
+
         private static Dictionary<string, dynamic> getCategory(bool isLocal, string category)
         {
             int threadID = isLocal ? Thread.CurrentThread.ManagedThreadId : globalIndex;
@@ -603,7 +914,7 @@ namespace TeamControlium.Utilities
             return repository[threadID][category];
         }
 
-        private static void setCategory(bool isLocal, string name, Dictionary<string, dynamic> category)
+        private static void setCategory(bool isLocal, string name, Dictionary<string, dynamic> categoryToAdd, bool overwriteDuplicates)
         {
             int threadID = isLocal ? Thread.CurrentThread.ManagedThreadId : globalIndex;
 
@@ -616,11 +927,33 @@ namespace TeamControlium.Utilities
 
             if (!verifyCategoryIsNotNullOrEmptyAndExists(isLocal, name, false))
             {
-                repository[threadID].Add(name, category);
+                repository[threadID].Add(name, categoryToAdd);
             }
             else
             {
-                repository[threadID][name] = category;
+                if (overwriteDuplicates)
+                {
+                    categoryToAdd.ToList().ForEach(itemToAdd => repository[threadID][name][itemToAdd.Key] = itemToAdd.Value);
+                }
+                else
+                {
+                    try
+                    {
+                        categoryToAdd.ToList().ForEach(itemToAdd =>
+                        {
+                            if (repository[threadID][name].ContainsKey(itemToAdd.Key))
+                            {
+                                throw new ArgumentException($"Item [{itemToAdd.Key}] already exists");
+                            }
+                            repository[threadID][name].Add(itemToAdd.Key, itemToAdd.Value);
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception($"Cannot merge category [{name}] into {(isLocal ? "Local" : "Global")} repository!", ex);
+                    }
+                }
+                repository[threadID][name] = categoryToAdd;
             }
 
         }
@@ -629,7 +962,7 @@ namespace TeamControlium.Utilities
         {
             verifyItemNameIsNotNullOrEmptyAndExists(isLocal, category, itemKey, true);
 
-            // Get item named from category and return it
+            // Get item named from categoryName and return it
             dynamic obtainedObject = (getCategory(isLocal, category))[itemKey];
 
             WriteLog(LogLevels.FrameworkDebug, "Got ");
@@ -685,7 +1018,7 @@ namespace TeamControlium.Utilities
                 repository[threadID].Add(category, new Dictionary<string, dynamic>());
 
             Dictionary<string, dynamic> wholeCategory = repository[threadID][category];
-            // Add Name if we dont already have it in the current category, otherwise change contents of name
+            // Add Name if we dont already have it in the current categoryName, otherwise change contents of name
             if (wholeCategory.ContainsKey(itemKey))
                 wholeCategory[itemKey] = value;
             else
@@ -765,96 +1098,102 @@ namespace TeamControlium.Utilities
 
         private static void CloneTestDataCategory(bool fromLocal, string fromCategoryName, string toCategoryName, bool overwriteIfExists)
         {
-            int toThreadID = !fromLocal ? Thread.CurrentThread.ManagedThreadId : globalIndex;
-
-            verifyCategoryIsNotNullOrEmptyAndExists(fromLocal, fromCategoryName, true);
-
-            foreach (var item in getCategory(fromLocal, fromCategoryName))
+            lock (repository)
             {
-                CloneTestDataItem(fromLocal, fromCategoryName, item.Key, toCategoryName, item.Key, overwriteIfExists);
+                int toThreadID = !fromLocal ? Thread.CurrentThread.ManagedThreadId : globalIndex;
+
+                verifyCategoryIsNotNullOrEmptyAndExists(fromLocal, fromCategoryName, true);
+
+                foreach (var item in getCategory(fromLocal, fromCategoryName))
+                {
+                    CloneTestDataItem(fromLocal, fromCategoryName, item.Key, toCategoryName, item.Key, overwriteIfExists);
+                }
             }
         }
         private static void CloneTestDataItem(bool fromLocal, string fromCategoryName, string fromItemName, string toCategoryName, string toItemName, bool overwriteIfExists)
         {
-            int toThreadID = !fromLocal ? Thread.CurrentThread.ManagedThreadId : globalIndex;
-
-            if (!verifyThreadIDExists(!fromLocal, false))
+            lock (repository)
             {
-                repository.Add(toThreadID, new Dictionary<string, Dictionary<string, dynamic>>());
-            }
-            if (!verifyCategoryIsNotNullOrEmptyAndExists(!fromLocal, toCategoryName, false))
-            {
-                repository[toThreadID].Add(toCategoryName, new Dictionary<string, dynamic>());
-            }
+                int toThreadID = !fromLocal ? Thread.CurrentThread.ManagedThreadId : globalIndex;
 
-            
+                if (!verifyThreadIDExists(!fromLocal, false))
+                {
+                    repository.Add(toThreadID, new Dictionary<string, Dictionary<string, dynamic>>());
+                }
+                if (!verifyCategoryIsNotNullOrEmptyAndExists(!fromLocal, toCategoryName, false))
+                {
+                    repository[toThreadID].Add(toCategoryName, new Dictionary<string, dynamic>());
+                }
 
-            if (string.IsNullOrEmpty(toItemName))
-            {
-                throw new Exception("'To' Item name must not be NULL or empty!");
-            }
 
-            dynamic fromItem = getItem(fromLocal, fromCategoryName, fromItemName);
 
-            switch (isTypeCloneable(fromItem.GetType()))
-            {
-                case CloneableTypes.yes:
-                    {
-                        if (getCategory(!fromLocal, toCategoryName).ContainsKey(toItemName) && !overwriteIfExists)
+                if (string.IsNullOrEmpty(toItemName))
+                {
+                    throw new Exception("'To' Item name must not be NULL or empty!");
+                }
+
+                dynamic fromItem = getItem(fromLocal, fromCategoryName, fromItemName);
+
+                switch (isTypeCloneable(fromItem.GetType()))
+                {
+                    case CloneableTypes.yes:
                         {
-                            throw new Exception($"'To' item [{toItemName}] in {(!fromLocal ? $"Local (ThreadID { toThreadID })" : "Global")} repository's [{toCategoryName}] category already exists and overwriteIfExists is false!");
-                        }
-                        else
-                        {
-                            setItem(!fromLocal, toCategoryName, toItemName, fromItem.Clone());
-                        }
-
-                    }
-                    break;
-                case CloneableTypes.no:
-                case CloneableTypes.isValueType:
-                    {
-                        if (getCategory(!fromLocal, toCategoryName).ContainsKey(toItemName))
-                        {
-                            if (overwriteIfExists)
+                            if (getCategory(!fromLocal, toCategoryName).ContainsKey(toItemName) && !overwriteIfExists)
                             {
-                                getCategory(!fromLocal, toCategoryName)[toItemName] = fromItem.Value;
+                                throw new Exception($"'To' item [{toItemName}] in {(!fromLocal ? $"Local (ThreadID { toThreadID })" : "Global")} repository's [{toCategoryName}] category already exists and overwriteIfExists is false!");
                             }
                             else
                             {
-                                throw new Exception($"'To' item [{toItemName}] in {(toThreadID == globalIndex ? "Global" : $"Local (ThreadID { toThreadID })")} repository's [{toCategoryName}] category already exists and overwriteIfExists is false!");
+                                setItem(!fromLocal, toCategoryName, toItemName, fromItem.Clone());
                             }
-                        }
-                        else
-                        {
-                            getCategory(!fromLocal, toCategoryName).Add(toItemName, fromItem.Value);
-                        }
 
-                        if (isTypeCloneable(fromItem.Value.GetType()) == CloneableTypes.no)
-                        {
-                            Log.WriteLogLine(LogLevels.TestInformation, $"Cannot clone [{fromCategoryName}][{fromItemName}] (Type: {fromItem.Value.GetType().ToString()}) from {(toThreadID == globalIndex ? "Global" : $"Local (ThreadID { toThreadID })")} repository to {(toThreadID == globalIndex ? "Global" : $"Local (ThreadID { toThreadID })")}. Copying reference instead.");
                         }
-                    }
-                    break;
-                default:
-                    {
-                        if (getCategory(!fromLocal, toCategoryName).ContainsKey(toItemName))
+                        break;
+                    case CloneableTypes.no:
+                    case CloneableTypes.isValueType:
                         {
-                            if (overwriteIfExists)
+                            if (getCategory(!fromLocal, toCategoryName).ContainsKey(toItemName))
                             {
-                                getCategory(!fromLocal, toCategoryName)[toItemName] = fromItem.Value;
+                                if (overwriteIfExists)
+                                {
+                                    getCategory(!fromLocal, toCategoryName)[toItemName] = fromItem.Value;
+                                }
+                                else
+                                {
+                                    throw new Exception($"'To' item [{toItemName}] in {(toThreadID == globalIndex ? "Global" : $"Local (ThreadID { toThreadID })")} repository's [{toCategoryName}] category already exists and overwriteIfExists is false!");
+                                }
                             }
                             else
                             {
-                                throw new Exception($"'To' item [{toItemName}] in {(toThreadID == globalIndex ? "Global" : $"Local (ThreadID { toThreadID })")} repository's [{toCategoryName}] category already exists and overwriteIfExists is false!");
+                                getCategory(!fromLocal, toCategoryName).Add(toItemName, fromItem.Value);
+                            }
+
+                            if (isTypeCloneable(fromItem.Value.GetType()) == CloneableTypes.no)
+                            {
+                                Log.WriteLogLine(LogLevels.TestInformation, $"Cannot clone [{fromCategoryName}][{fromItemName}] (Type: {fromItem.Value.GetType().ToString()}) from {(toThreadID == globalIndex ? "Global" : $"Local (ThreadID { toThreadID })")} repository to {(toThreadID == globalIndex ? "Global" : $"Local (ThreadID { toThreadID })")}. Copying reference instead.");
                             }
                         }
-                        else
+                        break;
+                    default:
                         {
-                            getCategory(!fromLocal, toCategoryName).Add(toItemName, fromItem.Value);
+                            if (getCategory(!fromLocal, toCategoryName).ContainsKey(toItemName))
+                            {
+                                if (overwriteIfExists)
+                                {
+                                    getCategory(!fromLocal, toCategoryName)[toItemName] = fromItem.Value;
+                                }
+                                else
+                                {
+                                    throw new Exception($"'To' item [{toItemName}] in {(toThreadID == globalIndex ? "Global" : $"Local (ThreadID { toThreadID })")} repository's [{toCategoryName}] category already exists and overwriteIfExists is false!");
+                                }
+                            }
+                            else
+                            {
+                                getCategory(!fromLocal, toCategoryName).Add(toItemName, fromItem.Value);
+                            }
                         }
-                    }
-                    break;
+                        break;
+                }
             }
         }
 
@@ -920,9 +1259,9 @@ namespace TeamControlium.Utilities
             {
                 if (!repository[threadID].ContainsKey(categoryName))
                 {
-                    if (categoryName==noCategoryName)
+                    if (categoryName==categorylessItems)
                     {
-                        repository[threadID].Add(noCategoryName, new Dictionary<string, dynamic>());
+                        repository[threadID].Add(categorylessItems, new Dictionary<string, dynamic>());
                     }
                     if (throwException)
                     {
@@ -993,7 +1332,7 @@ namespace TeamControlium.Utilities
                 {
                     lock (repository)
                     {
-                        return this[noCategoryName, item];
+                        return this[categorylessItems, item];
                     }
                 }
 
@@ -1001,7 +1340,7 @@ namespace TeamControlium.Utilities
                 {
                     lock (repository)
                     {
-                        this[noCategoryName, item] = value;
+                        this[categorylessItems, item] = value;
                     }
                 }
             }

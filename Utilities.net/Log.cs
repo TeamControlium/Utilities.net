@@ -195,7 +195,7 @@ namespace TeamControlium.Utilities
         public static void WriteLog(LogLevels logLevel, string textString, params object[] args)
         {
             StackFrame stackFrame = new StackFrame(1, true);
-            if (args.Length==0)
+            if (args.Length == 0)
             {
                 DoWrite(stackFrame?.GetMethod(), logLevel, textString);
             }
@@ -210,7 +210,6 @@ namespace TeamControlium.Utilities
                     DoWrite(stackFrame?.GetMethod(), logLevel, "(Log Args ignored!) " + textString);
                 }
             }
-            
         }
 
         /// <summary>

@@ -444,15 +444,17 @@
         </member>
         <member name="T:TeamControlium.Utilities.Repository">
             <summary>
-            
+            Central Test Data repository for tool independent storage of data used within tests.  TeamControlium repository is intended to be used as the primary mechanism for storage of
+            data within a Test Framework and is used for configuration settings of the Controlium based library.  It is a thread-safe static repository with dynamic objects that can be
+            scoped for global (all threads) or local (local thread only visibility) use but with the ability to clone data from Global to Local if/as required.
             </summary>
         </member>
         <member name="F:TeamControlium.Utilities.Repository.repository">
             <summary>
             Actual storage of data.  Three dimensional dictionary.
-            1st dimension is the ThreadID storing data for the identified specific thread.
-            2nd dimension is the data category
-            3rd dimension is the data item name
+            Dimension 1 is the ThreadID storing data for the identified specific thread.
+            Dimension 2 is the data categoryName
+            Dimension 3 is the data item name
             Data is stored as dynamic objects enabling storage of anything and runtime changes of item location types as well as varying types in the repository.
             </summary>
         </member>
@@ -461,10 +463,400 @@
             When data is stored in the Global repository (IE. Seen by all threads) the threadID used is -1.
             </summary>
         </member>
+        <member name="F:TeamControlium.Utilities.Repository.categorylessItems">
+            <summary>
+            Repository allows test code to store data singly or in Categories.  If storing a data item without a Category, it actually goes in the categoryName named in this variable. 
+            </summary>
+            <remarks>There is the chance a test framework could create a categoryName with the same name.  However, this a low risk and could always be changed at a later date if needed.</remarks>
+        </member>
+        <member name="F:TeamControlium.Utilities.Repository.lastException">
+            <summary>
+            Stores the last exception/s caught when using Try... methods.  Is in a dictionary to enable thread-safe and thread oriented exception storage.  A thread can ONLY see the
+            last exception thrown for it's specific thread.  The ensures maximum flexibility in parallel testing scenarios.
+            </summary>
+        </member>
+        <member name="P:TeamControlium.Utilities.Repository.ItemLocal">
+            <summary>
+            Gets reference to the Dynamic items class allowing indexed access to and setting of all Local stored data items in current thread.
+            </summary>
+            <remarks>This is a reference to an indexer class.  So can be used as an indexed property.  All data stored in the Local repository are visible only to code executing within the current thread.</remarks>
+            <example>Example stores string 'some data' in the repository, naming it 'MyItem'.
+            Then recalls Repository item 'MyItem', storing it in myData.<code>
+            Repository.ItemLocal["MyItem"] = "some data";
+            string myData = Repository.ItemLocal["MyItem"]; // myData now equal to 'some data'
+            </code></example>
+        </member>
+        <member name="P:TeamControlium.Utilities.Repository.ItemGlobal">
+            <summary>
+            Gets reference to the Dynamic items class allowing indexed access to and setting of all Globally stored data items.
+            </summary>
+            <remarks>This is a reference to an indexer class.  So can be used as an indexed property.  All data stored in the Global repository are visible across all threads.</remarks>
+            <example>Example stores string 'some data' in the repository, naming it 'MyItem'.
+            Then recalls Repository item 'MyItem', storing it in myData.<code>
+            Repository.ItemGlobal["MyItem"] = "some data";
+            string myData = Repository.ItemGlobal["MyItem"]; // myData now equal to 'some data'
+            </code></example>
+        </member>
         <member name="M:TeamControlium.Utilities.Repository.RepositoryLastTryException">
             <summary>
             Returns the last exception were a TryGetRunCategoryOptions returned false
             </summary>
+            <returns>Last exception thrown by a Try... method in this thread.</returns>
+            <remarks>Return is cast as Exception but underlying type can be obtained by called (IE. <code>var myType = Repository.RepositoryLastTryException().GetType();</code></remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.HasCategoryLocal(System.String)">
+            <summary>
+            Indicates whether Local repository has a Category with the given name
+            </summary>
+            <param name="categoryName">Name of category to check for.</param>
+            <returns>True if local repository has category named.  Otherwise False.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.HasCategoryGlobal(System.String)">
+            <summary>
+            Indicates whether Global repository has a Category with the given name
+            </summary>
+            <param name="categoryName">Name of category to check for.</param>
+            <returns>True if global repository has category named.  Otherwise False.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetCategoryLocal(System.String)">
+            <summary>
+            Returns all items (in dictionary) from required local category
+            </summary>
+            <param name="categoryName">Name of category to retrieve items from</param>
+            <returns>All items from Local repository in named Category.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetCategoryGlobal(System.String)">
+            <summary>
+            Returns all items (in dictionary) from required global category
+            </summary>
+            <param name="categoryName">Name of category to retrieve items from</param>
+            <returns>All items from Global repository in named Category.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryGetCategoryLocal(System.String,System.Collections.Generic.Dictionary{System.String,System.Object}@)">
+            <summary>
+            Gets all items (in dictionary) from required local category indicating success or failure of retrieval
+            </summary>
+            <param name="categoryName">Name of category to retrieve items from</param>
+            <param name="category">Output parameter populated with all items in named local category if successful.  Null reference if not</param>
+            <returns>True if Category exists and item/s retrieved successfully.  False if not.</returns>
+            <remarks>If method fails and returns False, <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> can be used to obtain exception thrown.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryGetCategoryGlobal(System.String,System.Collections.Generic.Dictionary{System.String,System.Object}@)">
+            <summary>
+            Gets all items (in dictionary) from required global category indicating success or failure of retrieval
+            </summary>
+            <param name="categoryName">Name of category to retrieve items from</param>
+            <param name="category">Output parameter populated with all items in named global category if successful.  Null reference if not</param>
+            <returns>True if Category exists and item/s retrieved successfully.  False if not.</returns>
+            <remarks>If method fails and returns False, <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> can be used to obtain exception thrown.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.SetCategoryLocal(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean)">
+            <summary>
+            Load named Local repository category with required data.
+            </summary>
+            <remarks>If category already exists, merge data optionally overwriting if duplicate keys found.</remarks>
+            <param name="categoryName">Name of category to add or merge in</param>
+            <param name="category">Category data to add or merge in</param>
+            <param name="overwriteExistingItems">If true, any existing data items are overwritten.  Otherwise any duplicates will result in an Exception.</param>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.SetCategoryGlobal(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean)">
+            <summary>
+            Load named Global repository category with required data.
+            </summary>
+            <remarks>If category already exists, merge data optionally overwriting if duplicate keys found.</remarks>
+            <param name="categoryName">Name of category to add or merge in</param>
+            <param name="category">Category data to add or merge in</param>
+            <param name="overwriteExistingItems">If true, any existing data items are overwritten.  Otherwise any duplicates will result in an Exception.</param>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItemLocal(System.String)">
+            <summary>
+            Returns non-categorized data item from local repository.
+            </summary>
+            <param name="itemName">Name of data item to retrieve</param>
+            <remarks>If item does not exist or there is a error obtaining item an exception will be thrown</remarks>
+            <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="M:TeamControlium.Utilities.Repository.GetItemLocal``1(System.String)"/> for type checked data recall.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItemGlobal(System.String)">
+            <summary>
+            Returns non-categorized data item from global repository.
+            </summary>
+            <param name="itemName">Name of data item to retrieve</param>
+            <remarks>If item does not exist or there is a error obtaining item an exception will be thrown</remarks>
+            <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="M:TeamControlium.Utilities.Repository.GetItemGlobal``1(System.String)"/> for type checked data recall.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItemLocal(System.String,System.String)">
+            <summary>
+            Returns data item from required category in local repository.
+            </summary>
+            <param name="categoryName">Name of category data item is in</param>
+            <param name="itemName">Name of data item to retrieve</param>
+            <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="M:TeamControlium.Utilities.Repository.GetItemLocal``1(System.String,System.String)"/> for type checked data recall.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItemGlobal(System.String,System.String)">
+            <summary>
+            Returns data item from required category in global repository.
+            </summary>
+            <param name="categoryName">Name of category data item is in</param>
+            <param name="itemName">Name of data item to retrieve</param>
+            <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="M:TeamControlium.Utilities.Repository.GetItemGlobal``1(System.String,System.String)"/> for type checked data recall.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItemLocal``1(System.String)">
+            <summary>
+            Returns non-categorized data item from local repository with verification of required type
+            </summary>
+            <param name="itemName">Name of data item to retrieve</param>
+            <typeparam name="T">Expected type of required data</typeparam>
+            <remarks>If item does not exist, there is a error obtaining item or the type is not of the required type an exception will be thrown</remarks>
+            <returns>Data item.  Type will be cast as required.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItemGlobal``1(System.String)">
+            <summary>
+            Returns non-categorized data item from global repository with verification of required type
+            </summary>
+            <param name="itemName">Name of data item to retrieve</param>
+            <typeparam name="T">Expected type of required data</typeparam>
+            <remarks>If item does not exist, there is a error obtaining item or the type is not of the required type an exception will be thrown</remarks>
+            <returns>Data item.  Type will be cast as required.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItemLocal``1(System.String,System.String)">
+            <summary>
+            Returns data item from required category in local repository with verification of required type.
+            </summary>
+            <param name="categoryName">Name of category data item is in</param>
+            <param name="itemName">Name of data item to retrieve</param>
+            <typeparam name="T">Expected type of required data</typeparam>
+            <remarks>If item does not exist, there is a error obtaining item or the type is not of the required type an exception will be thrown</remarks>
+            <returns>Data item.  Type will be cast as required.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItemGlobal``1(System.String,System.String)">
+            <summary>
+            Returns data item from required category in global repository with verification of required type.
+            </summary>
+            <param name="categoryName">Name of category data item is in</param>
+            <param name="itemName">Name of data item to retrieve</param>
+            <typeparam name="T">Expected type of required data</typeparam>
+            <remarks>If item does not exist, there is a error obtaining item or the type is not of the required type an exception will be thrown</remarks>
+            <returns>Data item.  Type will be cast as required.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryGetItemLocal(System.String,System.Object@)">
+            <summary>
+            Returns non-categorized data item from local repository indicating if successful or not
+            </summary>
+            <param name="itemName">Name of data item to retrieve</param>
+            <param name="item">Item found (if succesful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="!:TryGetItemLocal&lt;T&gt;(string,T)"/> for type checked data recall.</param>
+            <returns>True if sucessful, False if not.</returns>
+            <remarks>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryGetItemGlobal(System.String,System.Object@)">
+            <summary>
+            Returns non-categorized data item from global repository indicating if successful or not.
+            </summary>
+            <param name="itemName">Name of data item to retrieve</param>
+            <param name="item">Item found (if succesful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref = "!:TryGetItemGlobal&lt;T&gt;(string,T)"/> for type checked data recall).</param>
+            <returns>True if sucessful, False if not.</returns>
+            <remarks>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryGetItemLocal(System.String,System.String,System.Object@)">
+            <summary>
+            Returns data item from required category in local repository with verification of required type indicating if successful or not.
+            </summary>
+            <param name="categoryName">Name of category data item is in</param>
+            <param name="itemName">Name of data item to retrieve</param>
+            <param name="item">Item found (if succesful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="!:TryGetItemLocal&lt;T&gt;(string,string,T)"/> for type checked data recall.</param>
+            <returns>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryGetItemGlobal(System.String,System.String,System.Object@)">
+            <summary>
+            Returns data item from required category in global repository with verification of required type indicating if successful or not.
+            </summary>
+            <param name="categoryName">Name of category data item is in</param>
+            <param name="itemName">Name of data item to retrieve</param>
+            <param name="item">Item found (if succesful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="!:TryGetItemGlobal&lt;T&gt;(string,string,T)"/> for type checked data recall.</param>
+            <returns>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryGetItemLocal``1(System.String,``0@)">
+            <summary>
+            Returns non-categorized data item from local repository with verification of required type indicating if successful or not
+            </summary>
+            <param name="itemName">Name of data item to retrieve</param>
+            <param name="item">Item found (if succesful) or null. Type checked with expected type to ensure type compatibility.</param>
+            <typeparam name="T">Expected type of data item</typeparam>
+            <returns>True if sucessful, False if not or type differs to expected.</returns>
+            <remarks>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryGetItemGlobal``1(System.String,``0@)">
+            <summary>
+            Returns non-categorized data item from global repository with verification of required type indicating if successful or not
+            </summary>
+            <param name="itemName">Name of data item to retrieve</param>
+            <param name="item">Item found (if succesful) or null. Type checked with expected type to ensure type compatibility.</param>
+            <typeparam name="T">Expected type of data item</typeparam>
+            <returns>True if sucessful, False if not or type differs to expected.</returns>
+            <remarks>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryGetItemLocal``1(System.String,System.String,``0@)">
+            <summary>
+            Returns categorized data item from local repository with verification of required type indicating if successful or not
+            </summary>
+            <param name="categoryName">Name of category to retreive data item from</param>
+            <param name="itemName">Name of data item to retrieve</param>
+            <param name="item">Item found (if succesful) or null. Type checked with expected type to ensure type compatibility.</param>
+            <typeparam name="T">Expected type of data item</typeparam>
+            <returns>True if sucessful, False if not or type differs to expected.</returns>
+            <remarks>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryGetItemGlobal``1(System.String,System.String,``0@)">
+            <summary>
+            Returns categorized data item from global repository with verification of required type indicating if successful or not
+            </summary>
+            <param name="categoryName">Name of category to retreive data item from</param>
+            <param name="itemName">Name of data item to retrieve</param>
+            <param name="item">Item found (if succesful) or null. Type checked with expected type to ensure type compatibility.</param>
+            <typeparam name="T">Expected type of data item</typeparam>
+            <returns>True if sucessful, False if not or type differs to expected.</returns>
+            <remarks>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItemOrDefaultLocal``1(System.String)">
+            <summary>
+            Returns non-categorized data item from local repository with verification of required type or types default value if item does not exist
+            </summary>
+            <param name="itemName">Name of data item to retrieve</param>
+            <typeparam name="T">Expected type of required data</typeparam>
+            <remarks>If item does not exist, the default value for the Type defied in the call will be returned.</remarks>
+            <returns>Data item or default value based on Type.  Type will be cast as required.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItemOrDefaultGlobal``1(System.String)">
+            <summary>
+            Returns non-categorized data item from global repository with verification of required type or types default value if item does not exist
+            </summary>
+            <param name="itemName">Name of data item to retrieve</param>
+            <typeparam name="T">Expected type of required data</typeparam>
+            <remarks>If item does not exist, the default value for the Type defied in the call will be returned.</remarks>
+            <returns>Data item or default value based on Type.  Type will be cast as required.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItemOrDefaultLocal``1(System.String,System.String)">
+            <summary>
+            Returns categorized data item from local repository with verification of required type or types default value if item does not exist
+            </summary>
+            <param name="categoryName">Name of Category data item is in</param>
+            <param name="itemName">Name of data item to retrieve</param>
+            <typeparam name="T">Expected type of required data</typeparam>
+            <remarks>If item does not exist, the default value for the Type defied in the call will be returned.</remarks>
+            <returns>Data item or default value based on Type.  Type will be cast as required.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItemOrDefaultGlobal``1(System.String,System.String)">
+            <summary>
+            Returns categorized data item from global repository with verification of required type or types default value if item does not exist
+            </summary>
+            <param name="categoryName">Name of Category data item is in</param>
+            <param name="itemName">Name of data item to retrieve</param>
+            <typeparam name="T">Expected type of required data</typeparam>
+            <remarks>If item does not exist, the default value for the Type defied in the call will be returned.</remarks>
+            <returns>Data item or default value based on Type.  Type will be cast as required.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.SetItemLocal(System.String,System.Object)">
+            <summary>
+            Stores data item in local repository with defined non-categorized name
+            </summary>
+            <param name="itemName">Label to store data item with</param>
+            <param name="item">Data item to store</param>
+            <remarks>If data item already exists it is overwritten with current data</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.SetItemGlobal(System.String,System.Object)">
+            <summary>
+            Stores data item in global repository with defined non-categorized name
+            </summary>
+            <param name="itemName">Label to store data item with</param>
+            <param name="item">Data item to store</param>
+            <remarks>If data item already exists it is overwritten with current data</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.SetItemLocal(System.String,System.String,System.Object)">
+            <summary>
+            Stores data item in local repository with defined categorized name
+            </summary>
+            <param name="categoryName">Name of category to store data item in</param>
+            <param name="itemName">Label to store data item with</param>
+            <param name="item">Data item to store</param>
+            <remarks>
+            If category does not exist it is created.
+            If data item already exists it is overwritten with current data.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.SetItemGlobal(System.String,System.String,System.Object)">
+            <summary>
+            Stores data item in global repository with defined categorized name
+            </summary>
+            <param name="categoryName">Name of category to store data item in</param>
+            <param name="itemName">Label to store data item with</param>
+            <param name="item">Data item to store</param>
+            <remarks>
+            If category does not exist it is created.
+            If data item already exists it is overwritten with current data.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.CloneLocalToGlobal(System.Boolean)">
+            <summary>
+            Copy all data from Local to Global repository.
+            </summary>
+            <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.CloneCategoryLocalToGlobal(System.String,System.Boolean)">
+            <summary>
+            Copy all data from required Local category to Global repository.
+            </summary>
+            <param name="categoryName">Name of category to be copied.</param>
+            <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.CloneItemLocalToGlobal(System.String,System.String,System.Boolean)">
+            <summary>
+            Copy named data item from required Local category to Global repository.
+            </summary>
+            <param name="categoryName">Name of category to be copied.</param>
+            <param name="itemName">Name of item to clone.</param>
+            <param name="overwriteExistingItems">Indicates if existing data item should be overwritten if it already exists.  An exception is thrown if false and the named data item exists in global repository.</param>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryCloneLocalToGlobal(System.Boolean)">
+            <summary>
+            Copy all data from Local to Global repository indicting if successful or not.
+            </summary>
+            <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+            <returns>True if successful clone or false if not (See <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryCloneCategoryLocalToGlobal(System.String,System.Boolean)">
+            <summary>
+            Copy all data from required Local category to Global repository indicting if successful or not.
+            </summary>
+            <param name="categoryName">Name of category to be copied.</param>
+            <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+            <returns>True if successful clone or false if not (See <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryCloneItemLocalToGlobal(System.String,System.String,System.Boolean)">
+            <summary>
+            Copy named data item from required Local category to Global repository.
+            </summary>
+            <param name="categoryName">Name of category to be copied.</param>
+            <param name="itemName">Name of item to clone.</param>
+            <param name="overwriteExistingItems">Indicates if existing data item should be overwritten if it already exists.  An exception is thrown if false and the named data item exists in global repository.</param>
+            <returns>True if successful clone or false if not (See <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.CloneGlobalToLocal(System.Boolean)">
+            <summary>
+            Copy all data from Local to Global repository.
+            </summary>
+            <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.SetLastException``1(``0)">
+            <summary>
+            Called to store exception information when a Try... method catches an Exception.  Allows actual exception type to be stored
+            so that reader can determine underlying exception type.
+            </summary>
+            <typeparam name="T">Exception derived from Exception class.</typeparam>
+            <param name="ex">Exception to be stored</param>
         </member>
     </members>
 </doc>

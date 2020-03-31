@@ -5,7 +5,8 @@
       <Value>stdout</Value>
       <Value>WriteToConsole</Value>
       <Value>Detokenizer</Value>
-    </CollectionProperty>
+      <Value>Controlium</Value>
+	  </CollectionProperty>
     <StringProperty Name="MergeSettingsFiles">NoMerge</StringProperty>
   </GlobalSettings>
 </StyleCopSettings>
