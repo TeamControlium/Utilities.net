@@ -835,7 +835,7 @@
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryCloneItemLocalToGlobal(System.String,System.String,System.Boolean)">
             <summary>
-            Copy named data item from required Local category to Global repository.
+            Copy named data item from required Local category to Global repository indicating if successful
             </summary>
             <param name="categoryName">Name of category to be copied.</param>
             <param name="itemName">Name of item to clone.</param>
@@ -850,6 +850,67 @@
             <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
             <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         </member>
+        <member name="M:TeamControlium.Utilities.Repository.CloneCategoryGlobalToLocal(System.String,System.Boolean)">
+            <summary>
+            Copy all data from required Local category to Global repository.
+            </summary>
+            <param name="categoryName">Name of category to be copied.</param>
+            <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.CloneItemGlobalToLocal(System.String,System.String,System.Boolean)">
+            <summary>
+            Copy named data item from required Local category to Global repository.
+            </summary>
+            <param name="categoryName">Name of category to be copied.</param>
+            <param name="itemName">Name of item to clone.</param>
+            <param name="overwriteExistingItems">Indicates if existing data item should be overwritten if it already exists.  An exception is thrown if false and the named data item exists in global repository.</param>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryCloneGlobalToLocal(System.Boolean)">
+            <summary>
+            Copy all data from Global to local repository indicting if successful or not.
+            </summary>
+            <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+            <returns>True if successful clone or false if not (See <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryCloneCategoryGlobalToLocal(System.String,System.Boolean)">
+            <summary>
+            Copy all data from required Global category to local repository indicting if successful or not.
+            </summary>
+            <param name="categoryName">Name of category to be copied.</param>
+            <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+            <returns>True if successful clone or false if not (See <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.TryCloneItemGlobalToLocal(System.String,System.String,System.Boolean)">
+            <summary>
+            Copy named data item from required Global category to Local repository indicating if successful
+            </summary>
+            <param name="categoryName">Name of category to be copied.</param>
+            <param name="itemName">Name of item to clone.</param>
+            <param name="overwriteExistingItems">Indicates if existing data item should be overwritten if it already exists.  An exception is thrown if false and the named data item exists in global repository.</param>
+            <returns>True if successful clone or false if not (See <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.ClearRepositoryAll">
+            <summary>
+            Clear data from Global and all thread repositories
+            </summary>
+            <remarks>Should be used carefully as ALL data from Global and local repositories is removed.  Many TeamControlium libraries use Repository data to hold configuration settings and defaults.  If used after clearing repository these will not be available and errors may be thrown.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.ClearRepositoryLocal">
+            <summary>
+            Clear data from Local repository
+            </summary>
+            <remarks>Should be used carefully as ALL data from the local repository is removed.  Many TeamControlium libraries use the local thread's repository to hold configuration data.  If this is cleared it should be rebuilt if required to ensure errors are not thrown.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.ClearRepositoryGlobal">
+            <summary>
+            Clear data from Global repository
+            </summary>
+        </member>
         <member name="M:TeamControlium.Utilities.Repository.SetLastException``1(``0)">
             <summary>
             Called to store exception information when a Try... method catches an Exception.  Allows actual exception type to be stored
@@ -857,6 +918,26 @@
             </summary>
             <typeparam name="T">Exception derived from Exception class.</typeparam>
             <param name="ex">Exception to be stored</param>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.getCategory(System.Boolean,System.String)">
+            <summary>
+            Retrieves Dictionary, containing all data items for the named category, from the Local or Global repository
+            </summary>
+            <param name="isLocal">Indicates if local repository should be used (true) or global (false)</param>
+            <param name="category">Name of category to obtain</param>
+            <returns>Dictionary of data items in required repository's named category</returns>
+            <remarks>Method is NOT thread safe.  It is the responsibility of the calling code to ensure thread safety.
+            If category does not exist or there is another issue retrieving the category an exception will be thrown.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.setCategory(System.Boolean,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean)">
+            <summary>
+            Add the passed category dictionary to the required local/global repository.
+            </summary>
+            <param name="isLocal">Indicates if local repository should be used (true) or global (false)</param>
+            <param name="name">Name of category being added</param>
+            <param name="categoryToAdd">Dictionary to add</param>
+            <param name="overwriteDuplicates">Flag stating if existing data items can be overwritten.</param>
+            <remarks>If the named category <paramref name="overwriteDuplicates"/> is false and the repository category already exists with </remarks>
         </member>
     </members>
 </doc>

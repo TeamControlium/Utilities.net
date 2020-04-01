@@ -745,7 +745,7 @@ namespace TeamControlium.Utilities
         }
 
         /// <summary>
-        /// Copy named data item from required Local category to Global repository.
+        /// Copy named data item from required Local category to Global repository indicating if successful
         /// </summary>
         /// <param name="categoryName">Name of category to be copied.</param>
         /// <param name="itemName">Name of item to clone.</param>
@@ -776,16 +776,35 @@ namespace TeamControlium.Utilities
             CloneTestData(false, overwriteExistingItems);
         }
 
+        /// <summary>
+        /// Copy all data from required Local category to Global repository.
+        /// </summary>
+        /// <param name="categoryName">Name of category to be copied.</param>
+        /// <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+        /// <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         public static void CloneCategoryGlobalToLocal(string categoryName, bool overwriteExistingItems)
         {
             CloneTestDataCategory(false, categoryName, categoryName, overwriteExistingItems);
         }
 
+        /// <summary>
+        /// Copy named data item from required Local category to Global repository.
+        /// </summary>
+        /// <param name="categoryName">Name of category to be copied.</param>
+        /// <param name="itemName">Name of item to clone.</param>
+        /// <param name="overwriteExistingItems">Indicates if existing data item should be overwritten if it already exists.  An exception is thrown if false and the named data item exists in global repository.</param>
+        /// <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         public static void CloneItemGlobalToLocal(string categoryName, string itemName, bool overwriteExistingItems)
         {
             CloneTestDataItem(false, categoryName, itemName, categoryName, itemName, overwriteExistingItems);
         }
 
+        /// <summary>
+        /// Copy all data from Global to local repository indicting if successful or not.
+        /// </summary>
+        /// <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+        /// <returns>True if successful clone or false if not (See <see cref="RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
+        /// <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         public static bool TryCloneGlobalToLocal(bool overwriteExistingItems)
         {
             try
@@ -800,6 +819,13 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Copy all data from required Global category to local repository indicting if successful or not.
+        /// </summary>
+        /// <param name="categoryName">Name of category to be copied.</param>
+        /// <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
+        /// <returns>True if successful clone or false if not (See <see cref="RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
+        /// <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         public static bool TryCloneCategoryGlobalToLocal(string categoryName, bool overwriteExistingItems)
         {
             try
@@ -814,6 +840,14 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Copy named data item from required Global category to Local repository indicating if successful
+        /// </summary>
+        /// <param name="categoryName">Name of category to be copied.</param>
+        /// <param name="itemName">Name of item to clone.</param>
+        /// <param name="overwriteExistingItems">Indicates if existing data item should be overwritten if it already exists.  An exception is thrown if false and the named data item exists in global repository.</param>
+        /// <returns>True if successful clone or false if not (See <see cref="RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
+        /// <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         public static bool TryCloneItemGlobalToLocal(string categoryName, string itemName, bool overwriteExistingItems)
         {
             try
@@ -828,15 +862,23 @@ namespace TeamControlium.Utilities
             }
         }
 
-
-
-
+        /// <summary>
+        /// Clear data from Global and all thread repositories
+        /// </summary>
+        /// <remarks>Should be used carefully as ALL data from Global and local repositories is removed.  Many TeamControlium libraries use Repository data to hold configuration settings and defaults.  If used after clearing repository these will not be available and errors may be thrown.</remarks>
         public static void ClearRepositoryAll()
         {
-            WriteLogLine(LogLevels.FrameworkDebug, $"Clearing all Test Data repositories (Global and all threads!)");
-            repository.Clear();
+            lock (repository)
+            {
+                WriteLogLine(LogLevels.FrameworkDebug, $"Clearing all Test Data repositories (Global and all threads!)");
+                repository.Clear();
+            }
         }
 
+        /// <summary>
+        /// Clear data from Local repository
+        /// </summary>
+        /// <remarks>Should be used carefully as ALL data from the local repository is removed.  Many TeamControlium libraries use the local thread's repository to hold configuration data.  If this is cleared it should be rebuilt if required to ensure errors are not thrown.</remarks>
         public static void ClearRepositoryLocal()
         {
             lock (repository)
@@ -845,6 +887,9 @@ namespace TeamControlium.Utilities
             }
         }
 
+        /// <summary>
+        /// Clear data from Global repository
+        /// </summary>
         public static void ClearRepositoryGlobal()
         {
             lock (repository)
@@ -877,16 +922,26 @@ namespace TeamControlium.Utilities
         }
 
 
+        /// <summary>
+        /// Retrieves Dictionary, containing all data items for the named category, from the Local or Global repository
+        /// </summary>
+        /// <param name="isLocal">Indicates if local repository should be used (true) or global (false)</param>
+        /// <param name="category">Name of category to obtain</param>
+        /// <returns>Dictionary of data items in required repository's named category</returns>
+        /// <remarks>Method is NOT thread safe.  It is the responsibility of the calling code to ensure thread safety.
+        /// If category does not exist or there is another issue retrieving the category an exception will be thrown.</remarks>
         private static Dictionary<string, dynamic> getCategory(bool isLocal, string category)
         {
+            // Get thread ID of current thread if local.  Or fixed non-thread ID if Global
             int threadID = isLocal ? Thread.CurrentThread.ManagedThreadId : globalIndex;
 
+            // If passed category name is not populated throw an error indicating it must be populated.
             if (string.IsNullOrEmpty(category))
             {
                 throw new ArgumentException(string.Format("Cannot be null or empty ({0})", category == null ? "Is Null" : "Is empty"), "Category");
             }
 
-
+            // If the central repository does not contain data for the required thread (or Global) id throw an error.
             if (!repository.ContainsKey(threadID))
             {
                 if (threadID == globalIndex)
@@ -899,6 +954,7 @@ namespace TeamControlium.Utilities
                 }
             }
 
+            // If the required (local or global) does not contain the required category, throw an error.
             if (!repository[threadID].ContainsKey(category))
             {
                 if (threadID == globalIndex)
@@ -911,9 +967,18 @@ namespace TeamControlium.Utilities
                 }
             }
 
+            // Return the required category from the required repository
             return repository[threadID][category];
         }
 
+        /// <summary>
+        /// Add the passed category dictionary to the required local/global repository.
+        /// </summary>
+        /// <param name="isLocal">Indicates if local repository should be used (true) or global (false)</param>
+        /// <param name="name">Name of category being added</param>
+        /// <param name="categoryToAdd">Dictionary to add</param>
+        /// <param name="overwriteDuplicates">Flag stating if existing data items can be overwritten.</param>
+        /// <remarks>If the named category <paramref name="overwriteDuplicates"/> is false and the repository category already exists with </remarks>
         private static void setCategory(bool isLocal, string name, Dictionary<string, dynamic> categoryToAdd, bool overwriteDuplicates)
         {
             int threadID = isLocal ? Thread.CurrentThread.ManagedThreadId : globalIndex;
