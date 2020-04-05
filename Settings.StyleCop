@@ -8,6 +8,8 @@
       <Value>Controlium</Value>
       <Value>cloneable</Value>
       <Value>alphanumerics</Value>
+      <Value>maddogmikeb</Value>
+      <Value>linkedin</Value>
     </CollectionProperty>
     <StringProperty Name="MergeSettingsFiles">NoMerge</StringProperty>
     <StringProperty Name="Culture">en-GB</StringProperty>
