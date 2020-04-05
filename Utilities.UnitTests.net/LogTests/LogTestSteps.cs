@@ -1,7 +1,7 @@
 ﻿// <copyright file="LogTestSteps.cs" company="TeamControlium Contributors">
 //     Copyright (c) Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </copyright>
-namespace TeamControlium.Utilities.UnitTests
+namespace TeamControlium.UnitTests
 {
     using System;
     using System.Collections.Generic;
@@ -9,6 +9,7 @@ namespace TeamControlium.Utilities.UnitTests
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
+    using static TeamControlium.Utilities.Log;
 
     /// <summary>
     /// Test-step definitions for steps using/validating the Utilities Log class.
@@ -27,7 +28,7 @@ namespace TeamControlium.Utilities.UnitTests
         private StringWriter consoleOut = new StringWriter();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LogTestSteps" /> class.
+        /// Initialises a new instance of the <see cref="LogTestSteps" /> class.
         /// Used by Specflow supply Scenario context information.
         /// </summary>
         /// <param name="context">Scenario context data for use by class methods</param>
@@ -37,31 +38,31 @@ namespace TeamControlium.Utilities.UnitTests
         }
 
         /// <summary>
-        /// Specflow step to set Log WriteToConsole flag as required by test.
+        /// Specflow step to set Log LogToConsole flag as required by test.
         /// </summary>
-        /// <param name="writeToConsole">Flag (true/false) setting Log WriteToConsole. When true, log writes to Console stdout, when false it does not.</param>
-        [Given(@"I have configured Log WriteToConsole to (false|true)")]
-        [When(@"I change Log WriteToConsole to (false|true)")]
-        public void GivenIHaveConfiguredLogToWriteToConsole(bool writeToConsole)
+        /// <param name="writeToConsole">Flag (true/false) setting Log LogToConsole. When true, log writes to Console stdout, when false it does not.</param>
+        [Given(@"I have configured Log LogToConsole to (false|true)")]
+        [When(@"I change Log LogToConsole to (false|true)")]
+        public void GivenIHaveConfiguredLogToLogToConsole(bool writeToConsole)
         {
-            Log.WriteToConsole = writeToConsole;
+            LogToConsole = writeToConsole;
         }
 
         /// <summary>
-        /// Sets Log TestToolLog delegate to configured (Log writes output to configured receiver) or not configured (TestToolLog set to null)
+        /// Sets Log LogOutputDelegate delegate to configured (Log writes output to configured receiver) or not configured (LogOutputDelegate set to null)
         /// </summary>
         /// <param name="configuredOrNotConfigured">"Configured" (Receiver setup) or "Not Configured" (no Receiver)</param>
-        [Given(@"I have (.*) Log TestToolLog delegate")]
-        [When(@"I have (.*) Log TestToolLog delegate")]
-        public void GivenIHaveConfiguredLogTestToolLogDelegate(string configuredOrNotConfigured)
+        [Given(@"I have (.*) Log LogOutputDelegate delegate")]
+        [When(@"I have (.*) Log LogOutputDelegate delegate")]
+        public void GivenIHaveConfiguredLogLogOutputDelegateDelegate(string configuredOrNotConfigured)
         {
             if (configuredOrNotConfigured.ToLower().Trim('"').StartsWith("not"))
             {
-                Log.TestToolLog = null;
+                LogOutputDelegate = null;
             }
             else
             {
-                Log.TestToolLog = (s) =>
+                LogOutputDelegate = (s) =>
                 {
                     scenarioContext.Add("LogOutputReceiver", s);
                 };
@@ -73,23 +74,23 @@ namespace TeamControlium.Utilities.UnitTests
         /// </summary>
         /// <param name="logLevel">Required level of logging (<see cref="Log.LogLevels"/>)</param>
         [Given(@"I set Log to level (.*)")]
-        public void WhenISetLogToLevel(Log.LogLevels logLevel)
+        public void WhenISetLogToLevel(LogLevels logLevel)
         {
-            Log.CurrentLoggingLevel = logLevel;
+            LoggingCurrentLevel = logLevel;
         }
 
         /// <summary>
-        /// Log.WriteLogLine is called with required logging level (<see cref="Log.LogLevels"/>) and text
+        /// Log.LogWriteLine is called with required logging level (<see cref="Log.LogLevels"/>) and text
         /// </summary>
-        /// <remarks>Console STDOUT is set to consoleOut (scenario StringWriter type) for duration of WriteLogLine call.</remarks>
-        /// <param name="logLevel">Logging level to call WriteLogLine with (<see cref="Log.LogLevels"/>)</param>
+        /// <remarks>Console STDOUT is set to consoleOut (scenario StringWriter type) for duration of LogWriteLine call.</remarks>
+        /// <param name="logLevel">Logging level to call LogWriteLine with (<see cref="Log.LogLevels"/>)</param>
         /// <param name="stringToWrite">Text to write to log</param>
         [Given(@"I call Log.WriteLine with level (.*) and string ""(.*)""")]
         [When(@"I call Log.WriteLine with level (.*) and string ""(.*)""")]
-        public void WhenICallLogWithLevelAndString(Log.LogLevels logLevel, string stringToWrite)
+        public void WhenICallLogWithLevelAndString(LogLevels logLevel, string stringToWrite)
         {
             Console.SetOut((StringWriter)this.scenarioContext["consoleOut"]);
-            Log.WriteLogLine(logLevel, stringToWrite);
+            LogWriteLine(logLevel, stringToWrite);
             var sw = new StreamWriter(Console.OpenStandardOutput());
             sw.AutoFlush = true;
             Console.SetOut(sw);
@@ -101,7 +102,7 @@ namespace TeamControlium.Utilities.UnitTests
         /// </summary>
         /// <param name="expectedToStartWith">Text matching Console stdout line must start with. Empty string matches any.</param>
         /// <param name="expectedToEndWith">Text matching Console stdout line must end with. Empty string matches any.</param>
-        [Then(@"the console stdout contains a line starting with ""(.*)"" and ending with ""(.*)""")]
+        [Then(@"the console stdout contains a line starting withstring.Empty(.*)"" and ending withstring.Empty(.*)""")]
         public void ThenTheConsoleWrittenToByLogShouldEndWith(string expectedToStartWith, string expectedToEndWith)
         {
             var consoleOutput = new List<string>();
@@ -137,7 +138,7 @@ namespace TeamControlium.Utilities.UnitTests
         /// </summary>
         /// <param name="expectedToStartWith">Text matching Log Receiver line must start with. Empty string matches any.</param>
         /// <param name="expectedToEndWith">Text matching Log Receiver line must end with. Empty string matches any.</param>
-        [Then(@"Log text receiver contains a line starting with ""(.*)"" and ending with ""(.*)""")]
+        [Then(@"Log text receiver contains a line starting withstring.Empty(.*)"" and ending withstring.Empty(.*)""")]
         public void ThenTheStringWrittenToByLogShouldEndWith(string expectedToStartWith, string expectedToEndWith)
         {
             var receiverLines = new List<string>();

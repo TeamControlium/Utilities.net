@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>TeamControlium.Utilities</id>
+    <id>TeamControlium</id>
     <version>1.0.1</version>
     <title>Team Controlium Utilities</title>
     <authors>Team Controlium contributors</authors>
@@ -21,8 +21,8 @@
 	</dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\TeamControlium.Utilities.dll" target="lib\TeamControlium" />
-    <file src="bin\Release\TeamControlium.Utilities.pdb" target="lib\TeamControlium" />
-    <file src="bin\Release\TeamControlium.Utilities.xml" target="lib\TeamControlium" />
+    <file src="bin\Release\TeamControlium.dll" target="lib\TeamControlium" />
+    <file src="bin\Release\TeamControlium.pdb" target="lib\TeamControlium" />
+    <file src="bin\Release\TeamControlium.xml" target="lib\TeamControlium" />
   </files>
 </package>

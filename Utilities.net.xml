@@ -4,81 +4,81 @@
         <name>Utilities.net</name>
     </assembly>
     <members>
-        <member name="T:TeamControlium.Utilities.Detokenizer">
+        <member name="T:TeamControlium.Utilities.Detokeniser">
             <summary>
             Processes given strings to process and resolve all tokens in passed strings.
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Detokenizer.EscapeChar">
+        <member name="F:TeamControlium.Utilities.Detokeniser.EscapeChar">
             <summary>
             Character to use as an escape char.
             </summary>
-            <remarks>Defined as a string incase it itself has to be escaped in the Regular Expression pattern</remarks>
+            <remarks>Defined as a string in-case it itself has to be escaped in the Regular Expression pattern</remarks>
         </member>
-        <member name="F:TeamControlium.Utilities.Detokenizer.StartTokenChar">
+        <member name="F:TeamControlium.Utilities.Detokeniser.StartTokenChar">
             <summary>
             Character defining the start of a Token to be processed.
             </summary>
             <remarks>Must NOT be the same as the escape character.
-            Is a string incase it needs to be escaped for Regular Expression pattern.</remarks>
+            Is a string in-case it needs to be escaped for Regular Expression pattern.</remarks>
         </member>
-        <member name="F:TeamControlium.Utilities.Detokenizer.EndTokenChar">
+        <member name="F:TeamControlium.Utilities.Detokeniser.EndTokenChar">
             <summary>
             Character defining the end of a Token to be processed.
             </summary>
             <remarks>Must NOT be the same as the escape character or the start token character.
-            Is a string incase it needs to be escaped for Regular Expression pattern.</remarks>
+            Is a string in-case it needs to be escaped for Regular Expression pattern.</remarks>
         </member>
-        <member name="F:TeamControlium.Utilities.Detokenizer.StartTokenPattern">
+        <member name="F:TeamControlium.Utilities.Detokeniser.StartTokenPattern">
             <summary>
             Regular Expression pattern defining the start of a Token to be processed.
             </summary>
             <remarks>Should contain a negative look-behind to enable escaping.</remarks>
         </member>
-        <member name="F:TeamControlium.Utilities.Detokenizer.EndTokenPattern">
+        <member name="F:TeamControlium.Utilities.Detokeniser.EndTokenPattern">
             <summary>
             Regular Expression pattern defining the end of a Token to be processed.
             </summary>
             <remarks>Should contain a negative look-behind to enable escaping.</remarks>
         </member>
-        <member name="F:TeamControlium.Utilities.Detokenizer.DefaultCommonDelimiter">
+        <member name="F:TeamControlium.Utilities.Detokeniser.DefaultCommonDelimiter">
             <summary>
             Default token delimiter.  Delimiter is used to partition token verb and body and is the default for field partitions within a token body.
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Detokenizer.threadDelimiters">
+        <member name="F:TeamControlium.Utilities.Detokeniser.threadDelimiters">
             <summary>
             Collection of delimiters split by thread.  Allows different threads to use different delimiters if required.
             </summary>
         </member>
-        <member name="P:TeamControlium.Utilities.Detokenizer.CustomTokenProcessor">
+        <member name="P:TeamControlium.Utilities.Detokeniser.CustomTokenProcessor">
             <summary>
             Gets or sets delegate for processing custom tokens if required. If set, delegate is called before internal token processing to allow overriding if required.
             </summary>
             <remarks> Assigned delegate must take char (delimiter being used) and the token (split into an array using delimiter as separator) and return the resolved token text.
-            If the token cannot be resolved, delegate should return a null.  Any exception should be allowed to ripple up to enable the Utilities Detokenizer to handle
+            If the token cannot be resolved, delegate should return a null.  Any exception should be allowed to ripple up to enable the Utilities Detokeniser to handle
             the error.</remarks>
         </member>
-        <member name="P:TeamControlium.Utilities.Detokenizer.DefaultTokenDelimiterCurrentThread">
+        <member name="P:TeamControlium.Utilities.Detokeniser.DefaultTokenDelimiterCurrentThread">
             <summary>
             Gets or sets the default delimiter within tokens.
             </summary>
             <remarks>This is used as the delimiter when separating token verb from body and is the default token when token verb processors split their required fields.
-            Is thread-safe; if a Thread changes the token delimiter the change only affects Detokenizer calls for that thread.</remarks>
+            Is thread-safe; if a Thread changes the token delimiter the change only affects Detokeniser calls for that thread.</remarks>
         </member>
-        <member name="P:TeamControlium.Utilities.Detokenizer.RandomGenerator">
+        <member name="P:TeamControlium.Utilities.Detokeniser.RandomGenerator">
             <summary>
             Gets initialized instance of the .NET Random generator.  Used when resolving {random tokens.
             </summary>
         </member>
-        <member name="M:TeamControlium.Utilities.Detokenizer.Detokenize(System.String)">
+        <member name="M:TeamControlium.Utilities.Detokeniser.Detokenize(System.String)">
             <summary>
             Process passed string and return after resolving all tokens.
             </summary>
             <param name="tokenisedString">String possibly containing tokens.</param>
             <returns>Passed string with all valid tokens resolved.</returns>
         </member>
-        <member name="M:TeamControlium.Utilities.Detokenizer.ProcessToken(System.String)">
+        <member name="M:TeamControlium.Utilities.Detokeniser.ProcessToken(System.String)">
             <summary>
             Processes parses and processes passed in token and returns the resolution result. Token must be trimmed of its start/end indicators.  
             </summary>
@@ -88,21 +88,21 @@
             of elements in the token depends on the verb.  As an example the random token requires three fields (examples assume delimiter is a ;): verb;type;format or length.  IE. "random;digits;5" returns
             5 random digits.  <code>"random;date(01-01-1980,31-12-1980);dd MMM yy"</code> returns a random 1980 date such as 09 JUN 80.</remarks>
         </member>
-        <member name="M:TeamControlium.Utilities.Detokenizer.DoRandomToken(System.String)">
+        <member name="M:TeamControlium.Utilities.Detokeniser.DoRandomToken(System.String)">
             <summary>
             Process a 'random' token and return result
             </summary>
             <param name="tokenBody">Body part of token. Format depends on type of random being executed.</param>
             <returns>Token resolution result</returns>
         </member>
-        <member name="M:TeamControlium.Utilities.Detokenizer.DoDateToken(System.String)">
+        <member name="M:TeamControlium.Utilities.Detokeniser.DoDateToken(System.String)">
             <summary>
             Process a 'date' token and return result.
             </summary>
             <param name="tokenBody">Consists of date offset process and required output format.</param>
             <returns>Required date in specified format.</returns>
         </member>
-        <member name="M:TeamControlium.Utilities.Detokenizer.DoFinancialYearToken(System.String,System.Boolean)">
+        <member name="M:TeamControlium.Utilities.Detokeniser.DoFinancialYearToken(System.String,System.Boolean)">
             <summary>
             Returns formatted start or end date of financial year date passed in is within.
             </summary>
@@ -110,14 +110,14 @@
             <param name="startOfFinancialYear">True - returns date start of financial year, False - returns date end of financial year.</param>
             <returns>Start or end date of financial year date is within.</returns>
         </member>
-        <member name="M:TeamControlium.Utilities.Detokenizer.DoRandomFloat(System.String)">
+        <member name="M:TeamControlium.Utilities.Detokeniser.DoRandomFloat(System.String)">
             <summary>
             Returns random floating point number on or between the minimum and maximum limits 
             </summary>
             <param name="limits">Maximum and minimum limits of random selection.</param>
             <returns>Random floating point number</returns>
         </member>
-        <member name="M:TeamControlium.Utilities.Detokenizer.DoRandomFloat(System.Single,System.Single)">
+        <member name="M:TeamControlium.Utilities.Detokeniser.DoRandomFloat(System.Single,System.Single)">
             <summary>
             Returns random floating point number on or between the minimum and maximum limits 
             </summary>
@@ -125,14 +125,14 @@
             <param name="maxFloat">Maximum limit</param>
             <returns>Random floating point number</returns>
         </member>
-        <member name="M:TeamControlium.Utilities.Detokenizer.DoRandomDate(System.String)">
+        <member name="M:TeamControlium.Utilities.Detokeniser.DoRandomDate(System.String)">
             <summary>
             Returns random date on or between the minimum and maximum limits
             </summary>
             <param name="maxAndMinDates">String containing minimum and maximum dates in required format</param>
             <returns>Random dates between the two given dates, inclusive.</returns>
         </member>
-        <member name="M:TeamControlium.Utilities.Detokenizer.DoRandomDate(System.DateTime,System.DateTime)">
+        <member name="M:TeamControlium.Utilities.Detokeniser.DoRandomDate(System.DateTime,System.DateTime)">
             <summary>
             Returns random date on or between the minimum and maximum limits
             </summary>
@@ -140,60 +140,60 @@
             <param name="maxDate">Maximum date of random selection</param>
             <returns>Random dates between the two given dates, inclusive.</returns>
         </member>
-        <member name="M:TeamControlium.Utilities.Detokenizer.DoRandomTFN">
+        <member name="M:TeamControlium.Utilities.Detokeniser.DoRandomTFN">
             <summary>
             Returns a valid random Australian TFN
             </summary>
             <returns>Random valid TFN</returns>
         </member>
-        <member name="T:TeamControlium.Utilities.Detokenizer.InnermostToken">
+        <member name="T:TeamControlium.Utilities.Detokeniser.InnermostToken">
             <summary>
             Represents result of a Token search for a given string
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Detokenizer.InnermostToken.tokenPreamble">
+        <member name="F:TeamControlium.Utilities.Detokeniser.InnermostToken.tokenPreamble">
             <summary>
             Holds all characters preceding any found token in given string.  Holds ALL characters from given string if no token found.
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Detokenizer.InnermostToken.tokenPostamble">
+        <member name="F:TeamControlium.Utilities.Detokeniser.InnermostToken.tokenPostamble">
             <summary>
             Holds all characters following found token in given string.
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Detokenizer.InnermostToken.token">
+        <member name="F:TeamControlium.Utilities.Detokeniser.InnermostToken.token">
             <summary>
             Innermost token found in given string
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Detokenizer.InnermostToken.foundToken">
+        <member name="F:TeamControlium.Utilities.Detokeniser.InnermostToken.foundToken">
             <summary>
             Indicates if a token was found or not
             </summary>
         </member>
-        <member name="M:TeamControlium.Utilities.Detokenizer.InnermostToken.#ctor(System.String)">
+        <member name="M:TeamControlium.Utilities.Detokeniser.InnermostToken.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:TeamControlium.Utilities.Detokenizer.InnermostToken" /> class.
+            Initialises a new instance of the <see cref="T:TeamControlium.Utilities.Detokeniser.InnermostToken" /> class.
             Takes a string that may or may not contain token/s.  If string contains token/s, innermost (from left) token is identified  
             </summary>
             <param name="inputString">String to be processed</param>
         </member>
-        <member name="P:TeamControlium.Utilities.Detokenizer.InnermostToken.Preamble">
+        <member name="P:TeamControlium.Utilities.Detokeniser.InnermostToken.Preamble">
             <summary>
             Gets all characters preceding any found token in given string.  Returns ALL characters from given string if no token found.
             </summary>
         </member>
-        <member name="P:TeamControlium.Utilities.Detokenizer.InnermostToken.Postamble">
+        <member name="P:TeamControlium.Utilities.Detokeniser.InnermostToken.Postamble">
             <summary>
             Gets all characters following found token in given string.
             </summary>
         </member>
-        <member name="P:TeamControlium.Utilities.Detokenizer.InnermostToken.Token">
+        <member name="P:TeamControlium.Utilities.Detokeniser.InnermostToken.Token">
             <summary>
             Gets Innermost token found in given string
             </summary>            
         </member>
-        <member name="P:TeamControlium.Utilities.Detokenizer.InnermostToken.HasToken">
+        <member name="P:TeamControlium.Utilities.Detokeniser.InnermostToken.HasToken">
             <summary>
             Gets a value indicating whether a token was found
             </summary>
@@ -234,7 +234,7 @@
         </member>
         <member name="M:TeamControlium.Utilities.Log.#cctor">
             <summary>
-            Initializes static members of the <see cref="T:TeamControlium.Utilities.Log" /> class.
+            Initialises static members of the <see cref="T:TeamControlium.Utilities.Log" /> class.
             Instantiates an instant of the Log static class.  Starts the main Stopwatch running for timing information in log data.
             </summary>
         </member>
@@ -475,6 +475,26 @@
             last exception thrown for it's specific thread.  The ensures maximum flexibility in parallel testing scenarios.
             </summary>
         </member>
+        <member name="T:TeamControlium.Utilities.Repository.CloneableTypes">
+            <summary>
+            Type to indicate if data item being cloned is cloneable or a value type.
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Repository.CloneableTypes.isValueType">
+            <summary>
+            Is a value type (such as <code>int</code>, <code>float</code> etc.)
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Repository.CloneableTypes.yes">
+            <summary>
+            Is a cloneable reference type
+            </summary>
+        </member>
+        <member name="F:TeamControlium.Utilities.Repository.CloneableTypes.no">
+            <summary>
+            Is not a cloneable reference type
+            </summary>
+        </member>
         <member name="P:TeamControlium.Utilities.Repository.ItemLocal">
             <summary>
             Gets reference to the Dynamic items class allowing indexed access to and setting of all Local stored data items in current thread.
@@ -643,8 +663,8 @@
             Returns non-categorized data item from local repository indicating if successful or not
             </summary>
             <param name="itemName">Name of data item to retrieve</param>
-            <param name="item">Item found (if succesful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="!:TryGetItemLocal&lt;T&gt;(string,T)"/> for type checked data recall.</param>
-            <returns>True if sucessful, False if not.</returns>
+            <param name="item">Item found (if successful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="M:TeamControlium.Utilities.Repository.TryGetItemLocal``1(System.String,``0@)"/> for type checked data recall.</param>
+            <returns>True if successful, False if not.</returns>
             <remarks>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryGetItemGlobal(System.String,System.Object@)">
@@ -652,8 +672,8 @@
             Returns non-categorized data item from global repository indicating if successful or not.
             </summary>
             <param name="itemName">Name of data item to retrieve</param>
-            <param name="item">Item found (if succesful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref = "!:TryGetItemGlobal&lt;T&gt;(string,T)"/> for type checked data recall).</param>
-            <returns>True if sucessful, False if not.</returns>
+            <param name="item">Item found (if successful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref = "M:TeamControlium.Utilities.Repository.TryGetItemGlobal``1(System.String,``0@)"/> for type checked data recall).</param>
+            <returns>True if successful, False if not.</returns>
             <remarks>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryGetItemLocal(System.String,System.String,System.Object@)">
@@ -662,7 +682,7 @@
             </summary>
             <param name="categoryName">Name of category data item is in</param>
             <param name="itemName">Name of data item to retrieve</param>
-            <param name="item">Item found (if succesful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="!:TryGetItemLocal&lt;T&gt;(string,string,T)"/> for type checked data recall.</param>
+            <param name="item">Item found (if successful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="M:TeamControlium.Utilities.Repository.TryGetItemLocal``1(System.String,System.String,``0@)"/> for type checked data recall.</param>
             <returns>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</returns>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryGetItemGlobal(System.String,System.String,System.Object@)">
@@ -671,7 +691,7 @@
             </summary>
             <param name="categoryName">Name of category data item is in</param>
             <param name="itemName">Name of data item to retrieve</param>
-            <param name="item">Item found (if succesful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="!:TryGetItemGlobal&lt;T&gt;(string,string,T)"/> for type checked data recall.</param>
+            <param name="item">Item found (if successful) or null. Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="M:TeamControlium.Utilities.Repository.TryGetItemGlobal``1(System.String,System.String,``0@)"/> for type checked data recall.</param>
             <returns>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</returns>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryGetItemLocal``1(System.String,``0@)">
@@ -679,9 +699,9 @@
             Returns non-categorized data item from local repository with verification of required type indicating if successful or not
             </summary>
             <param name="itemName">Name of data item to retrieve</param>
-            <param name="item">Item found (if succesful) or null. Type checked with expected type to ensure type compatibility.</param>
+            <param name="item">Item found (if successful) or null. Type checked with expected type to ensure type compatibility.</param>
             <typeparam name="T">Expected type of data item</typeparam>
-            <returns>True if sucessful, False if not or type differs to expected.</returns>
+            <returns>True if successful, False if not or type differs to expected.</returns>
             <remarks>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryGetItemGlobal``1(System.String,``0@)">
@@ -689,31 +709,31 @@
             Returns non-categorized data item from global repository with verification of required type indicating if successful or not
             </summary>
             <param name="itemName">Name of data item to retrieve</param>
-            <param name="item">Item found (if succesful) or null. Type checked with expected type to ensure type compatibility.</param>
+            <param name="item">Item found (if successful) or null. Type checked with expected type to ensure type compatibility.</param>
             <typeparam name="T">Expected type of data item</typeparam>
-            <returns>True if sucessful, False if not or type differs to expected.</returns>
+            <returns>True if successful, False if not or type differs to expected.</returns>
             <remarks>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryGetItemLocal``1(System.String,System.String,``0@)">
             <summary>
             Returns categorized data item from local repository with verification of required type indicating if successful or not
             </summary>
-            <param name="categoryName">Name of category to retreive data item from</param>
+            <param name="categoryName">Name of category to retrieve data item from</param>
             <param name="itemName">Name of data item to retrieve</param>
-            <param name="item">Item found (if succesful) or null. Type checked with expected type to ensure type compatibility.</param>
+            <param name="item">Item found (if successful) or null. Type checked with expected type to ensure type compatibility.</param>
             <typeparam name="T">Expected type of data item</typeparam>
-            <returns>True if sucessful, False if not or type differs to expected.</returns>
+            <returns>True if successful, False if not or type differs to expected.</returns>
             <remarks>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryGetItemGlobal``1(System.String,System.String,``0@)">
             <summary>
             Returns categorized data item from global repository with verification of required type indicating if successful or not
             </summary>
-            <param name="categoryName">Name of category to retreive data item from</param>
+            <param name="categoryName">Name of category to retrieve data item from</param>
             <param name="itemName">Name of data item to retrieve</param>
-            <param name="item">Item found (if succesful) or null. Type checked with expected type to ensure type compatibility.</param>
+            <param name="item">Item found (if successful) or null. Type checked with expected type to ensure type compatibility.</param>
             <typeparam name="T">Expected type of data item</typeparam>
-            <returns>True if sucessful, False if not or type differs to expected.</returns>
+            <returns>True if successful, False if not or type differs to expected.</returns>
             <remarks>If method fails and returns False, <see cref = "M:TeamControlium.Utilities.Repository.RepositoryLastTryException" /> can be used to obtain exception thrown.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.GetItemOrDefaultLocal``1(System.String)">
@@ -797,7 +817,7 @@
             Copy all data from Local to Global repository.
             </summary>
             <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
-            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO references etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.CloneCategoryLocalToGlobal(System.String,System.Boolean)">
             <summary>
@@ -805,7 +825,7 @@
             </summary>
             <param name="categoryName">Name of category to be copied.</param>
             <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
-            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO references etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.CloneItemLocalToGlobal(System.String,System.String,System.Boolean)">
             <summary>
@@ -814,7 +834,7 @@
             <param name="categoryName">Name of category to be copied.</param>
             <param name="itemName">Name of item to clone.</param>
             <param name="overwriteExistingItems">Indicates if existing data item should be overwritten if it already exists.  An exception is thrown if false and the named data item exists in global repository.</param>
-            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO references etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryCloneLocalToGlobal(System.Boolean)">
             <summary>
@@ -822,7 +842,7 @@
             </summary>
             <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
             <returns>True if successful clone or false if not (See <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
-            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO references etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryCloneCategoryLocalToGlobal(System.String,System.Boolean)">
             <summary>
@@ -831,7 +851,7 @@
             <param name="categoryName">Name of category to be copied.</param>
             <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
             <returns>True if successful clone or false if not (See <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
-            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO references etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryCloneItemLocalToGlobal(System.String,System.String,System.Boolean)">
             <summary>
@@ -841,14 +861,14 @@
             <param name="itemName">Name of item to clone.</param>
             <param name="overwriteExistingItems">Indicates if existing data item should be overwritten if it already exists.  An exception is thrown if false and the named data item exists in global repository.</param>
             <returns>True if successful clone or false if not (See <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
-            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO references etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.CloneGlobalToLocal(System.Boolean)">
             <summary>
             Copy all data from Local to Global repository.
             </summary>
             <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
-            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO references etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.CloneCategoryGlobalToLocal(System.String,System.Boolean)">
             <summary>
@@ -856,7 +876,7 @@
             </summary>
             <param name="categoryName">Name of category to be copied.</param>
             <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
-            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO references etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.CloneItemGlobalToLocal(System.String,System.String,System.Boolean)">
             <summary>
@@ -865,7 +885,7 @@
             <param name="categoryName">Name of category to be copied.</param>
             <param name="itemName">Name of item to clone.</param>
             <param name="overwriteExistingItems">Indicates if existing data item should be overwritten if it already exists.  An exception is thrown if false and the named data item exists in global repository.</param>
-            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO references etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryCloneGlobalToLocal(System.Boolean)">
             <summary>
@@ -873,7 +893,7 @@
             </summary>
             <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
             <returns>True if successful clone or false if not (See <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
-            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO references etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryCloneCategoryGlobalToLocal(System.String,System.Boolean)">
             <summary>
@@ -882,7 +902,7 @@
             <param name="categoryName">Name of category to be copied.</param>
             <param name="overwriteExistingItems">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing item/s would be overwritten.</param>
             <returns>True if successful clone or false if not (See <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
-            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO references etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.TryCloneItemGlobalToLocal(System.String,System.String,System.Boolean)">
             <summary>
@@ -892,7 +912,7 @@
             <param name="itemName">Name of item to clone.</param>
             <param name="overwriteExistingItems">Indicates if existing data item should be overwritten if it already exists.  An exception is thrown if false and the named data item exists in global repository.</param>
             <returns>True if successful clone or false if not (See <see cref="M:TeamControlium.Utilities.Repository.RepositoryLastTryException"/> for exception thrown if  false returned).</returns>
-            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO refeferences etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
+            <remarks>A deep clone is performed to copy items.  However, it should be noted that complex data items (EG. IO references etc) may clone incorrectly.  Complex type cloning should be verified during test framework development to ensure correct cloning.</remarks>
         </member>
         <member name="M:TeamControlium.Utilities.Repository.ClearRepositoryAll">
             <summary>
@@ -919,7 +939,7 @@
             <typeparam name="T">Exception derived from Exception class.</typeparam>
             <param name="ex">Exception to be stored</param>
         </member>
-        <member name="M:TeamControlium.Utilities.Repository.getCategory(System.Boolean,System.String)">
+        <member name="M:TeamControlium.Utilities.Repository.GetCategory(System.Boolean,System.String)">
             <summary>
             Retrieves Dictionary, containing all data items for the named category, from the Local or Global repository
             </summary>
@@ -929,15 +949,159 @@
             <remarks>Method is NOT thread safe.  It is the responsibility of the calling code to ensure thread safety.
             If category does not exist or there is another issue retrieving the category an exception will be thrown.</remarks>
         </member>
-        <member name="M:TeamControlium.Utilities.Repository.setCategory(System.Boolean,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean)">
+        <member name="M:TeamControlium.Utilities.Repository.SetCategory(System.Boolean,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean)">
             <summary>
-            Add the passed category dictionary to the required local/global repository.
+            Add/Merge the passed category dictionary to the required local/global repository.
             </summary>
             <param name="isLocal">Indicates if local repository should be used (true) or global (false)</param>
             <param name="name">Name of category being added</param>
             <param name="categoryToAdd">Dictionary to add</param>
             <param name="overwriteDuplicates">Flag stating if existing data items can be overwritten.</param>
-            <remarks>If the named category <paramref name="overwriteDuplicates"/> is false and the repository category already exists with </remarks>
+            <remarks>If the named category already exists the category being added is merged into the existing.  If <paramref name="overwriteDuplicates"/> is false, and the existing repository category already contains an item with the same name an exception is thrown.
+            Method is NOT thread-safe.  It is the responsibility of the calling code to ensure thread safety.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItem(System.Boolean,System.String,System.String)">
+            <summary>
+            Get named data item from named category in local or global repository 
+            </summary>
+            <param name="isLocal">Flag indicates if repository to get item from is local (true) or global (false).</param>
+            <param name="category">Name of category to obtain item from</param>
+            <param name="itemKey">Name of item to get</param>
+            <returns>Data of named item.</returns>
+            <remarks>If data item does not exist, or there is any other issue when obtaining, an exception is thrown.
+            Method is NOT thread-safe.  It is the responsibility of the calling code to ensure thread safety.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.SetItem(System.Boolean,System.String,System.String,System.Object)">
+            <summary>
+            Set named item in named category of local or global repository
+            </summary>
+            <param name="isLocal">Flag indicates if repository to get item from is local (true) or global (false).</param>
+            <param name="category">Name of category to obtain item from</param>
+            <param name="itemKey">Name of item to get</param>
+            <param name="value">data to be stored</param>
+            <remarks>Value to store is a dynamic value and so can store any value or reference data.
+            If item already exists it is overwritten with new value.
+            Method is NOT thread-safe.  It is the responsibility of the calling code to ensure thread safety.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.GetItemTyped``1(System.Boolean,System.String,System.String)">
+            <summary>
+            Get named data item from named category in local or global repository and very item is of required type
+            </summary>
+            <param name="isLocal">Flag indicates if repository to get item from is local (true) or global (false).</param>
+            <param name="category">Name of category to obtain item from</param>
+            <param name="itemKey">Name of item to get</param>
+            <typeparam name="U">Expected type of item to obtain.</typeparam>
+            <returns>Data of named item.</returns>
+            <remarks>If data item does not exist, type does not match expected type or there is any other issue when obtaining, an exception is thrown.
+            Method is NOT thread-safe.  It is the responsibility of the calling code to ensure thread safety.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.ClearRepository(System.Boolean)">
+            <summary>
+            Clears the required repository
+            </summary>
+            <param name="isLocal">Flag indicates if repository to get item from is local (true) or global (false).</param>
+            <remarks>Method is NOT thread-safe.  It is the responsibility of the calling code to ensure thread safety.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.CloneTestData(System.Boolean,System.Boolean)">
+            <summary>
+            Perform a deep clone from either the local repository to the global or global to local.
+            </summary>
+            <param name="fromLocal">Flag indicates if repository to be cloned from is local (true) or global (false).</param>
+            <param name="overwriteIfExists">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing data item/s would be overwritten.</param>
+            <remarks>Method is NOT thread-safe.  It is the responsibility of the calling code to ensure thread safety.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.CloneTestDataCategory(System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Perform a deep clone of the named category from either the local repository to the global or global to local.
+            </summary>
+            <param name="fromLocal">Flag indicates if repository to be cloned from is local (true) or global (false).</param>
+            <param name="fromCategoryName">Name of category data is to be cloned from</param>
+            <param name="toCategoryName">Name of category data is to be cloned to (If category exists data is merged, otherwise category is created in the 'to' repository)</param>
+            <param name="overwriteIfExists">Indicates if existing data should be overwritten.  An exception is thrown if false and any existing data item/s would be overwritten.</param>
+            <remarks>Method is NOT thread-safe.  It is the responsibility of the calling code to ensure thread safety.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.CloneTestDataItem(System.Boolean,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Perform a deep clone of the named data item in the named category from either the local repository to the global or global to local.
+            </summary>
+            <param name="fromLocal">Flag indicates if repository to be cloned from is local (true) or global (false).</param>
+            <param name="fromCategoryName">Name of category data is to be cloned from</param>
+            <param name="fromItemName">Name of item to be cloned.</param>
+            <param name="toCategoryName">Name of category data is to be cloned to (If category exists data is merged, otherwise category is created in the 'to' repository)</param>
+            <param name="toItemName">Name of item to be created in 'to' category.</param>
+            <param name="overwriteIfExists">Indicates if existing data item should be overwritten.  An exception is thrown if false and data item already exists in target repository's category.</param>
+            <remarks>Method is NOT thread-safe.  It is the responsibility of the calling code to ensure thread safety.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.IsTypeCloneable(System.Type)">
+            <summary>
+            Indicates to caller the cloneable status of the given type.
+            </summary>
+            <param name="type">Type to be cloned</param>
+            <returns><see cref="T:TeamControlium.Utilities.Repository.CloneableTypes"/> indicating the ability and method to clone the given type.</returns>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.VerifyThreadIDExists(System.Boolean,System.Boolean)">
+            <summary>
+            Indicates if the central repository has a local repository with the current thread's ID or if the global repository exists as required.
+            </summary>
+            <param name="isLocal">If true, central repository is checked for the current thread's ID, if false it checks for the existence of the global repository.</param>
+            <param name="throwException">Indicates if an exception should be thrown if the required repository does not exist.</param>
+            <returns>True if repository exists.  False if repository does not exist and method should not throw exceptions."/></returns>
+            <remarks>Method is NOT thread safe.  It is the responsibility of the calling code to ensure thread safety.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.VerifyCategoryIsNotNullOrEmptyAndExists(System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Indicates if the named category in the local or global repository exists or not
+            </summary>
+            <param name="isLocal">If true, repository with the current threads ID is used, if false the global repository is used.</param>
+            <param name="categoryName">Name of category to be checked for</param>
+            <param name="throwException">If true and category does not exist an exception is thrown</param>
+            <returns>True if category exists in required repository.  False if it does not exist and an exception is not required</returns>
+            <remarks>Method is NOT thread safe.  It is the responsibility of the calling code to ensure thread safety.
+            If passed in Category name is null or empty, a false will be returned or an exception thrown.</remarks>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.VerifyItemNameIsNotNullOrEmptyAndExists(System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Indicates if the data item in the named category in the local or global repository exists or not
+            </summary>
+            <param name="isLocal">If true, repository with the current threads ID is used, if false the global repository is used.</param>
+            <param name="categoryName">Name of category to be checked in</param>
+            <param name="itemName">Name of item to check existence of</param>
+            <param name="throwException">If true and category or item does not exist an exception is thrown</param>
+            <returns>True if item exists in category of required repository.  False if it does not exist (or category does not exist) and an exception is not required</returns>
+            <remarks>Method is NOT thread safe.  It is the responsibility of the calling code to ensure thread safety.
+            If passed in Category or Item name is null or empty, a false will be returned or an exception thrown.</remarks>
+        </member>
+        <member name="T:TeamControlium.Utilities.Repository.DynamicItems`1">
+            <summary>
+            Provides a List type in the repository for list properties.  Class is fully thread-safe and ensures thread safety in all interactions with repository.
+            </summary>
+            <typeparam name="dynamic">Dynamic types (no type checking) for data items</typeparam>
+        </member>
+        <member name="F:TeamControlium.Utilities.Repository.DynamicItems`1.isLocal">
+            <summary>
+            Indicates if current instantiation is for a Local thread repository or a Global.
+            </summary>
+        </member>
+        <member name="M:TeamControlium.Utilities.Repository.DynamicItems`1.#ctor(System.Boolean)">
+            <summary>
+            Initialises a new instance of the <see cref="T:TeamControlium.Utilities.Repository.DynamicItems`1" /> class DynamicItems list class with caller indicating if this is for local repository or global
+            </summary>
+            <param name="isLocal">Indicates if local (true) or global(false)</param>
+        </member>
+        <member name="P:TeamControlium.Utilities.Repository.DynamicItems`1.Item(System.String)">
+            <summary>
+            Gets or sets the non-categorised item in the required repository.
+            </summary>
+            <param name="itemName">Name of item to get or set</param>
+            <returns>Data item required</returns>
+        </member>
+        <member name="P:TeamControlium.Utilities.Repository.DynamicItems`1.Item(System.String,System.String)">
+            <summary>
+            Gets or sets the named item in the required repository's category.
+            </summary>
+            <param name="category">Name of category to get/set data item</param>
+            <param name="item">Name of item to get/set</param>
+            <returns>Data item required</returns>
         </member>
     </members>
 </doc>

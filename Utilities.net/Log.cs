@@ -6,7 +6,6 @@ namespace TeamControlium.Utilities
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.IO;
     using System.Reflection;
     using System.Threading;
 
@@ -45,40 +44,40 @@ namespace TeamControlium.Utilities
         private static object lockWrite = new object();
 
         /// <summary>
-        /// Initializes static members of the <see cref="Log" /> class.
+        /// Initialises static members of the <see cref="Log" /> class.
         /// Instantiates an instant of the Log static class.  Starts the main Stopwatch running for timing information in log data.
         /// </summary>
         static Log()
         {
             testToolStrings = new Dictionary<int, string>();
-            ResetTimer();
+            LogResetTimer();
         }
 
         /// <summary>
         /// Levels of logging - Verbose (Maximum) to Exception (Minimum).  If level of text being written to
         /// logging is equal to, or higher than the current LoggingLevel the text is written.<br/>
         /// This is used to filter logging so that only entries to log are made if the level of the write is equal
-        /// or greater than the logging level set by <see cref="CurrentLoggingLevel">LoggingLevel</see>.
+        /// or greater than the logging level set by <see cref="LoggingCurrentLevel">LoggingLevel</see>.
         /// </summary>
         public enum LogLevels
         {
             /// <summary>
-            /// Data written to log if LoggingLevel is FrameworkDebug and WriteLogException is FrameworkDebug or higher
+            /// Data written to log if LoggingLevel is FrameworkDebug and LogException is FrameworkDebug or higher
             /// </summary>
             FrameworkDebug = 0,
 
             /// <summary>
-            /// Data written to log if LoggingLevel is FrameworkInformation and WriteLogException is FrameworkInformation or higher
+            /// Data written to log if LoggingLevel is FrameworkInformation and LogException is FrameworkInformation or higher
             /// </summary>
             FrameworkInformation = 1,
 
             /// <summary>
-            /// Data written to log if LoggingLevel is TestDebug and WriteLogException is TestDebug or higher
+            /// Data written to log if LoggingLevel is TestDebug and LogException is TestDebug or higher
             /// </summary>
             TestDebug = 2,
 
             /// <summary>
-            /// Data written to log if LoggingLevel is TestInformation and WriteLogException is TestInformation or Error
+            /// Data written to log if LoggingLevel is TestInformation and LogException is TestInformation or Error
             /// </summary>
             TestInformation = 3,
 
@@ -94,33 +93,33 @@ namespace TeamControlium.Utilities
         /// the log if level set is <see cref="LogLevels.FrameworkDebug">FrameworkDebug</see>.
         /// </summary>
         /// <remarks>Default is FrameworkDebug</remarks>
-        public static LogLevels CurrentLoggingLevel { get; set; } = LogLevels.FrameworkDebug;
+        public static LogLevels LoggingCurrentLevel { get; set; } = LogLevels.FrameworkDebug;
 
         /// <summary>
         /// Gets or sets a value indicating whether log data is written to Console.<br/>
-        /// If true debug data is written to the Console (STDOUT)<br/>
-        /// If false and <see cref="Log.TestToolLog"/> has been defined, no log data is written to Console. If <see cref="Log.TestToolLog"/> has
-        /// NOT been defined, WriteToConsole false is ignored and output is STILL written to Console.<br/>
+        /// If true log data is written to the Console (STDOUT)<br/>
+        /// If false and <see cref="Log.LogOutputDelegate"/> has been defined, no log data is written to Console. If <see cref="Log.LogOutputDelegate"/> has
+        /// NOT been defined, LogToConsole false is ignored and output is STILL written to Console.<br/>
         /// </summary>
         /// <remarks>
         /// The default is true (log data to be written to the console)
         /// </remarks>
-        public static bool WriteToConsole { get; set; } = true;
+        public static bool LogToConsole { get; set; } = true;
 
         /// <summary>
-        /// Gets or sets delegate to write debug data to if WriteToConsole is false.
+        /// Gets or sets delegate to write debug data to if LogToConsole is false.
         /// </summary>
         /// <remarks>
         /// Note.  If the delegate throws an exception, allow the exception to ripple up.  Log class will handle the exception and write details to
         /// the OS event logging system.
         /// </remarks>
-        /// <seealso cref="WriteToConsole"/>
-        public static Action<string> TestToolLog { get; set; }
+        /// <seealso cref="LogToConsole"/>
+        public static Action<string> LogOutputDelegate { get; set; }
 
         /// <summary>
         /// Resets the logger elapsed timer to zero
         /// </summary>
-        public static void ResetTimer()
+        public static void LogResetTimer()
         {
             testTimer = new Stopwatch();
             testTimer.Start();
@@ -141,16 +140,16 @@ namespace TeamControlium.Utilities
         /// catch (InvalidHostURI ex)
         /// {
         ///   // Log exception and abort the test - we cant talk to the remote Selenium server
-        ///   Logger.WriteLogException(ex,"Connecting to Selenium host");
+        ///   Logger.LogException(ex,"Connecting to Selenium host");
         ///   toolWrapper.AbortTest("Cannot connect to remote Selenium host");
         /// }
         /// </code>
         /// </example>
-        public static void WriteLogException(Exception ex)
+        public static void LogException(Exception ex)
         {
             StackFrame stackFrame = new StackFrame(1, true);
 
-            WriteLogException(stackFrame, ex, null);
+            LogException(stackFrame, ex, null);
         }
 
         /// <summary>
@@ -170,16 +169,16 @@ namespace TeamControlium.Utilities
         /// catch (InvalidHostURI ex)
         /// {
         ///   // Log exception and abort the test - we cant talk to the remote Selenium server
-        ///   Logger.WriteLogException(ex,"Given up trying to connect to [{0}]",Wherever);
+        ///   Logger.LogException(ex,"Given up trying to connect to [{0}]",Wherever);
         ///   toolWrapper.AbortTest("Cannot connect to remote Selenium host");
         /// }
         ///  </code>
         /// </example>
-        public static void WriteLogException(Exception ex, string text, params object[] args)
+        public static void LogException(Exception ex, string text, params object[] args)
         {
             StackFrame stackFrame = new StackFrame(1, true);
 
-            WriteLogException(stackFrame, ex, text, args);
+            LogException(stackFrame, ex, text, args);
         }
 
         /// <summary>
@@ -188,11 +187,11 @@ namespace TeamControlium.Utilities
         /// <param name="logLevel">Level of text being written (See <see cref="Log.LogLevels"/> for usage of the Log Level)</param>
         /// <param name="textString">Text to be written</param>
         /// <param name="args">String formatting arguments (if any)</param>
-        /// <example>WriteLog a line of data from our test:
+        /// <example>LogWrite a line of data from our test:
         /// <code lang="C#">
         /// Logger.WriteLn(LogLevels.TestDebug, "Select member using key (Member: {0})","90986754332");
         /// </code>code></example>
-        public static void WriteLog(LogLevels logLevel, string textString, params object[] args)
+        public static void LogWrite(LogLevels logLevel, string textString, params object[] args)
         {
             StackFrame stackFrame = new StackFrame(1, true);
             if (args.Length == 0)
@@ -220,12 +219,12 @@ namespace TeamControlium.Utilities
         /// <param name="logLevel">Level of text being written (See <see cref="Log.LogLevels"/> for usage of the Log Level)</param>
         /// <param name="textString">Text to be written</param>
         /// <param name="args">String formatting arguments (if any)</param>
-        /// <example>WriteLogException a line of data from our test:
+        /// <example>LogException a line of data from our test:
         /// <code lang="C#">
-        /// Logger.WriteLogLine(LogLevels.TestDebug, "Select member using key (Member: {0})","90986754332");
+        /// Logger.LogWriteLine(LogLevels.TestDebug, "Select member using key (Member: {0})","90986754332");
         /// </code></example>
         /// <remarks>If arguments are passed in but there is an error formatting the text line during resolution of the arguments they will be ignored and the text line written out without arguments.</remarks>
-        public static void WriteLogLine(LogLevels logLevel, string textString, params object[] args)
+        public static void LogWriteLine(LogLevels logLevel, string textString, params object[] args)
         {
             StackFrame stackFrame = new StackFrame(1, true);
             if (args.Length == 0)
@@ -247,51 +246,13 @@ namespace TeamControlium.Utilities
         }
 
         /// <summary>
-        /// Writes given Text to a text file, optionally auto versioning (adding (n) to filename) OR
-        /// overwriting.
-        /// </summary>
-        /// <remarks>
-        /// No exception is raised if there is any problem, but details of error is written to Logger log
-        /// </remarks>
-        /// <param name="fileName">Full path and filename to use</param>
-        /// <param name="autoVersion">If true and file exists. (n) is added to auto-version.  If false and file exists, it is overwritten if able</param>
-        /// <param name="text">Text to write</param>
-        public static void WriteTextToFile(string fileName, bool autoVersion, string text)
-        {
-            try
-            {
-                string filenameToUse = fileName;
-                if (autoVersion)
-                {
-                    int count = 1;
-                    string fileNameOnly = Path.GetFileNameWithoutExtension(fileName);
-                    string extension = Path.GetExtension(fileName);
-                    string path = Path.GetDirectoryName(fileName);
-                    filenameToUse = fileName;
-
-                    while (File.Exists(filenameToUse))
-                    {
-                        string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
-                        filenameToUse = Path.Combine(path, tempFileName + extension);
-                    }
-                }
-
-                File.WriteAllText(filenameToUse, text);
-            }
-            catch (Exception ex)
-            {
-                WriteLogException(ex, $"Cannot write data to file [{fileName ?? "Null Filename!"}] (AutoVersion={(autoVersion ? "Yes" : "No")})");
-            }
-        }
-
-        /// <summary>
         /// Does writing of the logged exception
         /// </summary>
         /// <param name="stackFrame">Stack frame passed in by caller.  Used to get method base details</param>
         /// <param name="ex">Exception being reported</param>
         /// <param name="text">Optional text</param>
         /// <param name="args">Optional text arguments</param>
-        private static void WriteLogException(StackFrame stackFrame, Exception ex, string text, params object[] args)
+        private static void LogException(StackFrame stackFrame, Exception ex, string text, params object[] args)
         {
             if (text != null)
             {
@@ -312,7 +273,7 @@ namespace TeamControlium.Utilities
                 }
             }
 
-            if (CurrentLoggingLevel == LogLevels.FrameworkDebug)
+            if (LoggingCurrentLevel == LogLevels.FrameworkDebug)
             {
                 DoWriteLine(stackFrame?.GetMethod(), LogLevels.Error, string.Format("Exception thrown: {0}", ex.ToString()));
             }
@@ -353,7 +314,7 @@ namespace TeamControlium.Utilities
         private static void DoWrite(MethodBase methodBase, LogLevels typeOfWrite, string textString)
         {
             // Only do write if level of this write is equal to or greater than the current logging level
-            if (typeOfWrite >= CurrentLoggingLevel)
+            if (typeOfWrite >= LoggingCurrentLevel)
             {
                 // Ensure thread safety by locking code around the write
                 lock (lockWrite)
@@ -382,7 +343,7 @@ namespace TeamControlium.Utilities
         /// <remarks>Text is written if TypeOfWrite is equal to, or higher the current Logging Level</remarks> 
         private static void DoWriteLine(MethodBase methodBase, LogLevels typeOfWrite, string textString)
         {
-            if (typeOfWrite >= CurrentLoggingLevel)
+            if (typeOfWrite >= LoggingCurrentLevel)
             {
                 var textToWrite = textString;
                 lock (lockWriteLine)
@@ -406,13 +367,13 @@ namespace TeamControlium.Utilities
 
                     try
                     {
-                        // If WriteToConsole is true or TestToolLog is not set (IE. No logging is being consumed by custom TestTool log) write the line to the console
-                        if (WriteToConsole || TestToolLog == null)
+                        // If LogToConsole is true or LogOutputDelegate is not set (IE. No logging is being consumed by custom TestTool log) write the line to the console
+                        if (LogToConsole || LogOutputDelegate == null)
                         {
                             Console.WriteLine(textToWrite);
                         }
 
-                        TestToolLog?.Invoke(textToWrite);
+                        LogOutputDelegate?.Invoke(textToWrite);
                     }
                     catch (Exception ex)
                     {
@@ -422,13 +383,13 @@ namespace TeamControlium.Utilities
                         {
                             using (EventLog appLog = new EventLog("Application"))
                             {
-                                if (WriteToConsole)
+                                if (LogToConsole)
                                 {
                                     details = "console (STDOUT)";
                                 }
                                 else
                                 {
-                                    details = string.Format("delegate provide by tool{0}.", (TestToolLog == null) ? " (Is null! - Has not been implemented!)" : string.Empty);
+                                    details = string.Format("delegate provide by tool{0}.", (LogOutputDelegate == null) ? " (Is null! - Has not been implemented!)" : string.Empty);
                                 }
 
                                 eventLogString = string.Format(

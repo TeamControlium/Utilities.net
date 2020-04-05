@@ -3,10 +3,24 @@
     <CollectionProperty Name="RecognizedWords">
       <Value>Specflow</Value>
       <Value>stdout</Value>
-      <Value>WriteToConsole</Value>
-      <Value>Detokenizer</Value>
+      <Value>LogToConsole</Value>
+      <Value>Detokeniser</Value>
       <Value>Controlium</Value>
-	  </CollectionProperty>
+      <Value>cloneable</Value>
+      <Value>alphanumerics</Value>
+    </CollectionProperty>
     <StringProperty Name="MergeSettingsFiles">NoMerge</StringProperty>
+    <StringProperty Name="Culture">en-GB</StringProperty>
   </GlobalSettings>
+  <Analyzers>
+    <Analyzer AnalyzerId="StyleCop.CSharp.NamingRules">
+      <AnalyzerSettings>
+        <CollectionProperty Name="Hungarian">
+          <Value>is</Value>
+          <Value>from</Value>
+          <Value>to</Value>
+        </CollectionProperty>
+      </AnalyzerSettings>
+    </Analyzer>
+  </Analyzers>
 </StyleCopSettings>

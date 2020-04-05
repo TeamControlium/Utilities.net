@@ -1,4 +1,4 @@
-﻿Feature: Detokenizer
+﻿Feature: Detokeniser
 	In order to process tokens
 	As a test automator
 	I want to be able to convert tokens to real texts

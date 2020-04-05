@@ -4,121 +4,121 @@
         <name>Utilities.net</name>
     </assembly>
     <members>
-        <member name="T:TeamControlium.Utilities.Log">
+        <member name="T:TeamControlium.Log">
             <summary>
             Manages logging information.  Created from scratch rather than using an OffTheShelf (NLog, Log4Net etc) to keep footprint as small as possible while ensuring
             logging is formatted, along with functionality, exactly as we want.
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Log.testTimer">
+        <member name="F:TeamControlium.Log.testTimer">
             <summary>
             Used to keep track of time since first call to Logger class made.
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Log.testToolStrings">
+        <member name="F:TeamControlium.Log.testToolStrings">
             <summary>
             Different threads will be sending logging information to Log.  So, when building a Log string (IE. Calls to .DoWrite to build a Log
             string) the string relating to the correct thread is appended to.
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Log.errorWrittenToEventLog">
+        <member name="F:TeamControlium.Log.errorWrittenToEventLog">
             <summary>
             Indicates whether an error has been written to the event log.  Allows suppressing of further errors to prevent log blow-out.
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Log.lockWriteLine">
+        <member name="F:TeamControlium.Log.lockWriteLine">
             <summary>
             Used for locking during a DoWriteLine.  To ensure thread safety, only a single thread at a time is
             permitted to call DoWriteLine at any one time.
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Log.lockWrite">
+        <member name="F:TeamControlium.Log.lockWrite">
             <summary>
             Used for locking during a DoWriteLine.  To ensure thread safety, only a single thread at a time is
             permitted to call DoWrite at any one time.
             </summary>
         </member>
-        <member name="M:TeamControlium.Utilities.Log.#cctor">
+        <member name="M:TeamControlium.Log.#cctor">
             <summary>
-            Initializes static members of the <see cref="T:TeamControlium.Utilities.Log" /> class.
+            Initialises static members of the <see cref="T:TeamControlium.Log" /> class.
             Instantiates an instant of the Log static class.  Starts the main Stopwatch running for timing information in log data.
             </summary>
         </member>
-        <member name="T:TeamControlium.Utilities.Log.LogLevels">
+        <member name="T:TeamControlium.Log.LogLevels">
             <summary>
             Levels of logging - Verbose (Maximum) to Exception (Minimum).  If level of text being written to
             logging is equal to, or higher than the current LoggingLevel the text is written.<br/>
             This is used to filter logging so that only entries to log are made if the level of the write is equal
-            or greater than the logging level set by <see cref="P:TeamControlium.Utilities.Log.CurrentLoggingLevel">LoggingLevel</see>.
+            or greater than the logging level set by <see cref="P:TeamControlium.Log.LoggingCurrentLevel">LoggingLevel</see>.
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Log.LogLevels.FrameworkDebug">
+        <member name="F:TeamControlium.Log.LogLevels.FrameworkDebug">
             <summary>
             Data written to log if LoggingLevel is FrameworkDebug and Write is FrameworkDebug or higher
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Log.LogLevels.FrameworkInformation">
+        <member name="F:TeamControlium.Log.LogLevels.FrameworkInformation">
             <summary>
             Data written to log if LoggingLevel is FrameworkInformation and Write is FrameworkInformation or higher
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Log.LogLevels.TestDebug">
+        <member name="F:TeamControlium.Log.LogLevels.TestDebug">
             <summary>
             Data written to log if LoggingLevel is TestDebug and Write is TestDebug or higher
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Log.LogLevels.TestInformation">
+        <member name="F:TeamControlium.Log.LogLevels.TestInformation">
             <summary>
             Data written to log if LoggingLevel is TestInformation and Write is TestInformation or Error
             </summary>
         </member>
-        <member name="F:TeamControlium.Utilities.Log.LogLevels.Error">
+        <member name="F:TeamControlium.Log.LogLevels.Error">
             <summary>
             Data always written to results
             </summary>
         </member>
-        <member name="P:TeamControlium.Utilities.Log.CurrentLoggingLevel">
+        <member name="P:TeamControlium.Log.LoggingCurrentLevel">
             <summary>
             Gets or sets Logging level. Lowest is Error (least amount of log data written - only writes at
-            level <see cref="F:TeamControlium.Utilities.Log.LogLevels.Error">Error</see> are written to the log). Most data is written to
-            the log if level set is <see cref="F:TeamControlium.Utilities.Log.LogLevels.FrameworkDebug">FrameworkDebug</see>.
+            level <see cref="F:TeamControlium.Log.LogLevels.Error">Error</see> are written to the log). Most data is written to
+            the log if level set is <see cref="F:TeamControlium.Log.LogLevels.FrameworkDebug">FrameworkDebug</see>.
             </summary>
             <remarks>Default is FrameworkDebug</remarks>
         </member>
-        <member name="P:TeamControlium.Utilities.Log.WriteToConsole">
+        <member name="P:TeamControlium.Log.LogToConsole">
             <summary>
             Gets or sets a value indicating whether log data is written to Console.<br/>
             If true debug data is written to the Console (STDOUT)<br/>
-            If false and <see cref="!:Logger.TestToolLog"/> has been defined, no log data is written to Console. If <see cref="!:Logger.TestToolLog"/> has
-            NOT been defined, WriteToConsole false is ignored and output is STILL written to Console.<br/>
+            If false and <see cref="!:Logger.LogOutputDelegate"/> has been defined, no log data is written to Console. If <see cref="!:Logger.LogOutputDelegate"/> has
+            NOT been defined, LogToConsole false is ignored and output is STILL written to Console.<br/>
             </summary>
             <remarks>
             The default is true (log data to be written to the console)
             </remarks>
         </member>
-        <member name="P:TeamControlium.Utilities.Log.TestToolLog">
+        <member name="P:TeamControlium.Log.LogOutputDelegate">
             <summary>
-            Gets or sets delegate to write debug data to if WriteToConsole is false.
+            Gets or sets delegate to write debug data to if LogToConsole is false.
             </summary>
             <remarks>
             Note.  If the delegate throws an exception, allow the exception to ripple up.  Log class will handle the exception and write details to
             the OS event logging system.
             </remarks>
-            <seealso cref="P:TeamControlium.Utilities.Log.WriteToConsole"/>
+            <seealso cref="P:TeamControlium.Log.LogToConsole"/>
         </member>
-        <member name="M:TeamControlium.Utilities.Log.ResetTimer">
+        <member name="M:TeamControlium.Log.LogResetTimer">
             <summary>
             Resets the logger elapsed timer to zero
             </summary>
         </member>
-        <member name="M:TeamControlium.Utilities.Log.LogException(System.Exception)">
+        <member name="M:TeamControlium.Log.LogException(System.Exception)">
             <summary>
-            Writes details of a caught exception to the active debug log at level <see cref="F:TeamControlium.Utilities.Log.LogLevels.Error">Error</see>
+            Writes details of a caught exception to the active debug log at level <see cref="F:TeamControlium.Log.LogLevels.Error">Error</see>
             </summary>
             <remarks>
-            If current error logging level is <see cref="F:TeamControlium.Utilities.Log.LogLevels.FrameworkDebug">FrameworkDebug</see> the full
+            If current error logging level is <see cref="F:TeamControlium.Log.LogLevels.FrameworkDebug">FrameworkDebug</see> the full
             exception is written, including stack-trace etc.<br/>
-            With any other <see cref="T:TeamControlium.Utilities.Log.LogLevels">Log Level</see> only the exception message is written if an exception is thrown during write, Logger
+            With any other <see cref="T:TeamControlium.Log.LogLevels">Log Level</see> only the exception message is written if an exception is thrown during write, Logger
             attempts to write the error details if able.
             </remarks>
             <param name="ex">Exception being logged</param>
@@ -133,14 +133,14 @@
             </code>
             </example>
         </member>
-        <member name="M:TeamControlium.Utilities.Log.LogException(System.Exception,System.String,System.Object[])">
+        <member name="M:TeamControlium.Log.LogException(System.Exception,System.String,System.Object[])">
             <summary>
-            Writes details of a caught exception to the active debug log at level <see cref="F:TeamControlium.Utilities.Log.LogLevels.Error">Error</see>
+            Writes details of a caught exception to the active debug log at level <see cref="F:TeamControlium.Log.LogLevels.Error">Error</see>
             </summary>
             <remarks>
-            If current error logging level is <see cref="F:TeamControlium.Utilities.Log.LogLevels.FrameworkDebug">FrameworkDebug</see> the full
+            If current error logging level is <see cref="F:TeamControlium.Log.LogLevels.FrameworkDebug">FrameworkDebug</see> the full
             exception is written, including stack trace details etc.<br/>
-            With any other <see cref="T:TeamControlium.Utilities.Log.LogLevels">Log Level</see> only the exception message is written if an exception is thrown during write, Logger
+            With any other <see cref="T:TeamControlium.Log.LogLevels">Log Level</see> only the exception message is written if an exception is thrown during write, Logger
             attempts to write the error details if able.
             </remarks>
             <param name="ex">Exception being logged</param>
@@ -157,7 +157,7 @@
              </code>
             </example>
         </member>
-        <member name="M:TeamControlium.Utilities.Log.Write(TeamControlium.Utilities.Log.LogLevels,System.String,System.Object[])">
+        <member name="M:TeamControlium.Log.Write(TeamControlium.Log.LogLevels,System.String,System.Object[])">
             <summary>
             Writes a line of data to the active debug log with no line termination
             </summary>
@@ -169,7 +169,7 @@
             Logger.WriteLn(LogLevels.TestDebug, "Select member using key (Member: {0})","90986754332");
             </code>code></example>
         </member>
-        <member name="M:TeamControlium.Utilities.Log.WriteLine(TeamControlium.Utilities.Log.LogLevels,System.String,System.Object[])">
+        <member name="M:TeamControlium.Log.WriteLine(TeamControlium.Log.LogLevels,System.String,System.Object[])">
             <summary>
             Writes a line of data to the active debug log. 
             Data can be formatted in the standard string.format syntax.  If an exception is thrown during write, Logger
@@ -183,7 +183,7 @@
             Logger.WriteLine(LogLevels.TestDebug, "Select member using key (Member: {0})","90986754332");
             </code></example>
         </member>
-        <member name="M:TeamControlium.Utilities.Log.WriteTextToFile(System.String,System.Boolean,System.String)">
+        <member name="M:TeamControlium.Log.WriteTextToFile(System.String,System.Boolean,System.String)">
             <summary>
             Writes given Text to a text file, optionally auto versioning (adding (n) to filename) OR
             overwriting.
@@ -195,7 +195,7 @@
             <param name="autoVersion">If true and file exists. (n) is added to auto-version.  If false and file exists, it is overwritten if able</param>
             <param name="text">Text to write</param>
         </member>
-        <member name="M:TeamControlium.Utilities.Log.LogException(System.Diagnostics.StackFrame,System.Exception,System.String,System.Object[])">
+        <member name="M:TeamControlium.Log.LogException(System.Diagnostics.StackFrame,System.Exception,System.String,System.Object[])">
             <summary>
             Does writing of the logged exception
             </summary>
@@ -204,14 +204,14 @@
             <param name="text">Optional text</param>
             <param name="args">Optional text arguments</param>
         </member>
-        <member name="M:TeamControlium.Utilities.Log.CallingMethodDetails(System.Reflection.MethodBase)">
+        <member name="M:TeamControlium.Log.CallingMethodDetails(System.Reflection.MethodBase)">
             <summary>
             Gets class-type and Method name of passed MethodBase class.
             </summary>
             <param name="methodBase">MethodBase of class</param>
             <returns>Formatted string containing Type.Method</returns>
         </member>
-        <member name="M:TeamControlium.Utilities.Log.DoWrite(System.Reflection.MethodBase,TeamControlium.Utilities.Log.LogLevels,System.String)">
+        <member name="M:TeamControlium.Log.DoWrite(System.Reflection.MethodBase,TeamControlium.Log.LogLevels,System.String)">
             <summary>
             Appends text to currently active line.  If the start of line, text is pre-pended with Line header information
             </summary>
@@ -220,7 +220,7 @@
             <param name="textString">Text string to be written</param>
             <remarks>Text is written if TypeOfWrite is equal to, or higher the current Logging Level</remarks>
         </member>
-        <member name="M:TeamControlium.Utilities.Log.DoWriteLine(System.Reflection.MethodBase,TeamControlium.Utilities.Log.LogLevels,System.String)">
+        <member name="M:TeamControlium.Log.DoWriteLine(System.Reflection.MethodBase,TeamControlium.Log.LogLevels,System.String)">
             <summary>
             Appends text to currently active line and writes line to active log.  If new line, text is pre-pended with Line header information
             </summary>
@@ -229,7 +229,7 @@
             <param name="textString">Text string to be written</param>
             <remarks>Text is written if TypeOfWrite is equal to, or higher the current Logging Level</remarks> 
         </member>
-        <member name="M:TeamControlium.Utilities.Log.GetPreAmble(System.Reflection.MethodBase,TeamControlium.Utilities.Log.LogLevels)">
+        <member name="M:TeamControlium.Log.GetPreAmble(System.Reflection.MethodBase,TeamControlium.Log.LogLevels)">
             <summary>
             Constructs and returns a log-file pre-amble.  Preamble is {Log Type} - [{Time}][{Elapsed}] [Calling Type.Method]:
             </summary>
@@ -240,7 +240,7 @@
             </example>
             <returns>Line pre-amble text</returns>
         </member>
-        <member name="M:TeamControlium.Utilities.Log.GetWriteTypeString(TeamControlium.Utilities.Log.LogLevels)">
+        <member name="M:TeamControlium.Log.GetWriteTypeString(TeamControlium.Log.LogLevels)">
             <summary>
             Returns debug line initial token based on LogLevel of text being written
             </summary>

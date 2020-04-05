@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Utilities.UnitTests.net.DetokenizerTests
+namespace Utilities.UnitTests.net.DetokeniserTests
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,7 +20,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class DetokenizerFeature
+    public partial class DetokeniserFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -29,7 +29,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "DetokenizerTests.feature"
+#line 1 "DetokeniserTests.feature"
 #line hidden
         
         public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
@@ -48,7 +48,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Detokenizer", "\tIn order to process tokens\r\n\tAs a test automator\r\n\tI want to be able to convert " +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Detokeniser", "\tIn order to process tokens\r\n\tAs a test automator\r\n\tI want to be able to convert " +
                     "tokens to real texts", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -64,9 +64,9 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         public virtual void TestInitialize()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "Detokenizer")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "Detokeniser")))
             {
-                global::Utilities.UnitTests.net.DetokenizerTests.DetokenizerFeature.FeatureSetup(null);
+                global::Utilities.UnitTests.net.DetokeniserTests.DetokeniserFeature.FeatureSetup(null);
             }
         }
         
@@ -94,7 +94,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Convert today\'s date token to the date we run this test")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ConvertTodaysDateTokenToTheDateWeRunThisTest()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -134,7 +134,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Convert yesterday\'s date token to the day before we run this test")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ConvertYesterdaysDateTokenToTheDayBeforeWeRunThisTest()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -174,7 +174,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Convert tomorrows\'s date token to the day after we run this test")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ConvertTomorrowssDateTokenToTheDayAfterWeRunThisTest()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -214,7 +214,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Date command and verb not case sensitive")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void DateCommandAndVerbNotCaseSensitive()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -254,7 +254,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Get the day of the week when test is run")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void GetTheDayOfTheWeekWhenTestIsRun()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -294,7 +294,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Convert date for a days offset in the past")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ConvertDateForADaysOffsetInThePast()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -334,7 +334,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Convert date for a days offset in the future")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ConvertDateForADaysOffsetInTheFuture()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -374,7 +374,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Convert date for a days offset in the future (with a plus sign)")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ConvertDateForADaysOffsetInTheFutureWithAPlusSign()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -414,7 +414,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Convert date for a months offset in the past")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ConvertDateForAMonthsOffsetInThePast()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -454,7 +454,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Convert date for a months offset in the future")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ConvertDateForAMonthsOffsetInTheFuture()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -494,7 +494,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Convert date for a years offset in the past")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ConvertDateForAYearsOffsetInThePast()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -534,7 +534,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Convert date for a years offset in the future")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ConvertDateForAYearsOffsetInTheFuture()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -574,7 +574,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("I can get a random date from a single date")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ICanGetARandomDateFromASingleDate()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -614,7 +614,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("I can get a random date from one of two consequtive dates")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ICanGetARandomDateFromOneOfTwoConsequtiveDates()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -654,7 +654,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("I get correct error if min date after max date")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void IGetCorrectErrorIfMinDateAfterMaxDate()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -696,7 +696,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("I can get a random positive floating point number with no decimal places")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ICanGetARandomPositiveFloatingPointNumberWithNoDecimalPlaces()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -739,7 +739,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("I can get a random positive floating point number with 1 decimal places")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ICanGetARandomPositiveFloatingPointNumberWith1DecimalPlaces()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -782,7 +782,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("I can get a random negative floating point number with 1 decimal places")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ICanGetARandomNegativeFloatingPointNumberWith1DecimalPlaces()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -825,7 +825,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("I can get a random positive floating point number between tiny numbers")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ICanGetARandomPositiveFloatingPointNumberBetweenTinyNumbers()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -868,7 +868,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("I can get a random positive floating point number with leading zeros")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ICanGetARandomPositiveFloatingPointNumberWithLeadingZeros()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -911,7 +911,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("I can get a random valid TFN")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ICanGetARandomValidTFN()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -951,7 +951,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("I can get a single random character from a given set")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ICanGetASingleRandomCharacterFromAGivenSet()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -994,7 +994,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("I can get a multiple random characters from a given set")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void ICanGetAMultipleRandomCharactersFromAGivenSet()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -1037,7 +1037,7 @@ namespace Utilities.UnitTests.net.DetokenizerTests
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Nested tokens")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokenizer")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Detokeniser")]
         public virtual void NestedTokens()
         {
             string[] tagsOfScenario = ((string[])(null));

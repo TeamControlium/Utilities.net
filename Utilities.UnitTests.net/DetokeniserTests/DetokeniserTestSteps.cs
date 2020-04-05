@@ -1,7 +1,7 @@
-﻿// <copyright file="DetokenizerTestSteps.cs" company="TeamControlium Contributors">
+﻿// <copyright file="DetokeniserTestSteps.cs" company="TeamControlium Contributors">
 //     Copyright (c) Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </copyright>
-namespace TeamControlium.Utilities.UnitTests
+namespace TeamControlium.UnitTests
 {
     using System;
     using System.Collections.Generic;
@@ -11,13 +11,13 @@ namespace TeamControlium.Utilities.UnitTests
     using System.Text.RegularExpressions;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
-    using static TeamControlium.Utilities.Detokenizer;
+    using static TeamControlium.Utilities.Detokeniser;
 
     /// <summary>
-    /// Test-step definitions for steps using/validating the Utilities Detokenizer class.
+    /// Test-step definitions for steps using/validating the Utilities Detokeniser class.
     /// </summary>
     [Binding]
-    public sealed class DetokenizerTestSteps
+    public sealed class DetokeniserTestSteps
     {
         /// <summary>
         /// Used to hold context information for current Scenario
@@ -25,11 +25,11 @@ namespace TeamControlium.Utilities.UnitTests
         private readonly ScenarioContext scenarioContext;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DetokenizerTestSteps" /> class.
+        /// Initialises a new instance of the <see cref="DetokeniserTestSteps" /> class.
         /// Stores console output when redirected by any test steps.
         /// </summary>
         /// <param name="scenarioContext">Scenario context</param>
-        public DetokenizerTestSteps(ScenarioContext scenarioContext)
+        public DetokeniserTestSteps(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
         }
@@ -37,7 +37,7 @@ namespace TeamControlium.Utilities.UnitTests
         /// <summary>
         /// Store String to be processed into the Scenario context to enable use and validation
         /// </summary>
-        /// <param name="stringToBeProcessed">String to be processed to Detokenizer and then used in validation/s.</param>
+        /// <param name="stringToBeProcessed">String to be processed to Detokeniser and then used in validation/s.</param>
         [Given(@"I have a string ""(.*)""")]
         public void GivenIHaveAStringWithToken(string stringToBeProcessed)
         {
@@ -45,7 +45,7 @@ namespace TeamControlium.Utilities.UnitTests
         }
 
         /// <summary>
-        /// Call Detokenizer to process string placing result in Scenario context to enable later validation.
+        /// Call Detokeniser to process string placing result in Scenario context to enable later validation.
         /// Catch any exception and store in result for possible later validation
         /// </summary>
         [When(@"I process the token to a string")]
@@ -67,20 +67,20 @@ namespace TeamControlium.Utilities.UnitTests
         }
 
         /// <summary>
-        /// Validate that Detokenizer returned string matches the expected
+        /// Validate that Detokeniser returned string matches the expected
         /// </summary>
         /// <param name="expectedString">Expected string</param>
-        [Then(@"the string is ""(.*)""")]
+        [Then(@"the string isstring.Empty(.*)""")]
         public void ThenTheStringIs(string expectedString)
         {
-            Assert.AreEqual(expectedString, (string)this.scenarioContext["ProcessedString"], $"Verify Detokenizer processed string [{(string)this.scenarioContext["ProcessedString"]}] matches expected [{expectedString}]");
+            Assert.AreEqual(expectedString, (string)this.scenarioContext["ProcessedString"], $"Verify Detokeniser processed string [{(string)this.scenarioContext["ProcessedString"]}] matches expected [{expectedString}]");
         }
 
         /// <summary>
-        /// Verify Detokenizer returned string is todays date in the required format
+        /// Verify Detokeniser returned string is todays date in the required format
         /// </summary>
         /// <param name="requiredFormatOfDate">Required format of date</param>
-        [Then(@"the string is today's date in the format ""(.*)""")]
+        [Then(@"the string is today's date in the formatstring.Empty(.*)""")]
         public void ThenTheStringIsTodaySDateInTheFormat(string requiredFormatOfDate)
         {
             string requiredDate = DateTime.Now.ToString(requiredFormatOfDate);
@@ -89,10 +89,10 @@ namespace TeamControlium.Utilities.UnitTests
         }
 
         /// <summary>
-        /// Verify Detokenizer returned string is yesterdays date in the required format
+        /// Verify Detokeniser returned string is yesterdays date in the required format
         /// </summary>
         /// <param name="requiredFormatOfDate">Required format of date</param>
-        [Then(@"the string is yesterday's date in the format ""(.*)""")]
+        [Then(@"the string is yesterday's date in the formatstring.Empty(.*)""")]
         public void ThenTheStringIsYesterdaySDateInTheFormat(string requiredFormatOfDate)
         {
             string requiredDate = DateTime.Now.AddDays(-1).ToString(requiredFormatOfDate);
@@ -101,10 +101,10 @@ namespace TeamControlium.Utilities.UnitTests
         }
 
         /// <summary>
-        /// Verify Detokenizer returned string is tomorrows date in the required format
+        /// Verify Detokeniser returned string is tomorrows date in the required format
         /// </summary>
         /// <param name="requiredFormatOfDate">Required format of date</param>
-        [Then(@"the string is tomorrows's date in the format ""(.*)""")]
+        [Then(@"the string is tomorrows's date in the formatstring.Empty(.*)""")]
         public void ThenTheStringIsTomorrowsDateInTheFormat(string requiredFormatOfDate)
         {
             string requiredDate = DateTime.Now.AddDays(1).ToString(requiredFormatOfDate);
@@ -113,12 +113,12 @@ namespace TeamControlium.Utilities.UnitTests
         }
 
         /// <summary>
-        /// Verify Detokenizer returned string is required date offset in the required format
+        /// Verify Detokeniser returned string is required date offset in the required format
         /// </summary>
         /// <param name="offset">Number of units of offset required</param>
         /// <param name="offsetType">Unit type of offset (IE. days, months or years)</param>
         /// <param name="requiredFormatOfDate">Required format of date</param>
-        [Then(@"the string is the date (.*) ""(.*)"" in the format ""(.*)""")]
+        [Then(@"the string is the date (.*)string.Empty(.*)"" in the formatstring.Empty(.*)""")]
         public void ThenTheStringIsTheDateInTheFormat(int offset, string offsetType, string requiredFormatOfDate)
         {
             DateTime requiredDate;
@@ -145,9 +145,9 @@ namespace TeamControlium.Utilities.UnitTests
         /// <summary>
         /// Verify date is within the required maximum and minimum
         /// </summary>
-        /// <param name="minDate">Minimum date Detokenizer date must be</param>
-        /// <param name="maxDate">Maximum date Detokenizer date must be</param>
-        [Then(@"the string is a date between ""(.*)"" and ""(.*)""")]
+        /// <param name="minDate">Minimum date Detokeniser date must be</param>
+        /// <param name="maxDate">Maximum date Detokeniser date must be</param>
+        [Then(@"the string is a date betweenstring.Empty(.*)"" andstring.Empty(.*)""")]
         public void ThenTheStringIsADateBetweenAnd(string minDate, string maxDate)
         {
             var processedString = (string)this.scenarioContext["ProcessedString"];
@@ -164,10 +164,10 @@ namespace TeamControlium.Utilities.UnitTests
         }
 
         /// <summary>
-        /// Verify Detokenizer result matches required regular expression
+        /// Verify Detokeniser result matches required regular expression
         /// </summary>
         /// <param name="regExpPattern">Regular Expression pattern to match</param>
-        [Then(@"the string matches regular expression ""(.*)""")]
+        [Then(@"the string matches regular expressionstring.Empty(.*)""")]
         public void ThenTheStringIsAFormattedNumber(string regExpPattern)
         {
             var processedString = (string)this.scenarioContext["ProcessedString"];
@@ -176,7 +176,7 @@ namespace TeamControlium.Utilities.UnitTests
         }
 
         /// <summary>
-        /// Verify Detokenizer result is a number within the given limits
+        /// Verify Detokeniser result is a number within the given limits
         /// </summary>
         /// <param name="minNumber">Minimum number result can be</param>
         /// <param name="maxNumber">Maximum number result can be</param>
@@ -189,11 +189,11 @@ namespace TeamControlium.Utilities.UnitTests
         }
 
         /// <summary>
-        /// Verify the Detokenizer result is correct number of characters and only selected from the required set
+        /// Verify the Detokeniser result is correct number of characters and only selected from the required set
         /// </summary>
-        /// <param name="numberOfCharacters">Number of characters Detokenizer result must be</param>
-        /// <param name="possibleCharacters">Characters Detokenizer result must be selected from</param>
-        [Then(@"the string is (.*) characters from ""(.*)""")]
+        /// <param name="numberOfCharacters">Number of characters Detokeniser result must be</param>
+        /// <param name="possibleCharacters">Characters Detokeniser result must be selected from</param>
+        [Then(@"the string is (.*) characters fromstring.Empty(.*)""")]
         public void ThenTheStringIsCharacterFrom(int numberOfCharacters, string possibleCharacters)
         {
             var processedString = (string)this.scenarioContext["ProcessedString"];
@@ -218,7 +218,7 @@ namespace TeamControlium.Utilities.UnitTests
         }
 
         /// <summary>
-        /// Verify Detokenizer result is a valid Australian TFN (Tax File Number)
+        /// Verify Detokeniser result is a valid Australian TFN (Tax File Number)
         /// </summary>
         [Then(@"the string is a valid Australian TFN")]
         public void ThenTheStringIsAValidAustralianTFN()

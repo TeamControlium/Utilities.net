@@ -117,7 +117,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 7
- testRunner.Given("I have configured Log WriteToConsole to true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have configured Log LogToConsole to true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
  testRunner.Given(string.Format("I set Log to level {0}", logLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
@@ -231,12 +231,12 @@ this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Framework Debu
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Log Level", "FrameworkInformation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write Level", "FrameworkDebug")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Framework Debug\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "\"\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "string.Empty")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "string.Empty")]
         public virtual void LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected_LevelFrameworkInformationWriteFrameworkDebug()
         {
 #line 6
-this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Framework Information write Framework Debug", "FrameworkInformation", "FrameworkDebug", "\"Test Framework Debug\"", "\"\"", "\"\"", ((string[])(null)));
+this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Framework Information write Framework Debug", "FrameworkInformation", "FrameworkDebug", "\"Test Framework Debug\"", "string.Empty", "string.Empty", ((string[])(null)));
 #line hidden
         }
         
@@ -321,12 +321,12 @@ this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Framework Info
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Log Level", "TestDebug")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write Level", "FrameworkDebug")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Framework Debug\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "\"\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "string.Empty")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "string.Empty")]
         public virtual void LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected_LevelTestDebugWriteFrameworkDebug()
         {
 #line 6
-this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Debug write Framework Debug", "TestDebug", "FrameworkDebug", "\"Test Framework Debug\"", "\"\"", "\"\"", ((string[])(null)));
+this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Debug write Framework Debug", "TestDebug", "FrameworkDebug", "\"Test Framework Debug\"", "string.Empty", "string.Empty", ((string[])(null)));
 #line hidden
         }
         
@@ -339,12 +339,12 @@ this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Debug wri
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Log Level", "TestDebug")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write Level", "FrameworkInformation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Framework Info\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "\"\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "string.Empty")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "string.Empty")]
         public virtual void LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected_LevelTestDebugWriteFrameworkInformation()
         {
 #line 6
-this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Debug write Framework Information", "TestDebug", "FrameworkInformation", "\"Test Framework Info\"", "\"\"", "\"\"", ((string[])(null)));
+this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Debug write Framework Information", "TestDebug", "FrameworkInformation", "\"Test Framework Info\"", "string.Empty", "string.Empty", ((string[])(null)));
 #line hidden
         }
         
@@ -411,12 +411,12 @@ this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Debug wri
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Log Level", "TestInformation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write Level", "FrameworkDebug")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Framework Debug\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "\"\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "string.Empty")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "string.Empty")]
         public virtual void LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected_LevelTestInformationWriteFrameworkDebug()
         {
 #line 6
-this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Information write Framework Debug", "TestInformation", "FrameworkDebug", "\"Test Framework Debug\"", "\"\"", "\"\"", ((string[])(null)));
+this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Information write Framework Debug", "TestInformation", "FrameworkDebug", "\"Test Framework Debug\"", "string.Empty", "string.Empty", ((string[])(null)));
 #line hidden
         }
         
@@ -429,12 +429,12 @@ this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Informati
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Log Level", "TestInformation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write Level", "FrameworkInformation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Framework Info\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "\"\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "string.Empty")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "string.Empty")]
         public virtual void LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected_LevelTestInformationWriteFrameworkInformation()
         {
 #line 6
-this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Information write Framework Information", "TestInformation", "FrameworkInformation", "\"Test Framework Info\"", "\"\"", "\"\"", ((string[])(null)));
+this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Information write Framework Information", "TestInformation", "FrameworkInformation", "\"Test Framework Info\"", "string.Empty", "string.Empty", ((string[])(null)));
 #line hidden
         }
         
@@ -447,12 +447,12 @@ this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Informati
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Log Level", "TestInformation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write Level", "TestDebug")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Test Debug\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "\"\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "string.Empty")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "string.Empty")]
         public virtual void LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected_LevelTestInformationWriteTestDebug()
         {
 #line 6
-this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Information write Test Debug", "TestInformation", "TestDebug", "\"Test Test Debug\"", "\"\"", "\"\"", ((string[])(null)));
+this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Information write Test Debug", "TestInformation", "TestDebug", "\"Test Test Debug\"", "string.Empty", "string.Empty", ((string[])(null)));
 #line hidden
         }
         
@@ -501,12 +501,12 @@ this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Test Informati
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Log Level", "Error")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write Level", "FrameworkDebug")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Framework Debug\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "\"\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "string.Empty")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "string.Empty")]
         public virtual void LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected_LevelErrorWriteFrameworkDebug()
         {
 #line 6
-this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Error write Framework Debug", "Error", "FrameworkDebug", "\"Test Framework Debug\"", "\"\"", "\"\"", ((string[])(null)));
+this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Error write Framework Debug", "Error", "FrameworkDebug", "\"Test Framework Debug\"", "string.Empty", "string.Empty", ((string[])(null)));
 #line hidden
         }
         
@@ -519,12 +519,12 @@ this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Error write Fr
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Log Level", "Error")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write Level", "FrameworkInformation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Framework Info\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "\"\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "string.Empty")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "string.Empty")]
         public virtual void LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected_LevelErrorWriteFrameworkInformation()
         {
 #line 6
-this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Error write Framework Information", "Error", "FrameworkInformation", "\"Test Framework Info\"", "\"\"", "\"\"", ((string[])(null)));
+this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Error write Framework Information", "Error", "FrameworkInformation", "\"Test Framework Info\"", "string.Empty", "string.Empty", ((string[])(null)));
 #line hidden
         }
         
@@ -537,12 +537,12 @@ this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Error write Fr
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Log Level", "Error")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write Level", "TestDebug")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Test Debug\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "\"\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "string.Empty")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "string.Empty")]
         public virtual void LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected_LevelErrorWriteTestDebug()
         {
 #line 6
-this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Error write Test Debug", "Error", "TestDebug", "\"Test Test Debug\"", "\"\"", "\"\"", ((string[])(null)));
+this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Error write Test Debug", "Error", "TestDebug", "\"Test Test Debug\"", "string.Empty", "string.Empty", ((string[])(null)));
 #line hidden
         }
         
@@ -555,12 +555,12 @@ this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Error write Te
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Log Level", "Error")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write Level", "TestInformation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Test Information\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "\"\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Type", "string.Empty")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Output", "string.Empty")]
         public virtual void LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected_LevelErrorWriteTestInformation()
         {
 #line 6
-this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Error write Test Information", "Error", "TestInformation", "\"Test Test Information\"", "\"\"", "\"\"", ((string[])(null)));
+this.LogOnlyOutputsLevelsEqualToHigherThanTheLevelSelected("Level Error write Test Information", "Error", "TestInformation", "\"Test Test Information\"", "string.Empty", "string.Empty", ((string[])(null)));
 #line hidden
         }
         
@@ -607,10 +607,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 40
- testRunner.Given(string.Format("I have configured Log WriteToConsole to {0}", writeToConsole), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("I have configured Log LogToConsole to {0}", writeToConsole), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 41
-    testRunner.And(string.Format("I have {0} Log TestToolLog delegate", testToolLog), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And(string.Format("I have {0} Log LogOutputDelegate delegate", testToolLog), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 42
  testRunner.And("I set Log to level FrameworkDebug", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -629,51 +629,51 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Log output can be directed to Console or a custom output stream: WriteToConsole T" +
-            "rue - TestToolLog not configured")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Log output can be directed to Console or a custom output stream: LogToConsole Tru" +
+            "e - LogOutputDelegate not configured")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Log")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "WriteToConsole True - TestToolLog not configured")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Description", "WriteToConsole True - TestToolLog not configured")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "LogToConsole True - LogOutputDelegate not configured")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Description", "LogToConsole True - LogOutputDelegate not configured")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write To Console", "true")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test Tool Log", "not configured")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Framework Debug\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Console Line Type", "\"FKDBG\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Receiver Line Type", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Receiver Line Type", "string.Empty")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ConsoleOutput", "\"Test Framework Debug\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:TestLogOutput", "\"\"")]
-        public virtual void LogOutputCanBeDirectedToConsoleOrACustomOutputStream_WriteToConsoleTrue_TestToolLogNotConfigured()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:TestLogOutput", "string.Empty")]
+        public virtual void LogOutputCanBeDirectedToConsoleOrACustomOutputStream_LogToConsoleTrue_LogOutputDelegateNotConfigured()
         {
 #line 39
-this.LogOutputCanBeDirectedToConsoleOrACustomOutputStream("WriteToConsole True - TestToolLog not configured", "true", "not configured", "\"Test Framework Debug\"", "\"FKDBG\"", "\"\"", "\"Test Framework Debug\"", "\"\"", ((string[])(null)));
+this.LogOutputCanBeDirectedToConsoleOrACustomOutputStream("LogToConsole True - LogOutputDelegate not configured", "true", "not configured", "\"Test Framework Debug\"", "\"FKDBG\"", "string.Empty", "\"Test Framework Debug\"", "string.Empty", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Log output can be directed to Console or a custom output stream: WriteToConsole F" +
-            "alse - TestToolLog not configured")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Log output can be directed to Console or a custom output stream: LogToConsole Fal" +
+            "se - LogOutputDelegate not configured")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Log")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "WriteToConsole False - TestToolLog not configured")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Description", "WriteToConsole False - TestToolLog not configured")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "LogToConsole False - LogOutputDelegate not configured")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Description", "LogToConsole False - LogOutputDelegate not configured")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write To Console", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test Tool Log", "not configured")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Framework Debug\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Console Line Type", "\"FKDBG\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Receiver Line Type", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Receiver Line Type", "string.Empty")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ConsoleOutput", "\"Test Framework Debug\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:TestLogOutput", "\"\"")]
-        public virtual void LogOutputCanBeDirectedToConsoleOrACustomOutputStream_WriteToConsoleFalse_TestToolLogNotConfigured()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:TestLogOutput", "string.Empty")]
+        public virtual void LogOutputCanBeDirectedToConsoleOrACustomOutputStream_LogToConsoleFalse_LogOutputDelegateNotConfigured()
         {
 #line 39
-this.LogOutputCanBeDirectedToConsoleOrACustomOutputStream("WriteToConsole False - TestToolLog not configured", "false", "not configured", "\"Test Framework Debug\"", "\"FKDBG\"", "\"\"", "\"Test Framework Debug\"", "\"\"", ((string[])(null)));
+this.LogOutputCanBeDirectedToConsoleOrACustomOutputStream("LogToConsole False - LogOutputDelegate not configured", "false", "not configured", "\"Test Framework Debug\"", "\"FKDBG\"", "string.Empty", "\"Test Framework Debug\"", "string.Empty", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Log output can be directed to Console or a custom output stream: WriteToConsole T" +
-            "rue - TestToolLog configured")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Log output can be directed to Console or a custom output stream: LogToConsole Tru" +
+            "e - LogOutputDelegate configured")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Log")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "WriteToConsole True - TestToolLog configured")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Description", "WriteToConsole True - TestToolLog configured")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "LogToConsole True - LogOutputDelegate configured")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Description", "LogToConsole True - LogOutputDelegate configured")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write To Console", "true")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test Tool Log", "configured")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Framework Debug\"")]
@@ -681,30 +681,30 @@ this.LogOutputCanBeDirectedToConsoleOrACustomOutputStream("WriteToConsole False 
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Receiver Line Type", "\"FKDBG\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ConsoleOutput", "\"Test Framework Debug\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:TestLogOutput", "\"Test Framework Debug\"")]
-        public virtual void LogOutputCanBeDirectedToConsoleOrACustomOutputStream_WriteToConsoleTrue_TestToolLogConfigured()
+        public virtual void LogOutputCanBeDirectedToConsoleOrACustomOutputStream_LogToConsoleTrue_LogOutputDelegateConfigured()
         {
 #line 39
-this.LogOutputCanBeDirectedToConsoleOrACustomOutputStream("WriteToConsole True - TestToolLog configured", "true", "configured", "\"Test Framework Debug\"", "\"FKDBG\"", "\"FKDBG\"", "\"Test Framework Debug\"", "\"Test Framework Debug\"", ((string[])(null)));
+this.LogOutputCanBeDirectedToConsoleOrACustomOutputStream("LogToConsole True - LogOutputDelegate configured", "true", "configured", "\"Test Framework Debug\"", "\"FKDBG\"", "\"FKDBG\"", "\"Test Framework Debug\"", "\"Test Framework Debug\"", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Log output can be directed to Console or a custom output stream: WriteToConsole F" +
-            "alse - TestToolLog configured")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Log output can be directed to Console or a custom output stream: LogToConsole Fal" +
+            "se - LogOutputDelegate configured")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Log")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "WriteToConsole False - TestToolLog configured")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Description", "WriteToConsole False - TestToolLog configured")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "LogToConsole False - LogOutputDelegate configured")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Description", "LogToConsole False - LogOutputDelegate configured")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Write To Console", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test Tool Log", "configured")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Test String", "\"Test Framework Debug\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Console Line Type", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Console Line Type", "string.Empty")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Receiver Line Type", "\"FKDBG\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ConsoleOutput", "\"\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ConsoleOutput", "string.Empty")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:TestLogOutput", "\"Test Framework Debug\"")]
-        public virtual void LogOutputCanBeDirectedToConsoleOrACustomOutputStream_WriteToConsoleFalse_TestToolLogConfigured()
+        public virtual void LogOutputCanBeDirectedToConsoleOrACustomOutputStream_LogToConsoleFalse_LogOutputDelegateConfigured()
         {
 #line 39
-this.LogOutputCanBeDirectedToConsoleOrACustomOutputStream("WriteToConsole False - TestToolLog configured", "false", "configured", "\"Test Framework Debug\"", "\"\"", "\"FKDBG\"", "\"\"", "\"Test Framework Debug\"", ((string[])(null)));
+this.LogOutputCanBeDirectedToConsoleOrACustomOutputStream("LogToConsole False - LogOutputDelegate configured", "false", "configured", "\"Test Framework Debug\"", "string.Empty", "\"FKDBG\"", "string.Empty", "\"Test Framework Debug\"", ((string[])(null)));
 #line hidden
         }
         
@@ -736,19 +736,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I set Log to level FrameworkDebug", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 55
- testRunner.And(string.Format("I have configured Log WriteToConsole to {0}", initialWriteToConsole), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("I have configured Log LogToConsole to {0}", initialWriteToConsole), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 56
-    testRunner.And(string.Format("I have {0} Log TestToolLog delegate", testToolLogInitiallyConfigured), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And(string.Format("I have {0} Log LogOutputDelegate delegate", testToolLogInitiallyConfigured), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 57
  testRunner.And(string.Format("I call Log.WriteLine with level FrameworkDebug and string {0}", firstTestString), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 58
- testRunner.When(string.Format("I change Log WriteToConsole to {0}", secondWriteToConsole), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I change Log LogToConsole to {0}", secondWriteToConsole), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 59
- testRunner.And(string.Format("I have {0} Log TestToolLog delegate", testToolLogSecondConfigured), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("I have {0} Log LogOutputDelegate delegate", testToolLogSecondConfigured), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 60
  testRunner.And(string.Format("I call Log.WriteLine with level FrameworkDebug and string {0}", secondTestString), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

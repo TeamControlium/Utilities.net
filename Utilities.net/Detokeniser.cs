@@ -1,4 +1,4 @@
-﻿// <copyright file="detokenizer.cs" company="TeamControlium Contributors">
+﻿// <copyright file="detokeniser.cs" company="TeamControlium Contributors">
 //     Copyright (c) Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </copyright>
 namespace TeamControlium.Utilities
@@ -9,31 +9,31 @@ namespace TeamControlium.Utilities
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Threading;
-    using static Log;
+    using static TeamControlium.Utilities.Log;
 
     /// <summary>
     /// Processes given strings to process and resolve all tokens in passed strings.
     /// </summary>
-    public static class Detokenizer
+    public static class Detokeniser
     {
         /// <summary>
         /// Character to use as an escape char.
         /// </summary>
-        /// <remarks>Defined as a string incase it itself has to be escaped in the Regular Expression pattern</remarks>
+        /// <remarks>Defined as a string in-case it itself has to be escaped in the Regular Expression pattern</remarks>
         private static readonly string EscapeChar = @"\\";
 
         /// <summary>
         /// Character defining the start of a Token to be processed.
         /// </summary>
         /// <remarks>Must NOT be the same as the escape character.
-        /// Is a string incase it needs to be escaped for Regular Expression pattern.</remarks>
+        /// Is a string in-case it needs to be escaped for Regular Expression pattern.</remarks>
         private static readonly string StartTokenChar = "{";
 
         /// <summary>
         /// Character defining the end of a Token to be processed.
         /// </summary>
         /// <remarks>Must NOT be the same as the escape character or the start token character.
-        /// Is a string incase it needs to be escaped for Regular Expression pattern.</remarks>
+        /// Is a string in-case it needs to be escaped for Regular Expression pattern.</remarks>
         private static readonly string EndTokenChar = "}";
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace TeamControlium.Utilities
         /// Gets or sets delegate for processing custom tokens if required. If set, delegate is called before internal token processing to allow overriding if required.
         /// </summary>
         /// <remarks> Assigned delegate must take char (delimiter being used) and the token (split into an array using delimiter as separator) and return the resolved token text.
-        /// If the token cannot be resolved, delegate should return a null.  Any exception should be allowed to ripple up to enable the Utilities Detokenizer to handle
+        /// If the token cannot be resolved, delegate should return a null.  Any exception should be allowed to ripple up to enable the Utilities Detokeniser to handle
         /// the error.</remarks>
         public static Func<char, string[], string> CustomTokenProcessor { get; set; }
 
@@ -70,7 +70,7 @@ namespace TeamControlium.Utilities
         /// Gets or sets the default delimiter within tokens.
         /// </summary>
         /// <remarks>This is used as the delimiter when separating token verb from body and is the default token when token verb processors split their required fields.
-        /// Is thread-safe; if a Thread changes the token delimiter the change only affects Detokenizer calls for that thread.</remarks>
+        /// Is thread-safe; if a Thread changes the token delimiter the change only affects Detokeniser calls for that thread.</remarks>
         public static Char DefaultTokenDelimiterCurrentThread
         {
             get
@@ -125,11 +125,11 @@ namespace TeamControlium.Utilities
                 outputString = outputString.Replace(EscapeChar[EscapeChar.Length - 1] + StartTokenChar, StartTokenChar);
                 outputString = outputString.Replace(EscapeChar[EscapeChar.Length - 1] + EndTokenChar, EndTokenChar);
                 outputString = outputString.Replace(EscapeChar[EscapeChar.Length - 1].ToString() + EscapeChar[EscapeChar.Length - 1].ToString(), EscapeChar[EscapeChar.Length - 1].ToString());
-                WriteLogLine(LogLevels.FrameworkDebug, $"Processed [{tokenisedString}]. Result [{outputString}]");
+                LogWriteLine(LogLevels.FrameworkDebug, $"Processed [{tokenisedString}]. Result [{outputString}]");
             }
             catch (Exception ex)
             {
-                WriteLogException(ex, $"Processing string [{tokenisedString}]]");
+                LogException(ex, $"Processing string [{tokenisedString}]]");
                 throw ex;
             }
 
@@ -534,7 +534,7 @@ namespace TeamControlium.Utilities
             private bool foundToken = default(bool);
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="InnermostToken" /> class.
+            /// Initialises a new instance of the <see cref="InnermostToken" /> class.
             /// Takes a string that may or may not contain token/s.  If string contains token/s, innermost (from left) token is identified  
             /// </summary>
             /// <param name="inputString">String to be processed</param>
