@@ -160,6 +160,7 @@ namespace TeamControlium.Utilities
         {
             try
             {
+                ClearLastException();
                 category = GetCategory(true, categoryName);
                 return true;
             }
@@ -182,6 +183,7 @@ namespace TeamControlium.Utilities
         {
             try
             {
+                ClearLastException();
                 category = GetCategory(false, categoryName);
                 return true;
             }
@@ -354,6 +356,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     item = GetItem(true, categorylessItems, itemName);
                     return true;
                 }
@@ -379,6 +382,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     item = GetItem(false, categorylessItems, itemName);
                     return true;
                 }
@@ -404,6 +408,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     item = GetItem(true, categoryName, itemName);
                     return true;
                 }
@@ -429,6 +434,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     item = GetItem(false, categoryName, itemName);
                     return true;
                 }
@@ -455,6 +461,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     item = GetItemTyped<T>(true, categorylessItems, itemName);
                     return true;
                 }
@@ -481,6 +488,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     item = GetItemTyped<T>(false, categorylessItems, itemName);
                     return true;
                 }
@@ -508,6 +516,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     item = GetItemTyped<T>(true, categoryName, itemName);
                     return true;
                 }
@@ -535,6 +544,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     item = GetItemTyped<T>(false, categoryName, itemName);
                     return true;
                 }
@@ -765,6 +775,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     CloneTestData(true, overwriteExistingItems);
                     return true;
                 }
@@ -792,6 +803,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     CloneTestDataCategory(true, categoryName, categoryName, overwriteExistingItems);
                     return true;
                 }
@@ -817,6 +829,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     CloneTestDataItem(true, categoryName, itemName, categoryName, itemName, overwriteExistingItems);
                     return true;
                 }
@@ -882,6 +895,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     CloneTestData(false, overwriteExistingItems);
                     return true;
                 }
@@ -906,6 +920,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     CloneTestDataCategory(false, categoryName, categoryName, overwriteExistingItems);
                     return true;
                 }
@@ -931,6 +946,7 @@ namespace TeamControlium.Utilities
             {
                 try
                 {
+                    ClearLastException();
                     CloneTestDataItem(false, categoryName, itemName, categoryName, itemName, overwriteExistingItems);
                     return true;
                 }
@@ -996,6 +1012,21 @@ namespace TeamControlium.Utilities
                 else
                 {
                     lastException.Add(threadID, ex);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Clear repository of any exception in the current Thread
+        /// </summary>
+        private static void ClearLastException()
+        {
+            lock (lastException)
+            {
+                int threadID = Thread.CurrentThread.ManagedThreadId;
+                if (lastException.ContainsKey(threadID))
+                {
+                    lastException.Remove(threadID);
                 }
             }
         }

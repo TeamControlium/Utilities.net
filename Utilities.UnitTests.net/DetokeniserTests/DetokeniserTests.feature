@@ -163,5 +163,6 @@
 
 
 	Scenario: Nested tokens
-	Given I have a string "{random;digits;{random;from(2345);1} }"
+	Given I have a string "{random;digits;{random;from(368);1}}"
 	When I process the token to a string
+	Then the string length is one of [368]

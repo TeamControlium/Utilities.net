@@ -140,14 +140,15 @@
 	And I clone Global test data to Local test data, overwriting any existing
 	When I recall (Item 1) from Global, Category "MyCat", Item Name "MyItem1"
 	And I recall (Item 2) from Local, Category "MyCat", Item Name "MyItem1"
-	Then the recalled 1 value matches the saved 1 value
+	Then no exception is thrown
+	And the recalled 1 value matches the saved 1 value
 	And the recalled 2 value matches the saved 1 value
 
 	Scenario: 1.2.1 - Verify data is not overwritten if requested
 	Given I have saved string "Saved to Global" (Item 1) in Repository Global, Category "MyCat", Item Name "MyItem1"
-	And I have saved string "Saved to Local" (Item 2) in Repository Local, Category "MyCat", Item Name "MyItem2" 
+	And I have saved string "Saved to Local" (Item 2) in Repository Local, Category "MyCat", Item Name "MyItem1" 
 	When I clone Global test data to Local test data, not overwriting any existing
-	Then an Exception is thrown with text "Wobble"
+	Then an Exception is thrown with text "To item [MyItem1] in Local (ThreadID 4) repository's [MyCat] category already exists and overwriteIfExists is false"
 
 	Scenario: 1.2.2 - Verify values are cloned not references
 	Given I have saved string "My cloned Data" (Item 1) in Repository Global, Category "MyCat", Item Name "MyItem1"

@@ -1011,9 +1011,12 @@ namespace Utilities.UnitTests.net.RepositoryTests
  testRunner.And("I recall (Item 2) from Local, Category \"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 143
- testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("no exception is thrown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 144
+ testRunner.And("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 145
  testRunner.And("the recalled 2 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -1027,7 +1030,7 @@ namespace Utilities.UnitTests.net.RepositoryTests
         {
             string[] tagsOfScenario = ((string[])(null));
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.2.1 - Verify data is not overwritten if requested", null, ((string[])(null)));
-#line 146
+#line 147
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1047,19 +1050,20 @@ namespace Utilities.UnitTests.net.RepositoryTests
             else
             {
                 this.ScenarioStart();
-#line 147
+#line 148
  testRunner.Given("I have saved string \"Saved to Global\" (Item 1) in Repository Global, Category \"My" +
                         "Cat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 148
- testRunner.And("I have saved string \"Saved to Local\" (Item 2) in Repository Local, Category \"MyCa" +
-                        "t\", Item Name \"MyItem2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
 #line 149
- testRunner.When("I clone Global test data to Local test data, not overwriting any existing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I have saved string \"Saved to Local\" (Item 2) in Repository Local, Category \"MyCa" +
+                        "t\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 150
- testRunner.Then("an Exception is thrown with text \"Wobble\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I clone Global test data to Local test data, not overwriting any existing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 151
+ testRunner.Then("an Exception is thrown with text \"To item [MyItem1] in Local (ThreadID 4) reposit" +
+                        "ory\'s [MyCat] category already exists and overwriteIfExists is false\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -1072,7 +1076,7 @@ namespace Utilities.UnitTests.net.RepositoryTests
         {
             string[] tagsOfScenario = ((string[])(null));
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.2.2 - Verify values are cloned not references", null, ((string[])(null)));
-#line 152
+#line 153
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1092,27 +1096,27 @@ namespace Utilities.UnitTests.net.RepositoryTests
             else
             {
                 this.ScenarioStart();
-#line 153
+#line 154
  testRunner.Given("I have saved string \"My cloned Data\" (Item 1) in Repository Global, Category \"MyC" +
                         "at\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 154
+#line 155
  testRunner.And("I clone Global test data to Local test data, overwriting any existing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 155
+#line 156
  testRunner.When("I have saved string \"My new Global Data\" (Item 2) in Repository Global, Category " +
                         "\"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 156
+#line 157
  testRunner.And("I recall (Item 1) from Global, Category \"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 157
+#line 158
  testRunner.And("I recall (Item 2) from Local, Category \"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 158
+#line 159
  testRunner.Then("the recalled 1 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 159
+#line 160
  testRunner.And("the recalled 2 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }

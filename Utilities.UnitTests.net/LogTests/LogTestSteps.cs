@@ -102,7 +102,7 @@ namespace TeamControlium.UnitTests
         /// </summary>
         /// <param name="expectedToStartWith">Text matching Console stdout line must start with. Empty string matches any.</param>
         /// <param name="expectedToEndWith">Text matching Console stdout line must end with. Empty string matches any.</param>
-        [Then(@"the console stdout contains a line starting withstring.Empty(.*)"" and ending withstring.Empty(.*)""")]
+        [Then(@"the console stdout contains a line starting with ""(.*)"" and ending with ""(.*)""")]
         public void ThenTheConsoleWrittenToByLogShouldEndWith(string expectedToStartWith, string expectedToEndWith)
         {
             var consoleOutput = new List<string>();
@@ -126,7 +126,7 @@ namespace TeamControlium.UnitTests
             }
             else
             {
-                testMessage = $"Verify Console stdio ({(consoleOutput.Count == 0 ? "0 lines received" : outputString)}) contains a line of text starting with [{(expectedStartString == string.Empty?"<Any text>":expectedStartString)}] and ending with [{(expectedEndString == string.Empty ? "<Any text>" : expectedEndString)}]";
+                testMessage = $"Verify Console stdio ({(consoleOutput.Count == 0 ? "0 lines received" : outputString)}) contains a line of text starting with [{(expectedStartString ==  ""?"<Any text>":expectedStartString)}] and ending with [{(expectedEndString ==  "" ? "<Any text>" : expectedEndString)}]";
             }
 
             Assert.IsTrue((outputString == string.Empty) == (expectedStartString == string.Empty && expectedEndString == string.Empty), testMessage);
@@ -138,7 +138,7 @@ namespace TeamControlium.UnitTests
         /// </summary>
         /// <param name="expectedToStartWith">Text matching Log Receiver line must start with. Empty string matches any.</param>
         /// <param name="expectedToEndWith">Text matching Log Receiver line must end with. Empty string matches any.</param>
-        [Then(@"Log text receiver contains a line starting withstring.Empty(.*)"" and ending withstring.Empty(.*)""")]
+        [Then(@"Log text receiver contains a line starting with ""(.*)"" and ending with ""(.*)""")]
         public void ThenTheStringWrittenToByLogShouldEndWith(string expectedToStartWith, string expectedToEndWith)
         {
             var receiverLines = new List<string>();
@@ -162,7 +162,7 @@ namespace TeamControlium.UnitTests
             }
             else
             {
-                testMessage = $"Verify Log receiver delegate (Actual: [{(receiverLines.Count == 0 ? "0 lines received" : matchingLine)}]) received a line of text starting with [{(expectedStartString == string.Empty ? "<Any text>" : expectedStartString)}] and ending with [{(expectedEndString == string.Empty ? "<Any text>" : expectedEndString)}]";
+                testMessage = $"Verify Log receiver delegate (Actual: [{(receiverLines.Count == 0 ? "0 lines received" : matchingLine)}]) received a line of text starting with [{(expectedStartString ==  "" ? "<Any text>" : expectedStartString)}] and ending with [{(expectedEndString ==  "" ? "<Any text>" : expectedEndString)}]";
             }
 
             Assert.IsTrue((matchingLine == string.Empty) == (expectedStartString == string.Empty && expectedEndString == string.Empty), testMessage);

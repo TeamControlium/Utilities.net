@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.23" />
     <PackageReference Include="System.Diagnostics.EventLog" Version="4.7.0" />
   </ItemGroup>
 

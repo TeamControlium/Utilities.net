@@ -1063,10 +1063,13 @@ namespace Utilities.UnitTests.net.DetokeniserTests
             {
                 this.ScenarioStart();
 #line 166
- testRunner.Given("I have a string \"{random;digits;{random;from(2345);1} }\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have a string \"{random;digits;{random;from(368);1}}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 167
  testRunner.When("I process the token to a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 168
+ testRunner.Then("the string length is one of [368]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

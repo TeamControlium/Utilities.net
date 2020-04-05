@@ -304,5 +304,14 @@ namespace TeamControlium.UnitTests
 
             Assert.AreEqual(expectedText, actualText);
         }
+
+        /// <summary>
+        ///  Verifies no exception has been thrown by a Repository TryXXXXXX method.
+        /// </summary>
+        [Then(@"no exception is thrown")]
+        public void ThenNoExceptionIsThrown()
+        {
+            Assert.IsNull(RepositoryLastTryException(), $"Verify Repository has not thrown an Exception (was [{(RepositoryLastTryException()==null?"Sure hasn't": RepositoryLastTryException().Message)}])");
+        }
     }
 }

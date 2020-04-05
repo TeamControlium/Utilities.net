@@ -70,7 +70,7 @@ namespace TeamControlium.UnitTests
         /// Validate that Detokeniser returned string matches the expected
         /// </summary>
         /// <param name="expectedString">Expected string</param>
-        [Then(@"the string isstring.Empty(.*)""")]
+        [Then(@"the string is ""(.*)""")]
         public void ThenTheStringIs(string expectedString)
         {
             Assert.AreEqual(expectedString, (string)this.scenarioContext["ProcessedString"], $"Verify Detokeniser processed string [{(string)this.scenarioContext["ProcessedString"]}] matches expected [{expectedString}]");
@@ -80,7 +80,7 @@ namespace TeamControlium.UnitTests
         /// Verify Detokeniser returned string is todays date in the required format
         /// </summary>
         /// <param name="requiredFormatOfDate">Required format of date</param>
-        [Then(@"the string is today's date in the formatstring.Empty(.*)""")]
+        [Then(@"the string is today's date in the format ""(.*)""")]
         public void ThenTheStringIsTodaySDateInTheFormat(string requiredFormatOfDate)
         {
             string requiredDate = DateTime.Now.ToString(requiredFormatOfDate);
@@ -92,7 +92,7 @@ namespace TeamControlium.UnitTests
         /// Verify Detokeniser returned string is yesterdays date in the required format
         /// </summary>
         /// <param name="requiredFormatOfDate">Required format of date</param>
-        [Then(@"the string is yesterday's date in the formatstring.Empty(.*)""")]
+        [Then(@"the string is yesterday's date in the format ""(.*)""")]
         public void ThenTheStringIsYesterdaySDateInTheFormat(string requiredFormatOfDate)
         {
             string requiredDate = DateTime.Now.AddDays(-1).ToString(requiredFormatOfDate);
@@ -104,7 +104,7 @@ namespace TeamControlium.UnitTests
         /// Verify Detokeniser returned string is tomorrows date in the required format
         /// </summary>
         /// <param name="requiredFormatOfDate">Required format of date</param>
-        [Then(@"the string is tomorrows's date in the formatstring.Empty(.*)""")]
+        [Then(@"the string is tomorrows's date in the format ""(.*)""")]
         public void ThenTheStringIsTomorrowsDateInTheFormat(string requiredFormatOfDate)
         {
             string requiredDate = DateTime.Now.AddDays(1).ToString(requiredFormatOfDate);
@@ -118,7 +118,7 @@ namespace TeamControlium.UnitTests
         /// <param name="offset">Number of units of offset required</param>
         /// <param name="offsetType">Unit type of offset (IE. days, months or years)</param>
         /// <param name="requiredFormatOfDate">Required format of date</param>
-        [Then(@"the string is the date (.*)string.Empty(.*)"" in the formatstring.Empty(.*)""")]
+        [Then(@"the string is the date (.*) ""(.*)"" in the format ""(.*)""")]
         public void ThenTheStringIsTheDateInTheFormat(int offset, string offsetType, string requiredFormatOfDate)
         {
             DateTime requiredDate;
@@ -147,7 +147,7 @@ namespace TeamControlium.UnitTests
         /// </summary>
         /// <param name="minDate">Minimum date Detokeniser date must be</param>
         /// <param name="maxDate">Maximum date Detokeniser date must be</param>
-        [Then(@"the string is a date betweenstring.Empty(.*)"" andstring.Empty(.*)""")]
+        [Then(@"the string is a date between ""(.*)"" and ""(.*)""")]
         public void ThenTheStringIsADateBetweenAnd(string minDate, string maxDate)
         {
             var processedString = (string)this.scenarioContext["ProcessedString"];
@@ -167,7 +167,7 @@ namespace TeamControlium.UnitTests
         /// Verify Detokeniser result matches required regular expression
         /// </summary>
         /// <param name="regExpPattern">Regular Expression pattern to match</param>
-        [Then(@"the string matches regular expressionstring.Empty(.*)""")]
+        [Then(@"the string matches regular expression ""(.*)""")]
         public void ThenTheStringIsAFormattedNumber(string regExpPattern)
         {
             var processedString = (string)this.scenarioContext["ProcessedString"];
@@ -193,7 +193,7 @@ namespace TeamControlium.UnitTests
         /// </summary>
         /// <param name="numberOfCharacters">Number of characters Detokeniser result must be</param>
         /// <param name="possibleCharacters">Characters Detokeniser result must be selected from</param>
-        [Then(@"the string is (.*) characters fromstring.Empty(.*)""")]
+        [Then(@"the string is (.*) characters from ""(.*)""")]
         public void ThenTheStringIsCharacterFrom(int numberOfCharacters, string possibleCharacters)
         {
             var processedString = (string)this.scenarioContext["ProcessedString"];
@@ -247,6 +247,24 @@ namespace TeamControlium.UnitTests
             }
 
             Assert.AreEqual(product, sum, $"Verify TFN ({processedString}) check digit ({processedString[8]}) matches expected ({product})");
+        }
+
+        /// <summary>
+        /// Verify the length of the Detokeniser result is one of the single digit lengths given
+        /// </summary>
+        /// <param name="possibleSingleDigitLengths">Possible lengths the ProcessedString context variable can be.  All single digit lengths.</param>
+        [Then(@"the string length is one of \[(\d*)]")]
+        public void ThenTheStringLengthIsOneOf(string possibleSingleDigitLengths)
+        {
+            int dummy;
+            var processedString = (string)this.scenarioContext["ProcessedString"];
+            var processedStringLength = processedString.Length;
+            if (!int.TryParse(possibleSingleDigitLengths, out dummy))
+            {
+                throw new Exception($"Possible Lengths ({possibleSingleDigitLengths}) contains non-numerics! Check test step");
+            }
+
+            Assert.IsTrue(possibleSingleDigitLengths.ToList().Any(len => processedStringLength == int.Parse(len.ToString())), $"Processed string [{processedString}] length is one of [{possibleSingleDigitLengths}]");
         }
     }
 }
