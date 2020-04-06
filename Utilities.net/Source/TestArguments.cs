@@ -3,11 +3,8 @@
 // </copyright>
 namespace TeamControlium.Utilities
 {
-    using System;
-    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Text.RegularExpressions;
-    using Microsoft.Extensions.Configuration;
 
     /// <summary>
     /// Processes test command-line arguments and presents them to the test script as a string array
