@@ -115,7 +115,7 @@ namespace TeamControlium.Utilities
         {
             lock (repository)
             {
-                return VerifyCategoryIsNotNullOrEmptyAndExists(false, categoryName, false);
+                return VerifyCategoryIsNotNullOrEmptyAndExists(true, categoryName, false);
             }
         }
 
@@ -127,6 +127,34 @@ namespace TeamControlium.Utilities
         public static bool HasCategoryGlobal(string categoryName)
         {
             return VerifyCategoryIsNotNullOrEmptyAndExists(false, categoryName, false);
+        }
+
+        /// <summary>
+        /// Indicates whether Local repository has an Item in the given category with the given name
+        /// </summary>
+        /// <param name="categoryName">Name of category to check for.  If NULL or Empty, uncategorised item is checked for</param>
+        /// <param name="itemName">Name of item to check for.</param>
+        /// <returns>True if local repository has item named in category named.  Otherwise False.</returns>
+        public static bool HasItemLocal(string categoryName, string itemName)
+        {
+            lock (repository)
+            {
+                return VerifyItemNameIsNotNullOrEmptyAndExists(true, string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName, false);
+            }
+        }
+
+        /// <summary>
+        /// Indicates whether Global repository has an Item in the given category with the given name
+        /// </summary>
+        /// <param name="categoryName">Name of category to check for.  If NULL or Empty, uncategorised item is checked for</param>
+        /// <param name="itemName">Name of item to check for</param>
+        /// <returns>True if local repository has item named in category named.  Otherwise False.</returns>
+        public static bool HasItemGlobal(string categoryName, string itemName)
+        {
+            lock (repository)
+            {
+                return VerifyItemNameIsNotNullOrEmptyAndExists(false, string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName, false);
+            }
         }
 
         /// <summary>
@@ -235,7 +263,7 @@ namespace TeamControlium.Utilities
         {
             lock (repository)
             {
-                return GetItem(true, categorylessItems, itemName);
+                return GetItemLocal(null, itemName);
             }
         }
 
@@ -249,35 +277,79 @@ namespace TeamControlium.Utilities
         {
             lock (repository)
             {
-                return GetItem(false, categorylessItems, itemName);
+                return GetItemGlobal(null, itemName);
             }
         }
 
         /// <summary>
         /// Returns data item from required category in local repository.
         /// </summary>
-        /// <param name="categoryName">Name of category data item is in</param>
+        /// <param name="categoryName">Name of category data item is in.  If NULL or empty, non-categorised item if retrieved.</param>
         /// <param name="itemName">Name of data item to retrieve</param>
         /// <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="GetItemLocal{T}(string, string)"/> for type checked data recall.</returns>
         public static dynamic GetItemLocal(string categoryName, string itemName)
         {
             lock (repository)
             {
-                return GetItem(true, categoryName, itemName);
+                return GetItem(true, string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName);
             }
         }
 
         /// <summary>
         /// Returns data item from required category in global repository.
         /// </summary>
-        /// <param name="categoryName">Name of category data item is in</param>
+        /// <param name="categoryName">Name of category data item is in.  If NULL or empty, non-categorised item if retrieved.</param>
         /// <param name="itemName">Name of data item to retrieve</param>
         /// <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="GetItemGlobal{T}(string, string)"/> for type checked data recall.</returns>
         public static dynamic GetItemGlobal(string categoryName, string itemName)
         {
             lock (repository)
             {
-                return GetItem(false, categoryName, itemName);
+                return GetItem(false, string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName);
+            }
+        }
+
+        /// <summary>
+        /// Returns data item from required category in local repository or default value if item does not exist or an error occurs.
+        /// </summary>
+        /// <param name="categoryName">Name of category data item is in.  If NULL or empty, non-categorised item if retrieved.</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <param name="defaultValue">Value returned if item does not exist or an error occurred when retrieving.</param>
+        /// <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="GetItemLocalOrDefault{T}(string, string, T)"/> for type checked data recall.</returns>
+        public static dynamic GetItemLocalOrDefault(string categoryName, string itemName, dynamic defaultValue)
+        {
+            lock (repository)
+            {
+                try
+                {
+                    return GetItem(true, string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName);
+                }
+                catch
+                {
+                    return defaultValue;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns data item from required category in global repository or default value if item does not exist or an error occurs.
+        /// </summary>
+        /// <param name="categoryName">Name of category data item is in.  If NULL or empty, non-categorised item if retrieved.</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <param name="defaultValue">Value returned if item does not exist or an error occurred when retrieving.</param>
+        /// <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="GetItemGlobalOrDefault{T}(string, string, T)"/> for type checked data recall.</returns>
+        public static dynamic GetItemGlobalOrDefault(string categoryName, string itemName, dynamic defaultValue)
+        {
+            lock (repository)
+            {
+                try
+                {
+                    return GetItem(false, string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName);
+                }
+                catch
+                {
+                    return defaultValue;
+                }
             }
         }
 
@@ -340,6 +412,64 @@ namespace TeamControlium.Utilities
             lock (repository)
             {
                 return GetItemTyped<T>(false, categoryName, itemName);
+            }
+        }
+
+        /// <summary>
+        /// Returns data item from required category in local repository (with verification of required type) or default value if item does not exist or an error occurs.
+        /// </summary>
+        /// <param name="categoryName">Name of category data item is in.  If NULL or empty, non-categorised item if retrieved.</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <param name="defaultValue">Value returned if item does not exist or an error occurred when retrieving.</param>
+        /// <typeparam name="T">Expected type of required data</typeparam>
+        /// <returns>Data item.  Type will be cast as required.</returns>
+        public static T GetItemLocalOrDefault<T>(string categoryName, string itemName, T defaultValue)
+        {
+            lock (repository)
+            {
+                try
+                {
+                    return GetItem(true, string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName);
+                }
+                catch
+                {
+                    // If an excception was thrown but the repository DOES have the item, then re-throw the exception as some bad has happened. Probably a type issue.
+                    if (HasItemLocal(categoryName, itemName))
+                    {
+                        throw;
+                    }
+
+                    return defaultValue;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns data item from required category in Global repository (with verification of required type) or default value if item does not exist or an error occurs.
+        /// </summary>
+        /// <param name="categoryName">Name of category data item is in.  If NULL or empty, non-categorised item if retrieved.</param>
+        /// <param name="itemName">Name of data item to retrieve</param>
+        /// <param name="defaultValue">Value returned if item does not exist or an error occurred when retrieving.</param>
+        /// <typeparam name="T">Expected type of required data</typeparam>
+        /// <returns>Data item.  Type will be cast as required.</returns>
+        public static T GetItemGlobalOrDefault<T>(string categoryName, string itemName, T defaultValue)
+        {
+            lock (repository)
+            {
+                try
+                {
+                    return GetItem(false, string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName);
+                }
+                catch
+                {
+                    // If an excception was thrown but the repository DOES have the item, then re-throw the exception as some bad has happened. Probably a type issue.
+                    if (HasItemGlobal(categoryName, itemName))
+                    {
+                        throw;
+                    }
+
+                    return defaultValue;
+                }
             }
         }
 
@@ -1145,7 +1275,10 @@ namespace TeamControlium.Utilities
         /// Method is NOT thread-safe.  It is the responsibility of the calling code to ensure thread safety.</remarks>
         private static dynamic GetItem(bool isLocal, string category, string itemKey)
         {
-            VerifyItemNameIsNotNullOrEmptyAndExists(isLocal, category, itemKey, true);
+            if (!VerifyItemNameIsNotNullOrEmptyAndExists(isLocal, category, itemKey, false))
+            {
+                throw new Exception($"{(isLocal ? $"Local (ThreadID {Thread.CurrentThread.ManagedThreadId})" : "Global")} repository, Item [{category}.{itemKey}] does not exist!");
+            }
 
             // Get item named from categoryName and return it
             dynamic obtainedObject = GetCategory(isLocal, category)[itemKey];

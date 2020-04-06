@@ -45,13 +45,17 @@
   <HelpKINode Title="GetCategoryGlobal method" Url="html/1da9ba28-7f1c-013d-09e0-0b325425b450.htm" />
   <HelpKINode Title="GetCategoryLocal method" Url="html/e00e4d47-e0c1-59e4-0655-696e3dd6276c.htm" />
   <HelpKINode Title="GetItemGlobal method" Url="html/af77e9d2-eb38-9175-ff7b-c70ebb0e2893.htm" />
+  <HelpKINode Title="GetItemGlobalOrDefault method" Url="html/da13191e-44d9-dd47-7730-1adf23529b43.htm" />
   <HelpKINode Title="GetItemLocal method" Url="html/86e0300b-f62b-bdb1-e709-7e6c3712026c.htm" />
+  <HelpKINode Title="GetItemLocalOrDefault method" Url="html/98cb4317-1e0b-dc9d-af96-2eff2828373f.htm" />
   <HelpKINode Title="GetItemOrDefaultGlobal method" Url="html/b4a3b715-06c4-1ea2-6f36-255a363c2040.htm" />
   <HelpKINode Title="GetItemOrDefaultLocal method" Url="html/eb4f51e7-e274-512f-faee-f03414fa3da6.htm" />
   <HelpKINode Title="GetParam method" Url="html/c95621e9-3d43-c577-d66f-0e8fa33033a0.htm" />
   <HelpKINode Title="GetTextFromHTML method" Url="html/1a9e2950-d308-eb3f-71c2-4137453e7da2.htm" />
   <HelpKINode Title="HasCategoryGlobal method" Url="html/93c6554a-7054-8638-71de-974eb65a569b.htm" />
   <HelpKINode Title="HasCategoryLocal method" Url="html/0a8cc7d3-f0ce-1cca-29ce-273d46b5486c.htm" />
+  <HelpKINode Title="HasItemGlobal method" Url="html/5c53ffc6-6561-26e5-2fce-31c0f22384a3.htm" />
+  <HelpKINode Title="HasItemLocal method" Url="html/ff1225ec-6b44-3388-2658-60ed06b938f1.htm" />
   <HelpKINode Title="IsValueTrue method" Url="html/96d57a9d-7d64-63ab-d7a7-dd81531084e4.htm" />
   <HelpKINode Title="Item property" Url="html/f0042da8-e8fc-d14d-58c9-7de8fe0d1222.htm" />
   <HelpKINode Title="ItemGlobal property" Url="html/9bb44d16-ecb7-429b-484d-6377e036e757.htm" />
@@ -107,11 +111,15 @@
   <HelpKINode Title="Repository.GetCategoryGlobal method" Url="html/1da9ba28-7f1c-013d-09e0-0b325425b450.htm" />
   <HelpKINode Title="Repository.GetCategoryLocal method" Url="html/e00e4d47-e0c1-59e4-0655-696e3dd6276c.htm" />
   <HelpKINode Title="Repository.GetItemGlobal method" Url="html/af77e9d2-eb38-9175-ff7b-c70ebb0e2893.htm" />
+  <HelpKINode Title="Repository.GetItemGlobalOrDefault method" Url="html/da13191e-44d9-dd47-7730-1adf23529b43.htm" />
   <HelpKINode Title="Repository.GetItemLocal method" Url="html/86e0300b-f62b-bdb1-e709-7e6c3712026c.htm" />
+  <HelpKINode Title="Repository.GetItemLocalOrDefault method" Url="html/98cb4317-1e0b-dc9d-af96-2eff2828373f.htm" />
   <HelpKINode Title="Repository.GetItemOrDefaultGlobal method" Url="html/b4a3b715-06c4-1ea2-6f36-255a363c2040.htm" />
   <HelpKINode Title="Repository.GetItemOrDefaultLocal method" Url="html/eb4f51e7-e274-512f-faee-f03414fa3da6.htm" />
   <HelpKINode Title="Repository.HasCategoryGlobal method" Url="html/93c6554a-7054-8638-71de-974eb65a569b.htm" />
   <HelpKINode Title="Repository.HasCategoryLocal method" Url="html/0a8cc7d3-f0ce-1cca-29ce-273d46b5486c.htm" />
+  <HelpKINode Title="Repository.HasItemGlobal method" Url="html/5c53ffc6-6561-26e5-2fce-31c0f22384a3.htm" />
+  <HelpKINode Title="Repository.HasItemLocal method" Url="html/ff1225ec-6b44-3388-2658-60ed06b938f1.htm" />
   <HelpKINode Title="Repository.ItemGlobal property" Url="html/9bb44d16-ecb7-429b-484d-6377e036e757.htm" />
   <HelpKINode Title="Repository.ItemLocal property" Url="html/ae62b700-f7c3-ee19-99ec-b86a859b4aaa.htm" />
   <HelpKINode Title="Repository.Repository constructor" Url="html/86e39027-aa53-814e-70e2-5bd9a624fa5d.htm" />
