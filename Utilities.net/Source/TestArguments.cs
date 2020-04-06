@@ -3,67 +3,79 @@
 // </copyright>
 namespace TeamControlium.Utilities
 {
+    using System;
+    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Text.RegularExpressions;
+    using Microsoft.Extensions.Configuration;
 
     /// <summary>
     /// Processes test command-line arguments and presents them to the test script as a string array
     /// </summary>
     /// <remarks>
-    /// Thanks to Mike Burns (https://www.linkedin.com/in/maddogmikeb) for original
+    /// <code>Thanks to GriffonRL (https://www.codeproject.com/Articles/3111/C-NET-Command-Line-Arguments-Parser) for original</code>
     /// </remarks>
-    public class TestArguments
+    public static class TestArguments
     {
         /// <summary>
         /// Working global holding processed parameters
         /// </summary>
-        private StringDictionary processedParameters;
+        private static StringDictionary processedParameters;
 
         /// <summary>
-        /// Initialises a new instance of the <see cref="TestArguments" /> class.
         /// Process the test arguments and make available for the test to use.
         /// </summary>
         /// <remarks>
-        /// Arguments are space delimited and handle various common parameter preambles<br/><br/>
-        /// EG. <code>Test.exe -param1 value1 --param2 /param3:"Test-:-work /param4=happy -param5 '--=nice=--'</code>
+        /// Arguments are space delimited and handle various common parameter preambles.<br/>
+        /// In the following example the test is called with the following parameters;<br/>
+        /// param1  - string 'value1'<br/>
+        /// param2  - an empty string (but does exist)<br/>
+        /// param3  - string 'Test-:-work'<br/>
+        /// param4  - string 'happy'<br/>
+        /// param5  - string my param5 data'<br/>
+        /// param6  - an empty string (but does exist)<br/>
+        /// EG. <code>Test.exe -param1 value1 --param2 /param3:"Test-:-work" /param4=happy -param5 "my param5 data" -param6</code>
         /// </remarks>
         /// <param name="argumentsToProcess">String array of arguments for the test to use.</param>
-        public TestArguments(string[] argumentsToProcess)
+        public static void Load(string[] argumentsToProcess)
         {
-            this.processedParameters = new StringDictionary();
+            string parameter = null;
+            string[] parts;
+            string oneOrMoreSpaces = @"[^\s]+";
+            string ignoreTextInQuotes = @"(?x)""(\\.|[^\\\r\n""])*""";
+            string regex = ignoreTextInQuotes + "|" + oneOrMoreSpaces;
             Regex spliter = new Regex(@"^-{1,2}|^/|=|:", RegexOptions.IgnoreCase | RegexOptions.Compiled);
             Regex remover = new Regex(@"^['""]?(.*?)['""]?$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-            string currentParameterBeingBuilt = null;
-            string[] argumentParts;
+            MatchCollection normalizedArgs = (new Regex(regex)).Matches(string.Join(' ', argumentsToProcess));
+
+            processedParameters = new StringDictionary();
 
             // Valid parameters forms:
             // {-,/,--}param{ ,=,:}((",')value(",'))
             // Examples: 
             // -param1 value1 --param2 /param3:"Test-:-work" 
             //   /param4=happy -param5 '--=nice=--'
-            foreach (string currentArgument in argumentsToProcess)
+            foreach (Match normalizedArg in normalizedArgs)
             {
                 // Look for new parameters (-,/ or --) and a
                 // possible enclosed value (=,:)
-                argumentParts = spliter.Split(currentArgument, 3);
+                parts = spliter.Split(normalizedArg.Value, 3);
 
-                switch (argumentParts.Length)
+                switch (parts.Length)
                 {
                     // Found a value (for the last parameter 
                     // found (space separator))
                     case 1:
-                        if (currentParameterBeingBuilt != null)
+                        if (parameter != null)
                         {
-                            if (!this.processedParameters.ContainsKey(currentParameterBeingBuilt))
+                            if (!processedParameters.ContainsKey(parameter))
                             {
-                                argumentParts[0] =
-                                    remover.Replace(argumentParts[0], "$1");
-
-                                this.processedParameters.Add(currentParameterBeingBuilt, argumentParts[0]);
+                                parts[0] = remover.Replace(parts[0], "$1");
+                                processedParameters.Add(parameter, parts[0]);
                             }
 
-                            currentParameterBeingBuilt = null;
+                            parameter = null;
                         }
 
                         // else Error: no parameter waiting for a value (skipped)
@@ -73,49 +85,49 @@ namespace TeamControlium.Utilities
                     case 2:
                         // The last parameter is still waiting. 
                         // With no value, set it to true.
-                        if (currentParameterBeingBuilt != null)
+                        if (parameter != null)
                         {
-                            if (!this.processedParameters.ContainsKey(currentParameterBeingBuilt))
+                            if (!processedParameters.ContainsKey(parameter))
                             {
-                                this.processedParameters.Add(currentParameterBeingBuilt, "true");
+                                processedParameters.Add(parameter, string.Empty);
                             }
                         }
 
-                        currentParameterBeingBuilt = argumentParts[1];
+                        parameter = parts[1];
                         break;
 
                     // Parameter with enclosed value
                     case 3:
                         // The last parameter is still waiting. 
                         // With no value, set it to true.
-                        if (currentParameterBeingBuilt != null)
+                        if (parameter != null)
                         {
-                            if (!this.processedParameters.ContainsKey(currentParameterBeingBuilt))
+                            if (!processedParameters.ContainsKey(parameter))
                             {
-                                this.processedParameters.Add(currentParameterBeingBuilt, "true");
+                                processedParameters.Add(parameter, string.Empty);
                             }
                         }
 
-                        currentParameterBeingBuilt = argumentParts[1];
+                        parameter = parts[1];
 
                         // Remove possible enclosing characters (",')
-                        if (!this.processedParameters.ContainsKey(currentParameterBeingBuilt))
+                        if (!processedParameters.ContainsKey(parameter))
                         {
-                            argumentParts[2] = remover.Replace(argumentParts[2], "$1");
-                            this.processedParameters.Add(currentParameterBeingBuilt, argumentParts[2]);
+                            parts[2] = remover.Replace(parts[2], "$1");
+                            processedParameters.Add(parameter, parts[2]);
                         }
 
-                        currentParameterBeingBuilt = null;
+                        parameter = null;
                         break;
                 }
             }
 
             // In case a parameter is still waiting
-            if (currentParameterBeingBuilt != null)
+            if (parameter != null)
             {
-                if (!this.processedParameters.ContainsKey(currentParameterBeingBuilt))
+                if (!processedParameters.ContainsKey(parameter))
                 {
-                    this.processedParameters.Add(currentParameterBeingBuilt, "true");
+                    processedParameters.Add(parameter, string.Empty);
                 }
             }
         }
@@ -125,18 +137,15 @@ namespace TeamControlium.Utilities
         /// </summary>
         /// <param name="param">Parameter to obtain</param>
         /// <returns>Value of named parameter.  If named parameter does not exist null is returned</returns>
-        public string this[string param]
+        public static string GetParam(string param)
         {
-            get
+            try
             {
-                try
-                {
-                    return this.processedParameters[param];
-                }
-                catch
-                {
-                    return null;
-                }
+                return processedParameters[param];
+            }
+            catch
+            {
+                return null;
             }
         }
     }

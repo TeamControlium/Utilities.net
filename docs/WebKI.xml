@@ -48,16 +48,15 @@
   <HelpKINode Title="GetItemLocal method" Url="html/86e0300b-f62b-bdb1-e709-7e6c3712026c.htm" />
   <HelpKINode Title="GetItemOrDefaultGlobal method" Url="html/b4a3b715-06c4-1ea2-6f36-255a363c2040.htm" />
   <HelpKINode Title="GetItemOrDefaultLocal method" Url="html/eb4f51e7-e274-512f-faee-f03414fa3da6.htm" />
+  <HelpKINode Title="GetParam method" Url="html/c95621e9-3d43-c577-d66f-0e8fa33033a0.htm" />
   <HelpKINode Title="GetTextFromHTML method" Url="html/1a9e2950-d308-eb3f-71c2-4137453e7da2.htm" />
   <HelpKINode Title="HasCategoryGlobal method" Url="html/93c6554a-7054-8638-71de-974eb65a569b.htm" />
   <HelpKINode Title="HasCategoryLocal method" Url="html/0a8cc7d3-f0ce-1cca-29ce-273d46b5486c.htm" />
   <HelpKINode Title="IsValueTrue method" Url="html/96d57a9d-7d64-63ab-d7a7-dd81531084e4.htm" />
-  <HelpKINode Title="Item property">
-    <HelpKINode Title="DynamicItems(dynamic).Item Property " Url="html/f0042da8-e8fc-d14d-58c9-7de8fe0d1222.htm" />
-    <HelpKINode Title="TestArguments.Item Property " Url="html/c7a68837-ec85-2ae1-e945-2515ff3ff751.htm" />
-  </HelpKINode>
+  <HelpKINode Title="Item property" Url="html/f0042da8-e8fc-d14d-58c9-7de8fe0d1222.htm" />
   <HelpKINode Title="ItemGlobal property" Url="html/9bb44d16-ecb7-429b-484d-6377e036e757.htm" />
   <HelpKINode Title="ItemLocal property" Url="html/ae62b700-f7c3-ee19-99ec-b86a859b4aaa.htm" />
+  <HelpKINode Title="Load method" Url="html/f2aab7ee-38b9-5c75-a350-ac181b3f62b8.htm" />
   <HelpKINode Title="Log class">
     <HelpKINode Title="Log Class" Url="html/206106b2-7463-8cdd-beb3-c358dd3726b2.htm" />
     <HelpKINode Title="methods" Url="html/6efe7d11-f7c0-fb9e-df46-9de555b2bdcb.htm" />
@@ -147,12 +146,10 @@
   <HelpKINode Title="TeamControlium.Utilities.TestArguments class" Url="html/de09a1a9-d3dd-2bd1-e4f4-505ea368b468.htm" />
   <HelpKINode Title="TestArguments class">
     <HelpKINode Title="TestArguments Class" Url="html/de09a1a9-d3dd-2bd1-e4f4-505ea368b468.htm" />
-    <HelpKINode Title="constructor" Url="html/c42e9484-77fe-29bb-1509-b957c72d8c47.htm" />
     <HelpKINode Title="methods" Url="html/22c4624d-3b6c-fb96-3bc1-8070f9162ff5.htm" />
-    <HelpKINode Title="properties" Url="html/156e79c7-e318-bef5-a06a-2f311e156c51.htm" />
   </HelpKINode>
-  <HelpKINode Title="TestArguments.Item property" Url="html/c7a68837-ec85-2ae1-e945-2515ff3ff751.htm" />
-  <HelpKINode Title="TestArguments.TestArguments constructor" Url="html/c42e9484-77fe-29bb-1509-b957c72d8c47.htm" />
+  <HelpKINode Title="TestArguments.GetParam method" Url="html/c95621e9-3d43-c577-d66f-0e8fa33033a0.htm" />
+  <HelpKINode Title="TestArguments.Load method" Url="html/f2aab7ee-38b9-5c75-a350-ac181b3f62b8.htm" />
   <HelpKINode Title="TestDebug enumeration member" Url="html/181039e9-026c-b903-0493-ffc93e8294cb.htm" />
   <HelpKINode Title="TestInformation enumeration member" Url="html/181039e9-026c-b903-0493-ffc93e8294cb.htm" />
   <HelpKINode Title="TryCloneCategoryGlobalToLocal method" Url="html/4ac463dc-cfbe-7889-840c-c441e4bb9488.htm" />
