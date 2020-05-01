@@ -938,13 +938,11 @@ namespace Utilities.UnitTests.net.RepositoryTests
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Exception Text", "\"Category name My Category does not exist in Local (ThreadID 4) repository. Categ" +
-            "ory name must be valid and exist.\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Exception Text", "\"Local (ThreadID 4) repository Item [MyCategory.MyItem] does not exist\"")]
         public virtual void _1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared_Local()
         {
 #line 126
-    this._1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", "\"Category name My Category does not exist in Local (ThreadID 4) repository. Categ" +
-                    "ory name must be valid and exist.\"", ((string[])(null)));
+    this._1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", "\"Local (ThreadID 4) repository Item [MyCategory.MyItem] does not exist\"", ((string[])(null)));
 #line hidden
         }
         
@@ -956,13 +954,11 @@ namespace Utilities.UnitTests.net.RepositoryTests
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Exception Text", "\"Category name MyCategory does not exist in Global repository. Category name must" +
-            " be valid and exist\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Exception Text", "\"Global repository Item [MyCategory.MyItem] does not exist\"")]
         public virtual void _1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared_Global()
         {
 #line 126
-    this._1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", "\"Category name MyCategory does not exist in Global repository. Category name must" +
-                    " be valid and exist\"", ((string[])(null)));
+    this._1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", "\"Global repository Item [MyCategory.MyItem] does not exist\"", ((string[])(null)));
 #line hidden
         }
         

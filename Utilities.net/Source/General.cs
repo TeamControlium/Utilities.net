@@ -8,6 +8,7 @@ namespace TeamControlium.Utilities
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using System.Threading;
     using HtmlAgilityPack;
     using static TeamControlium.Utilities.Log;
 
@@ -17,6 +18,32 @@ namespace TeamControlium.Utilities
     public static class General
     {
         /// <summary>
+        /// Keeps note of all filenames being written to by threads.  Prevents overwriting between threads.
+        /// </summary>
+        private static Dictionary<int, string> writeFilesThreaded = new Dictionary<int, string>();
+
+        /// <summary>
+        /// Write mode when writing to a file
+        /// </summary>
+        public enum WriteMode
+        {
+            /// <summary>
+            /// Number appended to filename to ensure filename unique.
+            /// </summary>
+            AutoVersion,
+
+            /// <summary>
+            /// If file exists it is overwritten
+            /// </summary>
+            Overwrite,
+
+            /// <summary>
+            /// If filename exists, data appended to latest versioned instance.
+            /// </summary>
+            Append
+        }
+
+        /// <summary>
         /// Writes given Text to a text file, optionally auto versioning (adding (n) to filename) OR
         /// overwriting.
         /// </summary>
@@ -24,33 +51,78 @@ namespace TeamControlium.Utilities
         /// No exception is raised if there is any problem, but details of error is written to Logger log
         /// </remarks>
         /// <param name="fileName">Full path and filename to use</param>
-        /// <param name="autoVersion">If true and file exists. (n) is added to auto-version.  If false and file exists, it is overwritten if able</param>
+        /// <param name="writeMode">Write mode (See <see cref="WriteMode"/>) when writing to file</param>
         /// <param name="text">Text to write</param>
-        public static void WriteTextToFile(string fileName, bool autoVersion, string text)
+        public static void WriteTextToFile(string fileName, WriteMode writeMode, string text)
         {
-            try
+            object lockObject = new object();
+            lock (lockObject)
             {
-                string filenameToUse = fileName;
-                if (autoVersion)
+                try
                 {
-                    int count = 1;
                     string fileNameOnly = Path.GetFileNameWithoutExtension(fileName);
                     string extension = Path.GetExtension(fileName);
                     string path = Path.GetDirectoryName(fileName);
-                    filenameToUse = fileName;
+                    string filenameToUse = fileName;
+                    string lastFilename;
+                    int count;
 
-                    while (File.Exists(filenameToUse))
+                    if (writeMode == WriteMode.AutoVersion)
                     {
-                        string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
-                        filenameToUse = Path.Combine(path, tempFileName + extension);
+                        count = 1;
+                        while (File.Exists(filenameToUse))
+                        {
+                            filenameToUse = Path.Combine(path, string.Format("{0}({1})", fileNameOnly, count++) + extension);
+                        }
+
+                        File.AppendAllText(filenameToUse, text);
+                        if (writeFilesThreaded.ContainsKey(Thread.CurrentThread.ManagedThreadId))
+                        {
+                            writeFilesThreaded[Thread.CurrentThread.ManagedThreadId] = filenameToUse;
+                        }
+                        else
+                        {
+                            writeFilesThreaded.Add(Thread.CurrentThread.ManagedThreadId, filenameToUse);
+                        }
+                    }
+
+                    if (writeMode == WriteMode.Append)
+                    {
+                        if (writeFilesThreaded.ContainsKey(Thread.CurrentThread.ManagedThreadId) && writeFilesThreaded[Thread.CurrentThread.ManagedThreadId].StartsWith(filenameToUse))
+                        {
+                            filenameToUse = writeFilesThreaded[Thread.CurrentThread.ManagedThreadId];
+                        }
+                        else
+                        {
+                            count = 1;
+                            lastFilename = filenameToUse;
+                            while (File.Exists(filenameToUse))
+                            {
+                                lastFilename = filenameToUse;
+                                filenameToUse = Path.Combine(path, string.Format("{0}({1})", fileNameOnly, count++) + extension);
+                            }
+
+                            File.AppendAllText(lastFilename, text);
+                            writeFilesThreaded.Add(Thread.CurrentThread.ManagedThreadId, lastFilename);
+                        }
+                    }
+
+                    if (writeMode == WriteMode.Overwrite)
+                    {
+                        count = 1;
+                        while (File.Exists(filenameToUse))
+                        {
+                            File.Delete(filenameToUse);
+                            filenameToUse = Path.Combine(path, string.Format("{0}({1})", fileNameOnly, count++) + extension);
+                        }
+
+                        File.WriteAllText(fileName, text);
                     }
                 }
-
-                File.WriteAllText(filenameToUse, text);
-            }
-            catch (Exception ex)
-            {
-                LogException(ex, $"Cannot write data to file [{fileName ?? "Null Filename!"}] (AutoVersion={(autoVersion ? "Yes" : "No")})");
+                catch (Exception ex)
+                {
+                    LogException(ex, $"Cannot write data to file [{fileName ?? "Null Filename!"}] (Mode={writeMode.ToString()})");
+                }
             }
         }
 
@@ -105,6 +177,42 @@ namespace TeamControlium.Utilities
             string invalidChars = Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()));
             string invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
             return Regex.Replace(original, invalidRegStr, "_");
+        }
+
+        /// <summary>
+        /// Converts a Web URL to a nix/Windows compatible filename
+        /// </summary>
+        /// <param name="url">URL to convert</param>
+        /// <returns>URL represented as a valid filename</returns>
+        /// <remarks>All non-alpha characters are converted to underscore</remarks>
+        public static string ConvertURLToValidFilename(string url)
+        {
+            List<string> matchedChars = new List<string>();
+            string rt = string.Empty;
+            Regex r = new Regex(@"[a-z]+", RegexOptions.IgnoreCase);
+            foreach (Match m in r.Matches(url))
+            {
+                matchedChars.Add(m.Value);
+            }
+
+            for (int i = 0; i < matchedChars.Count; i++)
+            {
+                rt += matchedChars[i];
+                rt += "_";
+            }
+
+            rt = (matchedChars.Count > 0) ? rt.Substring(0, rt.Length - 1) : string.Empty;
+            return rt;
+        }
+
+        /// <summary>
+        /// Encodes a plain text string into Base64.
+        /// </summary>
+        /// <param name="plainText">Text to be converted</param>
+        /// <returns>Equivalent string Base64 encoded</returns>
+        public static string Base64Encode(string plainText)
+        {
+            return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(plainText));
         }
 
         /// <summary>

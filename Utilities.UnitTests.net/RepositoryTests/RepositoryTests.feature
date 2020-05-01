@@ -130,8 +130,8 @@
 	Then the recalled 1 value is an exception with innermost exception message <Exception Text>
 	Examples:
 	| Repository | Data Item | Category Name | Item Name | Exception Text                                                                                                      |
-	| Local      | "My data" | "MyCategory"  | "MyItem"  | "Category name My Category does not exist in Local (ThreadID 4) repository. Category name must be valid and exist." |
-	| Global     | "My data" | "MyCategory"  | "MyItem"  | "Category name MyCategory does not exist in Global repository. Category name must be valid and exist"               |
+	| Local      | "My data" | "MyCategory"  | "MyItem"  | "Local (ThreadID 4) repository Item [MyCategory.MyItem] does not exist" |
+	| Global     | "My data" | "MyCategory"  | "MyItem"  | "Global repository Item [MyCategory.MyItem] does not exist"               |
 
 	
 	Scenario: 1.2.0 - Clone Global test data to Local, overwriting any existing data

@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpKI>
+  <HelpKINode Title="Append enumeration member" Url="html/51cb959a-e5c6-3d63-337c-a54d30e42d43.htm" />
+  <HelpKINode Title="AutoVersion enumeration member" Url="html/51cb959a-e5c6-3d63-337c-a54d30e42d43.htm" />
+  <HelpKINode Title="Base64Encode method" Url="html/d932ad9e-ca03-8d64-3a6f-a744f6a9663d.htm" />
   <HelpKINode Title="CleanStringForFilename method" Url="html/db9476cd-f57c-7e6e-c198-25202f86d4dd.htm" />
   <HelpKINode Title="CleanStringForXPath method" Url="html/482b90dc-692e-91b6-5dcc-e836616a00f4.htm" />
   <HelpKINode Title="ClearRepositoryAll method" Url="html/5ec2b6cb-a381-b173-ce54-0ab5ed14f65d.htm" />
@@ -11,6 +14,7 @@
   <HelpKINode Title="CloneItemGlobalToLocal method" Url="html/0da5ba89-67ea-3e85-1413-ccfc1fd3e07d.htm" />
   <HelpKINode Title="CloneItemLocalToGlobal method" Url="html/b0b761a9-0159-eb8b-93b6-a6166c7b27ed.htm" />
   <HelpKINode Title="CloneLocalToGlobal method" Url="html/b6f35abd-a60c-5ad1-e200-792ff60371ae.htm" />
+  <HelpKINode Title="ConvertURLToValidFilename method" Url="html/811437c8-56c1-3454-6bd3-93a0d23e722d.htm" />
   <HelpKINode Title="CustomTokenProcessor property" Url="html/66d22cc9-3c60-a5c3-d6f6-acaa1781cd25.htm" />
   <HelpKINode Title="DefaultTokenDelimiterCurrentThread property" Url="html/9a772c3f-725f-d801-ff4b-30df07cc9470.htm" />
   <HelpKINode Title="Detokeniser class">
@@ -37,11 +41,14 @@
     <HelpKINode Title="General Class" Url="html/82ec4471-b8a5-4cf1-35e8-1310d88d042a.htm" />
     <HelpKINode Title="methods" Url="html/9ff8f7d0-a7f8-4ddc-52c0-ec0a98bae5fd.htm" />
   </HelpKINode>
+  <HelpKINode Title="General.Base64Encode method" Url="html/d932ad9e-ca03-8d64-3a6f-a744f6a9663d.htm" />
   <HelpKINode Title="General.CleanStringForFilename method" Url="html/db9476cd-f57c-7e6e-c198-25202f86d4dd.htm" />
   <HelpKINode Title="General.CleanStringForXPath method" Url="html/482b90dc-692e-91b6-5dcc-e836616a00f4.htm" />
+  <HelpKINode Title="General.ConvertURLToValidFilename method" Url="html/811437c8-56c1-3454-6bd3-93a0d23e722d.htm" />
   <HelpKINode Title="General.GetTextFromHTML method" Url="html/1a9e2950-d308-eb3f-71c2-4137453e7da2.htm" />
   <HelpKINode Title="General.IsValueTrue method" Url="html/96d57a9d-7d64-63ab-d7a7-dd81531084e4.htm" />
-  <HelpKINode Title="General.WriteTextToFile method" Url="html/97511482-500a-4678-cd3d-2866503bc918.htm" />
+  <HelpKINode Title="General.WriteMode enumeration" Url="html/51cb959a-e5c6-3d63-337c-a54d30e42d43.htm" />
+  <HelpKINode Title="General.WriteTextToFile method" Url="html/dc4279d2-ca05-eb00-89d4-184dfa688ec5.htm" />
   <HelpKINode Title="GetCategoryGlobal method" Url="html/1da9ba28-7f1c-013d-09e0-0b325425b450.htm" />
   <HelpKINode Title="GetCategoryLocal method" Url="html/e00e4d47-e0c1-59e4-0655-696e3dd6276c.htm" />
   <HelpKINode Title="GetItemGlobal method" Url="html/af77e9d2-eb38-9175-ff7b-c70ebb0e2893.htm" />
@@ -81,6 +88,7 @@
   <HelpKINode Title="LogToConsole property" Url="html/1c050961-3467-2a95-32ef-a7fee6299869.htm" />
   <HelpKINode Title="LogWrite method" Url="html/a1d44771-2173-ee53-df74-5232cb72c918.htm" />
   <HelpKINode Title="LogWriteLine method" Url="html/f02219bb-dc95-4096-0b16-8694a0f22f23.htm" />
+  <HelpKINode Title="Overwrite enumeration member" Url="html/51cb959a-e5c6-3d63-337c-a54d30e42d43.htm" />
   <HelpKINode Title="Repository class">
     <HelpKINode Title="Repository Class" Url="html/b8eda563-8722-475c-8474-c2e1659750d0.htm" />
     <HelpKINode Title="constructor" Url="html/86e39027-aa53-814e-70e2-5bd9a624fa5d.htm" />
@@ -146,6 +154,7 @@
   <HelpKINode Title="TeamControlium.Utilities namespace" Url="html/fbd4e8e5-43a0-8d5d-dcea-8f8e54f8da45.htm" />
   <HelpKINode Title="TeamControlium.Utilities.Detokeniser class" Url="html/046726b5-090f-f9fc-7d0a-7149be927b5b.htm" />
   <HelpKINode Title="TeamControlium.Utilities.General class" Url="html/82ec4471-b8a5-4cf1-35e8-1310d88d042a.htm" />
+  <HelpKINode Title="TeamControlium.Utilities.General.WriteMode enumeration" Url="html/51cb959a-e5c6-3d63-337c-a54d30e42d43.htm" />
   <HelpKINode Title="TeamControlium.Utilities.Log class" Url="html/206106b2-7463-8cdd-beb3-c358dd3726b2.htm" />
   <HelpKINode Title="TeamControlium.Utilities.Log.LogLevels enumeration" Url="html/181039e9-026c-b903-0493-ffc93e8294cb.htm" />
   <HelpKINode Title="TeamControlium.Utilities.Repository class" Url="html/b8eda563-8722-475c-8474-c2e1659750d0.htm" />
@@ -170,5 +179,5 @@
   <HelpKINode Title="TryGetCategoryLocal method" Url="html/1454ecae-9238-a642-2768-f34e2bf0be38.htm" />
   <HelpKINode Title="TryGetItemGlobal method" Url="html/6e7bb03a-7419-c01d-db6b-49e4fbd5b700.htm" />
   <HelpKINode Title="TryGetItemLocal method" Url="html/a773d703-d21c-49ec-3c68-59ec6d345d58.htm" />
-  <HelpKINode Title="WriteTextToFile method" Url="html/97511482-500a-4678-cd3d-2866503bc918.htm" />
+  <HelpKINode Title="WriteTextToFile method" Url="html/dc4279d2-ca05-eb00-89d4-184dfa688ec5.htm" />
 </HelpKI>
