@@ -315,18 +315,28 @@ namespace TeamControlium.Utilities
         /// <param name="categoryName">Name of category data item is in.  If NULL or empty, non-categorised item if retrieved.</param>
         /// <param name="itemName">Name of data item to retrieve</param>
         /// <param name="defaultValue">Value returned if item does not exist or an error occurred when retrieving.</param>
+        /// <remarks>If item does not exist and default value is used, item is automatically created so subsequent calls will use the same default value (unless changed).</remarks>
         /// <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="GetItemLocalOrDefault{T}(string, string, T)"/> for type checked data recall.</returns>
         public static dynamic GetItemLocalOrDefault(string categoryName, string itemName, dynamic defaultValue)
         {
             lock (repository)
             {
-                try
+                dynamic item;
+                if (TryGetItemLocal(string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName, out item))
                 {
-                    return GetItem(true, string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName);
+                    return item;
                 }
-                catch
+                else
                 {
-                    return defaultValue;
+                    try
+                    {
+                        SetItemLocal(string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName, defaultValue);
+                        return defaultValue;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception($"Error Setting local item [{(string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName)},{itemName}]", ex);
+                    }
                 }
             }
         }
@@ -337,18 +347,28 @@ namespace TeamControlium.Utilities
         /// <param name="categoryName">Name of category data item is in.  If NULL or empty, non-categorised item if retrieved.</param>
         /// <param name="itemName">Name of data item to retrieve</param>
         /// <param name="defaultValue">Value returned if item does not exist or an error occurred when retrieving.</param>
+        /// <remarks>If item does not exist and default value is used, item is automatically created so subsequent calls will use the same default value (unless changed).</remarks>
         /// <returns>Data item.  Type is dynamic so it is callers responsibility to ensure correct typing (Use <see cref="GetItemGlobalOrDefault{T}(string, string, T)"/> for type checked data recall.</returns>
         public static dynamic GetItemGlobalOrDefault(string categoryName, string itemName, dynamic defaultValue)
         {
             lock (repository)
             {
-                try
+                dynamic item;
+                if (TryGetItemGlobal(string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName, out item))
                 {
-                    return GetItem(false, string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName);
+                    return item;
                 }
-                catch
+                else
                 {
-                    return defaultValue;
+                    try
+                    {
+                        SetItemGlobal(string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName, itemName, defaultValue);
+                        return defaultValue;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception($"Error Setting global item [{(string.IsNullOrEmpty(categoryName) ? categorylessItems : categoryName)},{itemName}]", ex);
+                    }
                 }
             }
         }

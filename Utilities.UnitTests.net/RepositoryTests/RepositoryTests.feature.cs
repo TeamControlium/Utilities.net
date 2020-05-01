@@ -1118,6 +1118,139 @@ namespace Utilities.UnitTests.net.RepositoryTests
             }
             this.ScenarioCleanup();
         }
+        
+        public virtual void _1_3_0_GetLocalValueOrDefault_NoValueSet(string repository, string dataItem, string categoryName, string itemName, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.3.0 - Get Local Value or Default - No value set", null, exampleTags);
+#line 163
+ this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 164
+ testRunner.Given(string.Format("I recall or default (Item 1) from {0}, Category {1}, Item Name {2} and Default va" +
+                            "lue is {3}", repository, categoryName, itemName, dataItem), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 165
+ testRunner.Then(string.Format("the recalled 1 value matches {0}", dataItem), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.3.0 - Get Local Value or Default - No value set: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        public virtual void _1_3_0_GetLocalValueOrDefault_NoValueSet_Local()
+        {
+#line 163
+ this._1_3_0_GetLocalValueOrDefault_NoValueSet("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.3.0 - Get Local Value or Default - No value set: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        public virtual void _1_3_0_GetLocalValueOrDefault_NoValueSet_Global()
+        {
+#line 163
+ this._1_3_0_GetLocalValueOrDefault_NoValueSet("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
+#line hidden
+        }
+        
+        public virtual void _1_3_1_GetLocalValueOrDefault_ValueAlreadySet(string repository, string dataItem, string categoryName, string itemName, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.3.1 - Get Local Value or Default - Value already set", null, exampleTags);
+#line 171
+ this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 172
+ testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 173
+ testRunner.When(string.Format("I recall or default (Item 1) from {0}, Category {1}, Item Name {2} and Default va" +
+                            "lue is \"Something else\"", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 174
+ testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.3.1 - Get Local Value or Default - Value already set: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        public virtual void _1_3_1_GetLocalValueOrDefault_ValueAlreadySet_Local()
+        {
+#line 171
+ this._1_3_1_GetLocalValueOrDefault_ValueAlreadySet("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.3.1 - Get Local Value or Default - Value already set: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        public virtual void _1_3_1_GetLocalValueOrDefault_ValueAlreadySet_Global()
+        {
+#line 171
+ this._1_3_1_GetLocalValueOrDefault_ValueAlreadySet("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
+#line hidden
+        }
     }
 }
 #pragma warning restore

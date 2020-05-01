@@ -158,3 +158,21 @@
 	And I recall (Item 2) from Local, Category "MyCat", Item Name "MyItem1"
 	Then the recalled 1 value matches the saved 2 value
 	And the recalled 2 value matches the saved 1 value
+
+
+	Scenario Outline: 1.3.0 - Get Local Value or Default - No value set
+	Given I recall or default (Item 1) from <Repository>, Category <Category Name>, Item Name <Item Name> and Default value is <Data Item>
+	Then the recalled 1 value matches <Data Item>
+	Examples:
+	| Repository | Data Item | Category Name | Item Name |
+	| Local      | "My data" | "MyCategory"  | "MyItem"  |
+	| Global     | "My data" | "MyCategory"  | "MyItem"  |
+
+	Scenario Outline: 1.3.1 - Get Local Value or Default - Value already set
+	Given I have saved string <Data Item> (Item 1) in Repository <Repository>, Category <Category Name>, Item Name <Item Name>
+	When I recall or default (Item 1) from <Repository>, Category <Category Name>, Item Name <Item Name> and Default value is "Something else"
+	Then the recalled 1 value matches the saved 1 value
+	Examples:
+	| Repository | Data Item | Category Name | Item Name |
+	| Local      | "My data" | "MyCategory"  | "MyItem"  |
+	| Global     | "My data" | "MyCategory"  | "MyItem"  |

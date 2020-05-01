@@ -189,6 +189,56 @@ namespace TeamControlium.UnitTests
         }
 
         /// <summary>
+        /// Recalls or uses default named data item from Global or Local repository's Category and Item name/s and saves to Specflow repository with given index.
+        /// </summary>
+        /// <param name="recalledItemIndex">Index of item when saved in Specflow repository. Saves with the label Recalled-n - where 'n' is the index given</param>
+        /// <param name="localOrGlobal">Local or Global repository</param>
+        /// <param name="categoryName">Name of category to recall from in repository</param>
+        /// <param name="itemName">>Name of item in category</param>
+        /// <param name="defaultValue">Default value in case item not already set</param>
+        [Given(@"I recall or default \(Item (.*)\) from (?i)(local|global), Category ""(.*)"", Item Name ""(.*)"" and Default value is ""(.*)""")]
+        [When(@"I recall or default \(Item (.*)\) from (?i)(local|global), Category ""(.*)"", Item Name ""(.*)"" and Default value is ""(.*)""")]
+        public void GWIRecallStringItemFromCategoryItemName(int recalledItemIndex, string localOrGlobal, string categoryName, string itemName, string defaultValue)
+        {
+            bool isLocal = localOrGlobal.ToLower().Trim() == "local";
+            bool success = false;
+            dynamic value = null;
+            if (isLocal)
+            {
+                try
+                {
+                    value = GetItemLocalOrDefault(categoryName, itemName, defaultValue);
+                    success = true;
+                }
+                catch
+                {
+                    success = false;
+                }
+            }
+            else if (localOrGlobal.ToLower().Trim() == "global")
+            {
+                try
+                {
+                    value = GetItemGlobalOrDefault(categoryName, itemName, defaultValue);
+                    success = true;
+                }
+                catch
+                {
+                    success = false;
+                }
+            }
+
+            if (success)
+            {
+                this.scenarioContext[$"Recalled-{recalledItemIndex}"] = value;
+            }
+            else
+            {
+                this.scenarioContext[$"Recalled-{recalledItemIndex}"] = RepositoryLastTryException();
+            }
+        }
+
+        /// <summary>
         /// Recalls named data item from Global or Local repository's Category and Item name/s, ensuring type is as required, and saves to Specflow repository with given index.  If Type is different
         /// (or any other exception is thrown during recall) value saved to Specflow repository with given index is the exception text.
         /// </summary>
@@ -260,6 +310,23 @@ namespace TeamControlium.UnitTests
             }
 
             Assert.AreEqual(this.scenarioContext[$"Saved-{savedIndex}"], this.scenarioContext[$"Recalled-{recalledIndex}"], "Verify recalled [{0}] (Actual) value ({1}) matches saved [{2}] (Expected) value ({3})", recalledIndex, this.scenarioContext[$"Recalled-{recalledIndex}"], savedIndex, this.scenarioContext[$"Saved-{savedIndex}"]);
+        }
+
+        /// <summary>
+        /// Validates the Specflow 'Recalled-n' value matches the Specflow 'Saved-m' - where n and m are the Recalled and Saved indexes respectively.
+        /// </summary>
+        /// <param name="recalledIndex">Specflow data recalled index.  Retrieves data from 'Recalled-n' where n is the index</param>
+        /// <param name="value">Expected value</param>
+        /// <remarks>Performs Assert that Saved-n data equals Recalled-n data</remarks>
+        [Then(@"the recalled (.*) value matches ""(.*)""")]
+        public void ThenTheRecalledValueMatchesTheValue(int recalledIndex, string value)
+        {
+            if (!this.scenarioContext.ContainsKey($"Recalled-{recalledIndex}"))
+            {
+                Assert.Inconclusive($"No [Recalled-{recalledIndex}] scenario context key");
+            }
+
+            Assert.AreEqual(value, this.scenarioContext[$"Recalled-{recalledIndex}"], "Verify recalled [{0}] (Actual) value ({1}) matche Expected value ({2})", recalledIndex, this.scenarioContext[$"Recalled-{recalledIndex}"], value);
         }
 
         /// <summary>
