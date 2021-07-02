@@ -1339,22 +1339,22 @@ namespace TeamControlium.Utilities
         {
             int threadID = isLocal ? Thread.CurrentThread.ManagedThreadId : globalIndex;
 
-            Log.LogWrite(Log.LogLevels.FrameworkDebug, $"Setting [{(isLocal ? "Global" : $"Local(ThreadID { threadID })")}][{category}][{itemKey}] to ");
+            Log.LogWrite(Log.LogLevels.FrameworkDebug, $"Setting [{(isLocal ? $"Local(ThreadID { threadID })": "Global")}][{category}][{itemKey}] to ");
             if (value is string)
             {
-                Log.LogWrite(Log.LogLevels.FrameworkDebug, "string [{0}]", ((string)value)?.Length < 50 ? (string)value : (((string)value).Substring(0, 47) + "...") ?? string.Empty);
+                Log.LogWriteLine(Log.LogLevels.FrameworkDebug, "string [{0}]", ((string)value)?.Length < 50 ? (string)value : (((string)value).Substring(0, 47) + "...") ?? string.Empty);
             }
             else if (value is int)
             {
-                Log.LogWrite(Log.LogLevels.FrameworkDebug, "integer [{0}]", (int)value);
+                Log.LogWriteLine(Log.LogLevels.FrameworkDebug, "integer [{0}]", (int)value);
             }
             else if (value is float)
             {
-                Log.LogWrite(Log.LogLevels.FrameworkDebug, "float [{0}]", (float)value);
+                Log.LogWriteLine(Log.LogLevels.FrameworkDebug, "float [{0}]", (float)value);
             }
             else
             {
-                Log.LogWrite(Log.LogLevels.FrameworkDebug, "type {0}{1}", value.ToString(), (value == null) ? " (is null!)" : string.Empty);
+                Log.LogWriteLine(Log.LogLevels.FrameworkDebug, "type {0}{1}", value.ToString(), (value == null) ? " (is null!)" : string.Empty);
             }
 
             // If we dont have the ThreadID repository, add it.
@@ -1681,6 +1681,7 @@ namespace TeamControlium.Utilities
                     if (categoryName == categorylessItems)
                     {
                         repository[threadID].Add(categorylessItems, new Dictionary<string, dynamic>());
+                        return true;
                     }
 
                     if (throwException)

@@ -92,240 +92,11 @@ namespace Utilities.UnitTests.net.RepositoryTests
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void _1_0_0_SaveAndRecallAStringToRepository(string repository, string dataItem, string categoryName, string itemName, string[] exampleTags)
+        public virtual void _0_1_0_SaveAndRecallAStringToUncatigorisedItem(string repository, string dataItem, string itemName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.0 - Save and recall a string to Repository", null, exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("0.1.0 - Save and recall a string to uncatigorised item", null, exampleTags);
 #line 6
-    this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
- testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 8
- testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 9
- testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.0 - Save and recall a string to Repository: Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        public virtual void _1_0_0_SaveAndRecallAStringToRepository_Local()
-        {
-#line 6
-    this._1_0_0_SaveAndRecallAStringToRepository("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
-#line hidden
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.0 - Save and recall a string to Repository: Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        public virtual void _1_0_0_SaveAndRecallAStringToRepository_Global()
-        {
-#line 6
-    this._1_0_0_SaveAndRecallAStringToRepository("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
-#line hidden
-        }
-        
-        public virtual void _1_0_1_SaveAndRecallTwoStringsFromSameCategory(string repository, string dataItem1, string dataItem2, string categoryName, string itemName1, string itemName2, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.1 - Save and recall two strings from same Category", null, exampleTags);
-#line 15
-    this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 16
- testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository, categoryName, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 17
- testRunner.And(string.Format("I have saved string {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository, categoryName, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 18
- testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 19
- testRunner.And(string.Format("I recall (Item 2) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 20
- testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 21
- testRunner.And("the recalled 2 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.1 - Save and recall two strings from same Category: Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"My data two\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name1", "\"My Item one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name2", "\"My Item two\"")]
-        public virtual void _1_0_1_SaveAndRecallTwoStringsFromSameCategory_Local()
-        {
-#line 15
-    this._1_0_1_SaveAndRecallTwoStringsFromSameCategory("Local", "\"My data one\"", "\"My data two\"", "\"MyCategory\"", "\"My Item one\"", "\"My Item two\"", ((string[])(null)));
-#line hidden
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.1 - Save and recall two strings from same Category: Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"My data two\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name1", "\"My Item one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name2", "\"My Item two\"")]
-        public virtual void _1_0_1_SaveAndRecallTwoStringsFromSameCategory_Global()
-        {
-#line 15
-    this._1_0_1_SaveAndRecallTwoStringsFromSameCategory("Global", "\"My data one\"", "\"My data two\"", "\"MyCategory\"", "\"My Item one\"", "\"My Item two\"", ((string[])(null)));
-#line hidden
-        }
-        
-        public virtual void _1_0_2_SaveAndRecallTwoStringsFromDifferentCategories(string repository, string dataItem1, string dataItem2, string categoryName1, string categoryName2, string itemName1, string itemName2, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.2 - Save and recall two strings from different Categories", null, exampleTags);
-#line 29
-    this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 30
- testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository, categoryName1, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 31
- testRunner.And(string.Format("I have saved string {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository, categoryName2, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 32
- testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName1, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 33
- testRunner.And(string.Format("I recall (Item 2) from {0}, Category {1}, Item Name {2}", repository, categoryName2, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 34
- testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 35
- testRunner.And("the recalled 2 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.2 - Save and recall two strings from different Categories: Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"My data two\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name1", "\"MyCategory one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name2", "\"MyCategory two\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name1", "\"My Item one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name2", "\"My Item two\"")]
-        public virtual void _1_0_2_SaveAndRecallTwoStringsFromDifferentCategories_Local()
-        {
-#line 29
-    this._1_0_2_SaveAndRecallTwoStringsFromDifferentCategories("Local", "\"My data one\"", "\"My data two\"", "\"MyCategory one\"", "\"MyCategory two\"", "\"My Item one\"", "\"My Item two\"", ((string[])(null)));
-#line hidden
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.2 - Save and recall two strings from different Categories: Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"My data two\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name1", "\"MyCategory one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name2", "\"MyCategory two\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name1", "\"My Item one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name2", "\"My Item two\"")]
-        public virtual void _1_0_2_SaveAndRecallTwoStringsFromDifferentCategories_Global()
-        {
-#line 29
-    this._1_0_2_SaveAndRecallTwoStringsFromDifferentCategories("Global", "\"My data one\"", "\"My data two\"", "\"MyCategory one\"", "\"MyCategory two\"", "\"My Item one\"", "\"My Item two\"", ((string[])(null)));
-#line hidden
-        }
-        
-        public virtual void _1_0_3_SaveAndRecallTwoStringsUsingLocalAndGlobalRepositories(string repository1, string repository2, string dataItem1, string dataItem2, string categoryName1, string categoryName2, string itemName1, string itemName2, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.3 - Save and recall two strings using Local and Global repositories", null, exampleTags);
-#line 41
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -345,22 +116,316 @@ namespace Utilities.UnitTests.net.RepositoryTests
             else
             {
                 this.ScenarioStart();
-#line 42
- testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository1, categoryName1, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 7
+ testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1} with Item Name {2}", dataItem, repository, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 43
- testRunner.And(string.Format("I have saved string {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository2, categoryName2, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 8
+ testRunner.When(string.Format("I recall (Item 1) from {0}, Item Name {1}", repository, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 44
- testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository1, categoryName1, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 45
- testRunner.And(string.Format("I recall (Item 2) from {0}, Category {1}, Item Name {2}", repository2, categoryName2, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 46
+#line 9
  testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 47
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("0.1.0 - Save and recall a string to uncatigorised item: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        public virtual void _0_1_0_SaveAndRecallAStringToUncatigorisedItem_Local()
+        {
+#line 6
+ this._0_1_0_SaveAndRecallAStringToUncatigorisedItem("Local", "\"My data\"", "\"MyItem\"", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("0.1.0 - Save and recall a string to uncatigorised item: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        public virtual void _0_1_0_SaveAndRecallAStringToUncatigorisedItem_Global()
+        {
+#line 6
+ this._0_1_0_SaveAndRecallAStringToUncatigorisedItem("Global", "\"My data\"", "\"MyItem\"", ((string[])(null)));
+#line hidden
+        }
+        
+        public virtual void _1_0_0_SaveAndRecallAStringToRepository(string repository, string dataItem, string categoryName, string itemName, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.0 - Save and recall a string to Repository", null, exampleTags);
+#line 16
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 17
+ testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 18
+ testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 19
+ testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.0 - Save and recall a string to Repository: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        public virtual void _1_0_0_SaveAndRecallAStringToRepository_Local()
+        {
+#line 16
+    this._1_0_0_SaveAndRecallAStringToRepository("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.0 - Save and recall a string to Repository: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        public virtual void _1_0_0_SaveAndRecallAStringToRepository_Global()
+        {
+#line 16
+    this._1_0_0_SaveAndRecallAStringToRepository("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
+#line hidden
+        }
+        
+        public virtual void _1_0_1_SaveAndRecallTwoStringsFromSameCategory(string repository, string dataItem1, string dataItem2, string categoryName, string itemName1, string itemName2, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.1 - Save and recall two strings from same Category", null, exampleTags);
+#line 25
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 26
+ testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository, categoryName, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 27
+ testRunner.And(string.Format("I have saved string {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository, categoryName, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 28
+ testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 29
+ testRunner.And(string.Format("I recall (Item 2) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 30
+ testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 31
+ testRunner.And("the recalled 2 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.1 - Save and recall two strings from same Category: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"My data two\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name1", "\"My Item one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name2", "\"My Item two\"")]
+        public virtual void _1_0_1_SaveAndRecallTwoStringsFromSameCategory_Local()
+        {
+#line 25
+    this._1_0_1_SaveAndRecallTwoStringsFromSameCategory("Local", "\"My data one\"", "\"My data two\"", "\"MyCategory\"", "\"My Item one\"", "\"My Item two\"", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.1 - Save and recall two strings from same Category: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"My data two\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name1", "\"My Item one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name2", "\"My Item two\"")]
+        public virtual void _1_0_1_SaveAndRecallTwoStringsFromSameCategory_Global()
+        {
+#line 25
+    this._1_0_1_SaveAndRecallTwoStringsFromSameCategory("Global", "\"My data one\"", "\"My data two\"", "\"MyCategory\"", "\"My Item one\"", "\"My Item two\"", ((string[])(null)));
+#line hidden
+        }
+        
+        public virtual void _1_0_2_SaveAndRecallTwoStringsFromDifferentCategories(string repository, string dataItem1, string dataItem2, string categoryName1, string categoryName2, string itemName1, string itemName2, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.2 - Save and recall two strings from different Categories", null, exampleTags);
+#line 39
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 40
+ testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository, categoryName1, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 41
+ testRunner.And(string.Format("I have saved string {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository, categoryName2, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 42
+ testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName1, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 43
+ testRunner.And(string.Format("I recall (Item 2) from {0}, Category {1}, Item Name {2}", repository, categoryName2, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 44
+ testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 45
+ testRunner.And("the recalled 2 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.2 - Save and recall two strings from different Categories: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"My data two\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name1", "\"MyCategory one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name2", "\"MyCategory two\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name1", "\"My Item one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name2", "\"My Item two\"")]
+        public virtual void _1_0_2_SaveAndRecallTwoStringsFromDifferentCategories_Local()
+        {
+#line 39
+    this._1_0_2_SaveAndRecallTwoStringsFromDifferentCategories("Local", "\"My data one\"", "\"My data two\"", "\"MyCategory one\"", "\"MyCategory two\"", "\"My Item one\"", "\"My Item two\"", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.2 - Save and recall two strings from different Categories: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"My data two\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name1", "\"MyCategory one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name2", "\"MyCategory two\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name1", "\"My Item one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name2", "\"My Item two\"")]
+        public virtual void _1_0_2_SaveAndRecallTwoStringsFromDifferentCategories_Global()
+        {
+#line 39
+    this._1_0_2_SaveAndRecallTwoStringsFromDifferentCategories("Global", "\"My data one\"", "\"My data two\"", "\"MyCategory one\"", "\"MyCategory two\"", "\"My Item one\"", "\"My Item two\"", ((string[])(null)));
+#line hidden
+        }
+        
+        public virtual void _1_0_3_SaveAndRecallTwoStringsUsingLocalAndGlobalRepositories(string repository1, string repository2, string dataItem1, string dataItem2, string categoryName1, string categoryName2, string itemName1, string itemName2, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.3 - Save and recall two strings using Local and Global repositories", null, exampleTags);
+#line 51
+ this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 52
+ testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository1, categoryName1, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 53
+ testRunner.And(string.Format("I have saved string {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository2, categoryName2, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 54
+ testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository1, categoryName1, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 55
+ testRunner.And(string.Format("I recall (Item 2) from {0}, Category {1}, Item Name {2}", repository2, categoryName2, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 56
+ testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 57
  testRunner.And("the recalled 2 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -381,7 +446,7 @@ namespace Utilities.UnitTests.net.RepositoryTests
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name2", "\"My Item\"")]
         public virtual void _1_0_3_SaveAndRecallTwoStringsUsingLocalAndGlobalRepositories_Local()
         {
-#line 41
+#line 51
  this._1_0_3_SaveAndRecallTwoStringsUsingLocalAndGlobalRepositories("Local", "Global", "\"My data one\"", "\"My data two\"", "\"MyCategory\"", "\"MyCategory\"", "\"My Item\"", "\"My Item\"", ((string[])(null)));
 #line hidden
         }
@@ -390,75 +455,8 @@ namespace Utilities.UnitTests.net.RepositoryTests
         {
             string[] tagsOfScenario = exampleTags;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.4 - Save and recall an integer to Repository", null, exampleTags);
-#line 53
- this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 54
- testRunner.Given(string.Format("I have saved integer {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 55
- testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 56
- testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.4 - Save and recall an integer to Repository: Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "23")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        public virtual void _1_0_4_SaveAndRecallAnIntegerToRepository_Local()
-        {
-#line 53
- this._1_0_4_SaveAndRecallAnIntegerToRepository("Local", "23", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
-#line hidden
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.4 - Save and recall an integer to Repository: Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "23")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        public virtual void _1_0_4_SaveAndRecallAnIntegerToRepository_Global()
-        {
-#line 53
- this._1_0_4_SaveAndRecallAnIntegerToRepository("Global", "23", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
-#line hidden
-        }
-        
-        public virtual void _1_0_5_SaveAndRecallOneStringAndOneIntFromSameCategory(string repository, string dataItem1, string dataItem2, string categoryName, string itemName1, string itemName2, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.5 - Save and recall one string and one int from same Category", null, exampleTags);
 #line 63
-    this.ScenarioInitialize(scenarioInfo);
+ this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -478,66 +476,53 @@ namespace Utilities.UnitTests.net.RepositoryTests
             {
                 this.ScenarioStart();
 #line 64
- testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository, categoryName, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("I have saved integer {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 65
- testRunner.And(string.Format("I have saved integer {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository, categoryName, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 66
- testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 67
- testRunner.And(string.Format("I recall (Item 2) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 68
  testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 69
- testRunner.And("the recalled 2 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.5 - Save and recall one string and one int from same Category: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.4 - Save and recall an integer to Repository: Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "24")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "23")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name1", "\"My Item one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name2", "\"My Item two\"")]
-        public virtual void _1_0_5_SaveAndRecallOneStringAndOneIntFromSameCategory_Local()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        public virtual void _1_0_4_SaveAndRecallAnIntegerToRepository_Local()
         {
 #line 63
-    this._1_0_5_SaveAndRecallOneStringAndOneIntFromSameCategory("Local", "\"My data one\"", "24", "\"MyCategory\"", "\"My Item one\"", "\"My Item two\"", ((string[])(null)));
+ this._1_0_4_SaveAndRecallAnIntegerToRepository("Local", "23", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.5 - Save and recall one string and one int from same Category: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.4 - Save and recall an integer to Repository: Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "24")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "23")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name1", "\"My Item one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name2", "\"My Item two\"")]
-        public virtual void _1_0_5_SaveAndRecallOneStringAndOneIntFromSameCategory_Global()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        public virtual void _1_0_4_SaveAndRecallAnIntegerToRepository_Global()
         {
 #line 63
-    this._1_0_5_SaveAndRecallOneStringAndOneIntFromSameCategory("Global", "\"My data one\"", "24", "\"MyCategory\"", "\"My Item one\"", "\"My Item two\"", ((string[])(null)));
+ this._1_0_4_SaveAndRecallAnIntegerToRepository("Global", "23", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
 #line hidden
         }
         
-        public virtual void _1_0_6_ChangeAStringValueInTestData(string repository, string dataItem1, string dataItem2, string categoryName, string itemName, string itemName1, string[] exampleTags)
+        public virtual void _1_0_5_SaveAndRecallOneStringAndOneIntFromSameCategory(string repository, string dataItem1, string dataItem2, string categoryName, string itemName1, string itemName2, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.6 - Change a string value in test data", null, exampleTags);
-#line 75
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.5 - Save and recall one string and one int from same Category", null, exampleTags);
+#line 73
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -557,62 +542,68 @@ namespace Utilities.UnitTests.net.RepositoryTests
             else
             {
                 this.ScenarioStart();
+#line 74
+ testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository, categoryName, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 75
+ testRunner.And(string.Format("I have saved integer {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository, categoryName, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
 #line 76
- testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 77
- testRunner.And(string.Format("I have saved string {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("I recall (Item 2) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 78
- testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 79
- testRunner.Then("the recalled 1 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("the recalled 2 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.6 - Change a string value in test data: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.5 - Save and recall one string and one int from same Category: Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"My data two\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "24")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem two\"")]
-        public virtual void _1_0_6_ChangeAStringValueInTestData_Local()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name1", "\"My Item one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name2", "\"My Item two\"")]
+        public virtual void _1_0_5_SaveAndRecallOneStringAndOneIntFromSameCategory_Local()
         {
-#line 75
-    this._1_0_6_ChangeAStringValueInTestData("Local", "\"My data one\"", "\"My data two\"", "\"MyCategory\"", "\"MyItem one\"", "\"MyItem two\"", ((string[])(null)));
+#line 73
+    this._1_0_5_SaveAndRecallOneStringAndOneIntFromSameCategory("Local", "\"My data one\"", "24", "\"MyCategory\"", "\"My Item one\"", "\"My Item two\"", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.6 - Change a string value in test data: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.5 - Save and recall one string and one int from same Category: Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"My data two\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "24")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem two\"")]
-        public virtual void _1_0_6_ChangeAStringValueInTestData_Global()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name1", "\"My Item one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name2", "\"My Item two\"")]
+        public virtual void _1_0_5_SaveAndRecallOneStringAndOneIntFromSameCategory_Global()
         {
-#line 75
-    this._1_0_6_ChangeAStringValueInTestData("Global", "\"My data one\"", "\"My data two\"", "\"MyCategory\"", "\"MyItem one\"", "\"MyItem two\"", ((string[])(null)));
+#line 73
+    this._1_0_5_SaveAndRecallOneStringAndOneIntFromSameCategory("Global", "\"My data one\"", "24", "\"MyCategory\"", "\"My Item one\"", "\"My Item two\"", ((string[])(null)));
 #line hidden
         }
         
-        public virtual void _1_0_7_ChangeAnIntegerValueInTestData(string repository, string dataItem1, string dataItem2, string categoryName, string itemName, string itemName1, string[] exampleTags)
+        public virtual void _1_0_6_ChangeAStringValueInTestData(string repository, string dataItem1, string dataItem2, string categoryName, string itemName, string itemName1, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.7 - Change an integer value in test data", null, exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.6 - Change a string value in test data", null, exampleTags);
 #line 85
- this.ScenarioInitialize(scenarioInfo);
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -632,10 +623,10 @@ namespace Utilities.UnitTests.net.RepositoryTests
             {
                 this.ScenarioStart();
 #line 86
- testRunner.Given(string.Format("I have saved integer {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 87
- testRunner.And(string.Format("I have saved integer {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("I have saved string {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 88
  testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -648,118 +639,44 @@ namespace Utilities.UnitTests.net.RepositoryTests
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.7 - Change an integer value in test data: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.6 - Change a string value in test data: Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "23")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "65")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"My data two\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem one\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem two\"")]
-        public virtual void _1_0_7_ChangeAnIntegerValueInTestData_Local()
+        public virtual void _1_0_6_ChangeAStringValueInTestData_Local()
         {
 #line 85
- this._1_0_7_ChangeAnIntegerValueInTestData("Local", "23", "65", "\"MyCategory\"", "\"MyItem one\"", "\"MyItem two\"", ((string[])(null)));
+    this._1_0_6_ChangeAStringValueInTestData("Local", "\"My data one\"", "\"My data two\"", "\"MyCategory\"", "\"MyItem one\"", "\"MyItem two\"", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.7 - Change an integer value in test data: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.6 - Change a string value in test data: Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "55")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "93")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "\"My data one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"My data two\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem one\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem two\"")]
-        public virtual void _1_0_7_ChangeAnIntegerValueInTestData_Global()
+        public virtual void _1_0_6_ChangeAStringValueInTestData_Global()
         {
 #line 85
- this._1_0_7_ChangeAnIntegerValueInTestData("Global", "55", "93", "\"MyCategory\"", "\"MyItem one\"", "\"MyItem two\"", ((string[])(null)));
+    this._1_0_6_ChangeAStringValueInTestData("Global", "\"My data one\"", "\"My data two\"", "\"MyCategory\"", "\"MyItem one\"", "\"MyItem two\"", ((string[])(null)));
 #line hidden
         }
         
-        public virtual void _1_0_8_ChangeAnIntegerValueToAStringValueInTestData(string repository, string dataItem1, string dataItem2, string categoryName, string itemName, string itemName1, string[] exampleTags)
+        public virtual void _1_0_7_ChangeAnIntegerValueInTestData(string repository, string dataItem1, string dataItem2, string categoryName, string itemName, string itemName1, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.8 - Change an integer value to a string value in test data", null, exampleTags);
-#line 96
-    this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 97
- testRunner.Given(string.Format("I have saved integer {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 98
- testRunner.And(string.Format("I have saved string {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 99
- testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 100
- testRunner.Then("the recalled 1 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.8 - Change an integer value to a string value in test data: Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "23")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"Im a string now\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem two\"")]
-        public virtual void _1_0_8_ChangeAnIntegerValueToAStringValueInTestData_Local()
-        {
-#line 96
-    this._1_0_8_ChangeAnIntegerValueToAStringValueInTestData("Local", "23", "\"Im a string now\"", "\"MyCategory\"", "\"MyItem one\"", "\"MyItem two\"", ((string[])(null)));
-#line hidden
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.8 - Change an integer value to a string value in test data: Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "55")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"Im a string now\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem one\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem two\"")]
-        public virtual void _1_0_8_ChangeAnIntegerValueToAStringValueInTestData_Global()
-        {
-#line 96
-    this._1_0_8_ChangeAnIntegerValueToAStringValueInTestData("Global", "55", "\"Im a string now\"", "\"MyCategory\"", "\"MyItem one\"", "\"MyItem two\"", ((string[])(null)));
-#line hidden
-        }
-        
-        public virtual void _1_0_9_RecallAStronglyTypedString(string repository, string dataItem, string categoryName, string itemName, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.9 - Recall a strongly typed String", null, exampleTags);
-#line 106
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.7 - Change an integer value in test data", null, exampleTags);
+#line 95
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -779,53 +696,134 @@ namespace Utilities.UnitTests.net.RepositoryTests
             else
             {
                 this.ScenarioStart();
-#line 107
- testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 96
+ testRunner.Given(string.Format("I have saved integer {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 108
- testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2} as a [\"System.String\"]", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 97
+ testRunner.And(string.Format("I have saved integer {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 109
- testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 98
+ testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 99
+ testRunner.Then("the recalled 1 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.9 - Recall a strongly typed String: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.7 - Change an integer value in test data: Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "23")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "65")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        public virtual void _1_0_9_RecallAStronglyTypedString_Local()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem two\"")]
+        public virtual void _1_0_7_ChangeAnIntegerValueInTestData_Local()
         {
-#line 106
- this._1_0_9_RecallAStronglyTypedString("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
+#line 95
+ this._1_0_7_ChangeAnIntegerValueInTestData("Local", "23", "65", "\"MyCategory\"", "\"MyItem one\"", "\"MyItem two\"", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.9 - Recall a strongly typed String: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.7 - Change an integer value in test data: Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "55")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "93")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        public virtual void _1_0_9_RecallAStronglyTypedString_Global()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem two\"")]
+        public virtual void _1_0_7_ChangeAnIntegerValueInTestData_Global()
         {
-#line 106
- this._1_0_9_RecallAStronglyTypedString("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
+#line 95
+ this._1_0_7_ChangeAnIntegerValueInTestData("Global", "55", "93", "\"MyCategory\"", "\"MyItem one\"", "\"MyItem two\"", ((string[])(null)));
 #line hidden
         }
         
-        public virtual void _1_1_0_CorrectErrorIfITryToGetAStringAsAnInteger(string repository, string dataItem, string categoryName, string itemName, string[] exampleTags)
+        public virtual void _1_0_8_ChangeAnIntegerValueToAStringValueInTestData(string repository, string dataItem1, string dataItem2, string categoryName, string itemName, string itemName1, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.1.0 - Correct error if I try to get a string as an integer", null, exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.8 - Change an integer value to a string value in test data", null, exampleTags);
+#line 106
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 107
+ testRunner.Given(string.Format("I have saved integer {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem1, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 108
+ testRunner.And(string.Format("I have saved string {0} (Item 2) in Repository {1}, Category {2}, Item Name {3}", dataItem2, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 109
+ testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 110
+ testRunner.Then("the recalled 1 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.8 - Change an integer value to a string value in test data: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "23")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"Im a string now\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem two\"")]
+        public virtual void _1_0_8_ChangeAnIntegerValueToAStringValueInTestData_Local()
+        {
+#line 106
+    this._1_0_8_ChangeAnIntegerValueToAStringValueInTestData("Local", "23", "\"Im a string now\"", "\"MyCategory\"", "\"MyItem one\"", "\"MyItem two\"", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.8 - Change an integer value to a string value in test data: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item1", "55")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item2", "\"Im a string now\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem one\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem two\"")]
+        public virtual void _1_0_8_ChangeAnIntegerValueToAStringValueInTestData_Global()
+        {
+#line 106
+    this._1_0_8_ChangeAnIntegerValueToAStringValueInTestData("Global", "55", "\"Im a string now\"", "\"MyCategory\"", "\"MyItem one\"", "\"MyItem two\"", ((string[])(null)));
+#line hidden
+        }
+        
+        public virtual void _1_0_9_RecallAStronglyTypedString(string repository, string dataItem, string categoryName, string itemName, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.0.9 - Recall a strongly typed String", null, exampleTags);
 #line 116
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -850,52 +848,51 @@ namespace Utilities.UnitTests.net.RepositoryTests
  testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 118
- testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2} as a [\"System.Int32\"]", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2} as a [\"System.String\"]", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 119
- testRunner.Then("the recalled 1 value is an exception with innermost exception message \"Expected t" +
-                        "ype [Int32] but got type System.String\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.1.0 - Correct error if I try to get a string as an integer: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.9 - Recall a strongly typed String: Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        public virtual void _1_1_0_CorrectErrorIfITryToGetAStringAsAnInteger_Local()
+        public virtual void _1_0_9_RecallAStronglyTypedString_Local()
         {
 #line 116
- this._1_1_0_CorrectErrorIfITryToGetAStringAsAnInteger("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
+ this._1_0_9_RecallAStronglyTypedString("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.1.0 - Correct error if I try to get a string as an integer: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.0.9 - Recall a strongly typed String: Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        public virtual void _1_1_0_CorrectErrorIfITryToGetAStringAsAnInteger_Global()
+        public virtual void _1_0_9_RecallAStronglyTypedString_Global()
         {
 #line 116
- this._1_1_0_CorrectErrorIfITryToGetAStringAsAnInteger("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
+ this._1_0_9_RecallAStronglyTypedString("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
 #line hidden
         }
         
-        public virtual void _1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared(string repository, string dataItem, string categoryName, string itemName, string exceptionText, string[] exampleTags)
+        public virtual void _1_1_0_CorrectErrorIfITryToGetAStringAsAnInteger(string repository, string dataItem, string categoryName, string itemName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.1.1 - Verify Local and Global repositories can be cleared", null, exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.1.0 - Correct error if I try to get a string as an integer", null, exampleTags);
 #line 126
-    this.ScenarioInitialize(scenarioInfo);
+ this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -918,59 +915,52 @@ namespace Utilities.UnitTests.net.RepositoryTests
  testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 128
- testRunner.When(string.Format("I clear the {0} repository", repository), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2} as a [\"System.Int32\"]", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 129
- testRunner.And(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 130
- testRunner.Then(string.Format("the recalled 1 value is an exception with innermost exception message {0}", exceptionText), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the recalled 1 value is an exception with innermost exception message \"Expected t" +
+                        "ype [Int32] but got type System.String\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.1.1 - Verify Local and Global repositories can be cleared: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.1.0 - Correct error if I try to get a string as an integer: Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Exception Text", "\"Local (ThreadID 4) repository Item [MyCategory.MyItem] does not exist\"")]
-        public virtual void _1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared_Local()
+        public virtual void _1_1_0_CorrectErrorIfITryToGetAStringAsAnInteger_Local()
         {
 #line 126
-    this._1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", "\"Local (ThreadID 4) repository Item [MyCategory.MyItem] does not exist\"", ((string[])(null)));
+ this._1_1_0_CorrectErrorIfITryToGetAStringAsAnInteger("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.1.1 - Verify Local and Global repositories can be cleared: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.1.0 - Correct error if I try to get a string as an integer: Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Exception Text", "\"Global repository Item [MyCategory.MyItem] does not exist\"")]
-        public virtual void _1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared_Global()
+        public virtual void _1_1_0_CorrectErrorIfITryToGetAStringAsAnInteger_Global()
         {
 #line 126
-    this._1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", "\"Global repository Item [MyCategory.MyItem] does not exist\"", ((string[])(null)));
+ this._1_1_0_CorrectErrorIfITryToGetAStringAsAnInteger("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
 #line hidden
         }
         
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.2.0 - Clone Global test data to Local, overwriting any existing data")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        public virtual void _1_2_0_CloneGlobalTestDataToLocalOverwritingAnyExistingData()
+        public virtual void _1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared(string repository, string dataItem, string categoryName, string itemName, string exceptionText, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.2.0 - Clone Global test data to Local, overwriting any existing data", null, ((string[])(null)));
-#line 137
- this.ScenarioInitialize(scenarioInfo);
+            string[] tagsOfScenario = exampleTags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.1.1 - Verify Local and Global repositories can be cleared", null, exampleTags);
+#line 136
+    this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -989,43 +979,61 @@ namespace Utilities.UnitTests.net.RepositoryTests
             else
             {
                 this.ScenarioStart();
+#line 137
+ testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
 #line 138
- testRunner.Given("I have saved string \"Saved to Global\" (Item 1) in Repository Global, Category \"My" +
-                        "Cat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.When(string.Format("I clear the {0} repository", repository), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 139
- testRunner.And("I have saved string \"Saved to Local\" (Item 2) in Repository Local, Category \"MyCa" +
-                        "t\", Item Name \"MyItem2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("I recall (Item 1) from {0}, Category {1}, Item Name {2}", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 140
- testRunner.And("I clone Global test data to Local test data, overwriting any existing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 141
- testRunner.When("I recall (Item 1) from Global, Category \"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 142
- testRunner.And("I recall (Item 2) from Local, Category \"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 143
- testRunner.Then("no exception is thrown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 144
- testRunner.And("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 145
- testRunner.And("the recalled 2 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then(string.Format("the recalled 1 value is an exception with innermost exception message {0}", exceptionText), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.2.1 - Verify data is not overwritten if requested")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.1.1 - Verify Local and Global repositories can be cleared: Local")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        public virtual void _1_2_1_VerifyDataIsNotOverwrittenIfRequested()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Exception Text", "\"Local (ThreadID 4) repository Item [MyCategory.MyItem] does not exist\"")]
+        public virtual void _1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared_Local()
+        {
+#line 136
+    this._1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", "\"Local (ThreadID 4) repository Item [MyCategory.MyItem] does not exist\"", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.1.1 - Verify Local and Global repositories can be cleared: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Exception Text", "\"Global repository Item [MyCategory.MyItem] does not exist\"")]
+        public virtual void _1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared_Global()
+        {
+#line 136
+    this._1_1_1_VerifyLocalAndGlobalRepositoriesCanBeCleared("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", "\"Global repository Item [MyCategory.MyItem] does not exist\"", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.2.0 - Clone Global test data to Local, overwriting any existing data")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        public virtual void _1_2_0_CloneGlobalTestDataToLocalOverwritingAnyExistingData()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.2.1 - Verify data is not overwritten if requested", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.2.0 - Clone Global test data to Local, overwriting any existing data", null, ((string[])(null)));
 #line 147
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1052,27 +1060,38 @@ namespace Utilities.UnitTests.net.RepositoryTests
 #line hidden
 #line 149
  testRunner.And("I have saved string \"Saved to Local\" (Item 2) in Repository Local, Category \"MyCa" +
-                        "t\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                        "t\", Item Name \"MyItem2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 150
- testRunner.When("I clone Global test data to Local test data, not overwriting any existing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I clone Global test data to Local test data, overwriting any existing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 151
- testRunner.Then("an Exception is thrown with text \"To item [MyItem1] in Local (ThreadID 4) reposit" +
-                        "ory\'s [MyCat] category already exists and overwriteIfExists is false\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I recall (Item 1) from Global, Category \"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 152
+ testRunner.And("I recall (Item 2) from Local, Category \"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 153
+ testRunner.Then("no exception is thrown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 154
+ testRunner.And("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 155
+ testRunner.And("the recalled 2 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.2.2 - Verify values are cloned not references")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.2.1 - Verify data is not overwritten if requested")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        public virtual void _1_2_2_VerifyValuesAreClonedNotReferences()
+        public virtual void _1_2_1_VerifyDataIsNotOverwrittenIfRequested()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.2.2 - Verify values are cloned not references", null, ((string[])(null)));
-#line 153
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.2.1 - Verify data is not overwritten if requested", null, ((string[])(null)));
+#line 157
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1092,37 +1111,32 @@ namespace Utilities.UnitTests.net.RepositoryTests
             else
             {
                 this.ScenarioStart();
-#line 154
- testRunner.Given("I have saved string \"My cloned Data\" (Item 1) in Repository Global, Category \"MyC" +
-                        "at\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 155
- testRunner.And("I clone Global test data to Local test data, overwriting any existing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 156
- testRunner.When("I have saved string \"My new Global Data\" (Item 2) in Repository Global, Category " +
-                        "\"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 157
- testRunner.And("I recall (Item 1) from Global, Category \"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
 #line 158
- testRunner.And("I recall (Item 2) from Local, Category \"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I have saved string \"Saved to Global\" (Item 1) in Repository Global, Category \"My" +
+                        "Cat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 159
- testRunner.Then("the recalled 1 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I have saved string \"Saved to Local\" (Item 2) in Repository Local, Category \"MyCa" +
+                        "t\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 160
- testRunner.And("the recalled 2 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I clone Global test data to Local test data, not overwriting any existing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 161
+ testRunner.Then("an Exception is thrown with text \"To item [MyItem1] in Local (ThreadID 4) reposit" +
+                        "ory\'s [MyCat] category already exists and overwriteIfExists is false\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        public virtual void _1_3_0_GetLocalValueOrDefault_NoValueSet(string repository, string dataItem, string categoryName, string itemName, string[] exampleTags)
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.2.2 - Verify values are cloned not references")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        public virtual void _1_2_2_VerifyValuesAreClonedNotReferences()
         {
-            string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.3.0 - Get Local Value or Default - No value set", null, exampleTags);
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.2.2 - Verify values are cloned not references", null, ((string[])(null)));
 #line 163
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1144,51 +1158,37 @@ namespace Utilities.UnitTests.net.RepositoryTests
             {
                 this.ScenarioStart();
 #line 164
- testRunner.Given(string.Format("I recall or default (Item 1) from {0}, Category {1}, Item Name {2} and Default va" +
-                            "lue is {3}", repository, categoryName, itemName, dataItem), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have saved string \"My cloned Data\" (Item 1) in Repository Global, Category \"MyC" +
+                        "at\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 165
- testRunner.Then(string.Format("the recalled 1 value matches {0}", dataItem), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I clone Global test data to Local test data, overwriting any existing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 166
+ testRunner.When("I have saved string \"My new Global Data\" (Item 2) in Repository Global, Category " +
+                        "\"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 167
+ testRunner.And("I recall (Item 1) from Global, Category \"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 168
+ testRunner.And("I recall (Item 2) from Local, Category \"MyCat\", Item Name \"MyItem1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 169
+ testRunner.Then("the recalled 1 value matches the saved 2 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 170
+ testRunner.And("the recalled 2 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.3.0 - Get Local Value or Default - No value set: Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        public virtual void _1_3_0_GetLocalValueOrDefault_NoValueSet_Local()
-        {
-#line 163
- this._1_3_0_GetLocalValueOrDefault_NoValueSet("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
-#line hidden
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.3.0 - Get Local Value or Default - No value set: Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
-        public virtual void _1_3_0_GetLocalValueOrDefault_NoValueSet_Global()
-        {
-#line 163
- this._1_3_0_GetLocalValueOrDefault_NoValueSet("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
-#line hidden
-        }
-        
-        public virtual void _1_3_1_GetLocalValueOrDefault_ValueAlreadySet(string repository, string dataItem, string categoryName, string itemName, string[] exampleTags)
+        public virtual void _1_3_0_GetLocalValueOrDefault_NoValueSet(string repository, string dataItem, string categoryName, string itemName, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.3.1 - Get Local Value or Default - Value already set", null, exampleTags);
-#line 171
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.3.0 - Get Local Value or Default - No value set", null, exampleTags);
+#line 173
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1208,14 +1208,79 @@ namespace Utilities.UnitTests.net.RepositoryTests
             else
             {
                 this.ScenarioStart();
-#line 172
+#line 174
+ testRunner.Given(string.Format("I recall or default (Item 1) from {0}, Category {1}, Item Name {2} and Default va" +
+                            "lue is {3}", repository, categoryName, itemName, dataItem), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 175
+ testRunner.Then(string.Format("the recalled 1 value matches {0}", dataItem), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.3.0 - Get Local Value or Default - No value set: Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Local")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        public virtual void _1_3_0_GetLocalValueOrDefault_NoValueSet_Local()
+        {
+#line 173
+ this._1_3_0_GetLocalValueOrDefault_NoValueSet("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("1.3.0 - Get Local Value or Default - No value set: Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Repository Tests")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Repository", "Global")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Data Item", "\"My data\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Category Name", "\"MyCategory\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
+        public virtual void _1_3_0_GetLocalValueOrDefault_NoValueSet_Global()
+        {
+#line 173
+ this._1_3_0_GetLocalValueOrDefault_NoValueSet("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
+#line hidden
+        }
+        
+        public virtual void _1_3_1_GetLocalValueOrDefault_ValueAlreadySet(string repository, string dataItem, string categoryName, string itemName, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1.3.1 - Get Local Value or Default - Value already set", null, exampleTags);
+#line 181
+ this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 182
  testRunner.Given(string.Format("I have saved string {0} (Item 1) in Repository {1}, Category {2}, Item Name {3}", dataItem, repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 173
+#line 183
  testRunner.When(string.Format("I recall or default (Item 1) from {0}, Category {1}, Item Name {2} and Default va" +
                             "lue is \"Something else\"", repository, categoryName, itemName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 174
+#line 184
  testRunner.Then("the recalled 1 value matches the saved 1 value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1232,7 +1297,7 @@ namespace Utilities.UnitTests.net.RepositoryTests
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
         public virtual void _1_3_1_GetLocalValueOrDefault_ValueAlreadySet_Local()
         {
-#line 171
+#line 181
  this._1_3_1_GetLocalValueOrDefault_ValueAlreadySet("Local", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
 #line hidden
         }
@@ -1247,7 +1312,7 @@ namespace Utilities.UnitTests.net.RepositoryTests
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Item Name", "\"MyItem\"")]
         public virtual void _1_3_1_GetLocalValueOrDefault_ValueAlreadySet_Global()
         {
-#line 171
+#line 181
  this._1_3_1_GetLocalValueOrDefault_ValueAlreadySet("Global", "\"My data\"", "\"MyCategory\"", "\"MyItem\"", ((string[])(null)));
 #line hidden
         }
