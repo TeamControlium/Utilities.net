@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>2.0.3</Version>
+    <TargetFramework>net5.0</TargetFramework>
+    <Version>2.0.4</Version>
     <Authors>TeamControlium Contributors</Authors>
     <Product>Team Controlium Utilities.net</Product>
     <AssemblyName>TeamControlium.Utilities</AssemblyName>
@@ -15,7 +15,7 @@
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/TeamControlium/Utilities.net.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>When Repository methods GetXXXXXOrDefault are called, if default is used repository item is set to that value.  Allows Defaults to propergate</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated to .NET5.0</PackageReleaseNotes>
     <NeutralLanguage>en-AU</NeutralLanguage>
     <PackageTags>TeamControlium testautomation functional library</PackageTags>
   </PropertyGroup>

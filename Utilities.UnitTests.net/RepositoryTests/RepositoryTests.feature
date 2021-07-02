@@ -3,6 +3,16 @@
 	As a test automator
 	I want to be able to save and recall test data
 
+	Scenario Outline: 0.1.0 - Save and recall a string to uncatigorised item
+	Given I have saved string <Data Item> (Item 1) in Repository <Repository> with Item Name <Item Name>
+	When I recall (Item 1) from <Repository>, Item Name <Item Name> 
+	Then the recalled 1 value matches the saved 1 value
+	Examples:
+	| Repository | Data Item | Item Name |
+	| Local      | "My data" | "MyItem"  |
+	| Global     | "My data" | "MyItem"  |
+
+
     Scenario Outline: 1.0.0 - Save and recall a string to Repository
 	Given I have saved string <Data Item> (Item 1) in Repository <Repository>, Category <Category Name>, Item Name <Item Name> 
 	When I recall (Item 1) from <Repository>, Category <Category Name>, Item Name <Item Name> 

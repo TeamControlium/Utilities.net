@@ -101,6 +101,33 @@ namespace TeamControlium.UnitTests
         }
 
         /// <summary>
+        /// Saves string to Global or Local repository with the Item name/s. String value also saved to Scenario context (with given index) to enable validation
+        /// in subsequent steps.
+        /// </summary>
+        /// <param name="item">String to save</param>
+        /// <param name="savedItemIndex">Index of item when saved in Specflow repository. Saves with the label Saved-n - where 'n' is the index given</param>
+        /// <param name="localOrGlobal">Local or Global repository</param>
+        /// <param name="itemName">Name of item in category</param>
+        [Given(@"I have saved string ""(.*)"" \(Item (.*)\) in Repository (?i)(local|global) with Item Name ""(.*)""")]
+        [When(@"I have saved string ""(.*)"" \(Item (.*)\) in Repository (?i)(local|global) with Item Name ""(.*)""")]
+        public void GivenIHaveSavedStringInRepositoryLocalCategoryItemName(string item, int savedItemIndex, string localOrGlobal, string itemName)
+        {
+            this.scenarioContext[$"Saved-{savedItemIndex}"] = item;
+            if (localOrGlobal.ToLower().Trim() == "local")
+            {
+                SetItemLocal(itemName, item);
+            }
+            else if (localOrGlobal.ToLower().Trim() == "global")
+            {
+                SetItemGlobal(itemName, item);
+            }
+            else
+            {
+                Assert.Inconclusive($"Unrecognised localOrGlobal ({localOrGlobal}).  Should be Local or Global to denote test data repo");
+            }
+        }
+
+        /// <summary>
         /// Saves string to Global or Local repository with the given Category and Item name/s. String value also saved to Scenario context (with given index) to enable validation
         /// in subsequent steps.
         /// </summary>
@@ -155,6 +182,38 @@ namespace TeamControlium.UnitTests
                 Assert.Inconclusive($"Unrecognised GlobalDataItem ({ItemGlobal}).  Should be Thread or Global to denote test data repo");
             }
         }
+
+        /// <summary>
+        /// Recalls named data item from Global or Local repository's Item name/s and saves to Specflow repository with given index.
+        /// </summary>
+        /// <param name="recalledItemIndex">Index of item when saved in Specflow repository. Saves with the label Recalled-n - where 'n' is the index given</param>
+        /// <param name="localOrGlobal">Local or Global repository</param>
+        /// <param name="itemName">>Name of item in category</param>
+        [When(@"I recall \(Item (.*)\) from (?i)(local|global), Item Name ""(.*)""")]
+        public void WhenIRecallStringItemFromCategoryItemName(int recalledItemIndex, string localOrGlobal, string itemName)
+        {
+            bool isLocal = localOrGlobal.ToLower().Trim() == "local";
+            bool success = false;
+            dynamic value = null;
+            if (isLocal)
+            {
+                success = TryGetItemLocal(itemName, out value);
+            }
+            else if (localOrGlobal.ToLower().Trim() == "global")
+            {
+                success = TryGetItemGlobal(itemName, out value);
+            }
+
+            if (success)
+            {
+                this.scenarioContext[$"Recalled-{recalledItemIndex}"] = value;
+            }
+            else
+            {
+                this.scenarioContext[$"Recalled-{recalledItemIndex}"] = RepositoryLastTryException();
+            }
+        }
+
 
         /// <summary>
         /// Recalls named data item from Global or Local repository's Category and Item name/s and saves to Specflow repository with given index.

@@ -130,7 +130,9 @@ namespace TeamControlium.Utilities
             catch (Exception ex)
             {
                 LogException(ex, $"Processing string [{tokenisedString}]]");
+#pragma warning disable CA2200 // Rethrow to preserve stack details. Ignoring as catch/rethrow is for logging purposes....
                 throw ex;
+#pragma warning restore CA2200
             }
 
             // Finally return the fully processed string
