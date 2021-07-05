@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>2.0.4</Version>
+    <Version>2.0.6</Version>
     <Authors>TeamControlium Contributors</Authors>
     <Product>Team Controlium Utilities.net</Product>
     <AssemblyName>TeamControlium.Utilities</AssemblyName>
@@ -15,7 +15,7 @@
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/TeamControlium/Utilities.net.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Updated to .NET5.0</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed logging issue with text being lost</PackageReleaseNotes>
     <NeutralLanguage>en-AU</NeutralLanguage>
     <PackageTags>TeamControlium testautomation functional library</PackageTags>
   </PropertyGroup>
