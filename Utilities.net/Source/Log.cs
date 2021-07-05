@@ -353,7 +353,7 @@ namespace TeamControlium.Utilities
                     {
                         try
                         {
-                            textToWrite = testToolStrings[threadID] += testToolStrings[threadID].EndsWith(" ") ? string.Empty : " " + textToWrite;
+                            textToWrite = testToolStrings[threadID] += (testToolStrings[threadID].EndsWith(" ") ? string.Empty : " ") + textToWrite;
                         }
                         finally
                         {
