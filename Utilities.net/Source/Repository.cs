@@ -43,6 +43,11 @@ namespace TeamControlium.Utilities
         private static Dictionary<int, object> lastException = new Dictionary<int, object>();
 
         /// <summary>
+        /// Indicates if detokenizer is executed over items returned if of type string.  Allows using test suites to have tokens in repository stored test data/settings etc....
+        /// </summary>
+        private static bool detokenizeItems = false;
+
+        /// <summary>
         /// Type to indicate if data item being cloned is cloneable or a value type.
         /// </summary>
         private enum CloneableTypes
@@ -62,6 +67,15 @@ namespace TeamControlium.Utilities
             /// </summary>
             no
         }
+
+        /// <summary>
+        /// Gets or sets flag indicating if items of type string are detokenized when fetched from repository
+        /// </summary>
+        /// <remarks>
+        /// If true, when an Item is located and fetched from the repository it is passed through the Detokenizer class prior to being returned to the caller. Any tokens in the item are therefore
+        /// resolved to their actual values (if matches are made) before being returned to the caller.
+        /// </remarks>
+        public static bool DetokenizeItemsOnGet { get { return detokenizeItems; } set { detokenizeItems = value; } }
 
         /// <summary>
         /// Gets reference to the Dynamic items class allowing indexed access to and setting of all Local stored data items in current thread.
@@ -1306,6 +1320,12 @@ namespace TeamControlium.Utilities
             Log.LogWrite(Log.LogLevels.FrameworkDebug, "Got ");
             if (obtainedObject is string)
             {
+                if (detokenizeItems)
+                {
+                    Log.LogWrite(Log.LogLevels.FrameworkDebug, "pre detokenized string [{0}]", ((string)obtainedObject)?.Length < 20 ? (string)obtainedObject : (((string)obtainedObject).Substring(0, 17) + "...") ?? string.Empty);
+                    obtainedObject = Detokeniser.Detokenize((string)obtainedObject);
+                    Log.LogWrite(Log.LogLevels.FrameworkDebug, "post detokenized string [{0}]", ((string)obtainedObject)?.Length < 20 ? (string)obtainedObject : (((string)obtainedObject).Substring(0, 17) + "...") ?? string.Empty);
+                }
                 Log.LogWrite(Log.LogLevels.FrameworkDebug, "string [{0}]", ((string)obtainedObject)?.Length < 50 ? (string)obtainedObject : (((string)obtainedObject).Substring(0, 47) + "...") ?? string.Empty);
             }
             else if (obtainedObject is int)
