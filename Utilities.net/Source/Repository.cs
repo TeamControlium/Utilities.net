@@ -1360,9 +1360,9 @@ namespace TeamControlium.Utilities
             int threadID = isLocal ? Thread.CurrentThread.ManagedThreadId : globalIndex;
 
             Log.LogWrite(Log.LogLevels.FrameworkDebug, $"Setting [{(isLocal ? $"Local(ThreadID { threadID })": "Global")}][{category}][{itemKey}] to ");
-            if (value is string)
+            if ((value==null) || (value is string))
             {
-                Log.LogWriteLine(Log.LogLevels.FrameworkDebug, "string [{0}]", ((string)value)?.Length < 50 ? (string)value : (((string)value).Substring(0, 47) + "...") ?? string.Empty);
+                Log.LogWriteLine(Log.LogLevels.FrameworkDebug, "string [{0}]", ((string)value)?.Length < 50 ? (string)value : (((string)value).Substring(0, 47) + "...") ?? "<NULL>");
             }
             else if (value is int)
             {
