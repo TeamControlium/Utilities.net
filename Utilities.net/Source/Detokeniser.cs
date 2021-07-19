@@ -20,21 +20,21 @@ namespace TeamControlium.Utilities
         /// Character to use as an escape char.
         /// </summary>
         /// <remarks>Defined as a string in-case it itself has to be escaped in the Regular Expression pattern</remarks>
-        private static readonly string EscapeChar = @"\\";
+        private static readonly char EscapeChar = '\\';
 
         /// <summary>
         /// Character defining the start of a Token to be processed.
         /// </summary>
         /// <remarks>Must NOT be the same as the escape character.
         /// Is a string in-case it needs to be escaped for Regular Expression pattern.</remarks>
-        private static readonly string StartTokenChar = "{";
+        private static readonly char StartTokenChar = '{';
 
         /// <summary>
         /// Character defining the end of a Token to be processed.
         /// </summary>
         /// <remarks>Must NOT be the same as the escape character or the start token character.
         /// Is a string in-case it needs to be escaped for Regular Expression pattern.</remarks>
-        private static readonly string EndTokenChar = "}";
+        private static readonly char EndTokenChar = '}';
 
         /// <summary>
         /// Regular Expression pattern defining the start of a Token to be processed.
@@ -101,7 +101,12 @@ namespace TeamControlium.Utilities
         /// <returns>Passed string with all valid tokens resolved.</returns>
         public static string Detokenize(string tokenisedString)
         {
+            bool deEscape = true;
             string outputString = string.Empty;
+            string doubleEscapes = "" + EscapeChar + EscapeChar;
+            string singleEscapes = "" + EscapeChar;
+            string escapedStart = "" + EscapeChar + StartTokenChar;
+            string escapedEnd = "" + EscapeChar + EndTokenChar;
 
             try
             {
@@ -119,12 +124,18 @@ namespace TeamControlium.Utilities
 
                     // Concatinate the last found tokens preable (or full text if none found) to the built string and recursivley call self to ensure full token resolution 
                     outputString = Detokenize(outputString + token.Preamble);
+                    deEscape = false;
                 }
 
                 // Return string may have escaped start/end token characters.  So remove escaping
-                outputString = outputString.Replace(EscapeChar[EscapeChar.Length - 1] + StartTokenChar, StartTokenChar);
-                outputString = outputString.Replace(EscapeChar[EscapeChar.Length - 1] + EndTokenChar, EndTokenChar);
-                outputString = outputString.Replace(EscapeChar[EscapeChar.Length - 1].ToString() + EscapeChar[EscapeChar.Length - 1].ToString(), EscapeChar[EscapeChar.Length - 1].ToString());
+
+
+                if (deEscape)
+                {
+                    outputString = outputString.Replace(doubleEscapes, singleEscapes);
+                    outputString = outputString.Replace(escapedStart, "" + StartTokenChar);
+                    outputString = outputString.Replace(escapedEnd, "" + EndTokenChar);
+                }
                 LogWriteLine(LogLevels.FrameworkDebug, $"Processed [{tokenisedString}]. Result [{outputString}]");
             }
             catch (Exception ex)
@@ -542,28 +553,51 @@ namespace TeamControlium.Utilities
             /// <param name="inputString">String to be processed</param>
             public InnermostToken(string inputString)
             {
-                bool matchMade = false;
                 int startIndex = -1;
                 int endIndex = -1;
 
-                Regex startRegex = new Regex(StartTokenPattern, RegexOptions.IgnoreCase);
-                Regex startRegexReverse = new Regex(StartTokenPattern, RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
-                Regex endRegex = new Regex(EndTokenPattern, RegexOptions.IgnoreCase);
+                //Regex startRegex = new Regex(StartTokenPattern, RegexOptions.IgnoreCase);
+                //Regex startRegexReverse = new Regex(StartTokenPattern, RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+                //Regex endRegex = new Regex(EndTokenPattern, RegexOptions.IgnoreCase);
 
-                Match startMatch = startRegex.Match(inputString);
-                if (startMatch.Success)
+                //Match startMatch = startRegex.Match(inputString);
+                //if (startMatch.Success)
+                //{
+                //    startIndex = startMatch.Index;
+                //    Match endMatch = endRegex.Match(inputString, startIndex);
+                //    if (endMatch.Success)
+                //    {
+                //        endIndex = endMatch.Index;
+                //        startIndex = startRegexReverse.Match(inputString, endIndex).Index;
+                //        matchMade = true;
+                //    }
+                //}
+
+                // We want the innermost LEFT token, so we find the first (left to right) occurance of a non-escaped closing token
+                // that has a non-escaped opening token to its left.  Sounds easy.  :-)
+
+                for (int index = 0; index < inputString.Length; index++)
                 {
-                    startIndex = startMatch.Index;
-                    Match endMatch = endRegex.Match(inputString, startIndex);
-                    if (endMatch.Success)
+                    if (inputString[index] == EndTokenChar && !IsEscaped(inputString, index))
                     {
-                        endIndex = endMatch.Index;
-                        startIndex = startRegexReverse.Match(inputString, endIndex).Index;
-                        matchMade = true;
+                        endIndex = index;
+                        break;
                     }
                 }
 
-                if (matchMade)
+                // Now see if that closing token has a corresponding non-escaped opening token...
+
+                for (int index = endIndex; index >= 0; index--)
+                {
+                    if (inputString[index] == StartTokenChar && !IsEscaped(inputString,index))
+                    {
+                        startIndex = index;
+                        break;
+                    }
+                }
+
+
+                if ((startIndex != -1) && (endIndex != -1))
                 {
                     this.tokenPreamble = inputString.Substring(0, startIndex);
                     this.tokenPostamble = inputString.Substring(endIndex + 1, inputString.Length - endIndex - 1);
@@ -575,8 +609,10 @@ namespace TeamControlium.Utilities
                     this.tokenPostamble = string.Empty;
                 }
 
-                this.foundToken = matchMade;
+
+                this.foundToken = (startIndex != -1) && (endIndex != -1);
             }
+
 
             /// <summary>
             /// Gets all characters preceding any found token in given string.  Returns ALL characters from given string if no token found.
@@ -620,6 +656,36 @@ namespace TeamControlium.Utilities
                 {
                     return this.foundToken;
                 }
+            }
+
+            private bool IsEscaped(string fullString, int positionToTest)
+            {
+                int index;
+                int escapeCharCount = 0;
+                bool isEscaped = false;  // We default to not escaped....
+
+                // Is escaped if there are an odd number of escape chars to the left of the position...
+                if (positionToTest > 0)
+                {
+                    index = positionToTest;
+                    while (!(--index < 0))
+                    {
+                        if (fullString[index] == EscapeChar)
+                        {
+                            escapeCharCount++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    if (escapeCharCount % 2 == 1)
+                    {
+                        // Odd number of escapes, yes it has been escaped (IE. has odd number of escape chars before it)
+                        isEscaped = true;
+                    }
+                }
+                return isEscaped;
             }
         }
     }

@@ -166,3 +166,43 @@
 	Given I have a string "{random;digits;{random;from(368);1}}"
 	When I process the token to a string
 	Then the string length is one of [368]
+
+	Scenario: Escaped opening token at start of string
+	Given I have a string "\{random;from(abc);1}"
+	When I process the token to a string
+	Then the string is "{random;from(abc);1}"
+
+	Scenario: Escaped opening token in string
+	Given I have a string "some chars \{random;from(abc);1}"
+	When I process the token to a string
+	Then the string is "some chars {random;from(abc);1}"
+
+	Scenario: Non-Escaped opening token at start of string
+	Given I have a string "\\{random;from(aaa);1}"
+	When I process the token to a string
+	Then the string is "\a"
+
+	Scenario: Non-Escaped opening token in string
+	Given I have a string "some chars \\{random;from(bbb);1}"
+	When I process the token to a string
+	Then the string is "some chars \b"
+
+	Scenario: Mixed Escaped opening token at start of string
+	Given I have a string "\\\\\{random;from(abc);1}"
+	When I process the token to a string
+	Then the string is "\\{random;from(abc);1}"
+
+	Scenario: Mixed Escaped opening token in string
+	Given I have a string "some chars \\\\\\\{random;from(abc);1}"
+	When I process the token to a string
+	Then the string is "some chars \\\{random;from(abc);1}"
+
+	Scenario: Mixed Non-Escaped opening token at start of string
+	Given I have a string "\\\\\\{random;from(ccc);1}"
+	When I process the token to a string
+	Then the string is "\\\c"
+
+	Scenario: Mixed Non-Escaped opening token in string
+	Given I have a string "some chars \\\\\\\\{random;from(ddd);1}"
+	When I process the token to a string
+	Then the string is "some chars \\\\d"
