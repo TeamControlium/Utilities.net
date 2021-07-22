@@ -259,7 +259,7 @@ namespace TeamControlium.Utilities
         }
 
 
-        static public string FullExceptionMessage(Exception ex)
+        static public string GetFullExceptionMessage(Exception ex)
         {
             Exception currentException = ex;
             string returnMessage = currentException.Message;
