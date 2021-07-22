@@ -257,5 +257,19 @@ namespace TeamControlium.Utilities
 
             return document.DocumentNode.InnerHtml;
         }
+
+
+        static public string FullExceptionMessage(Exception ex)
+        {
+            Exception currentException = ex;
+            string returnMessage = currentException.Message;
+
+            while (currentException.InnerException!=null)
+            {
+                currentException = currentException.InnerException;
+                if (!String.IsNullOrEmpty(currentException.Message)) returnMessage += " --> " + currentException.Message;
+            }
+            return returnMessage;
+        }
     }
 }
